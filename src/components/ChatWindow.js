@@ -19,26 +19,33 @@ class ChatWindow extends Component {
 
   render() {
     let messageList = this.props.messageList || [];
-    let classList = ["sc-chat-window", this.props.isOpen ? "opened" : "closed"];
+    let classList = [
+      // "chat-box-container",
+      "sc-chat-window",
+      this.props.isOpen ? "opened" : "closed",
+    ];
     return (
       <div className={classList.join(" ")}>
+        {/* <div className="sc-chat-window"> */}
         <Header
           teamName={this.props.agentProfile.teamName}
           imageUrl={this.props.agentProfile.imageUrl}
           onClose={this.props.onClose}
         />
-        <MessageList
-          messages={messageList}
-          imageUrl={this.props.agentProfile.imageUrl}
-          onDelete={this.props.onDelete}
-          onSubmit={this.onUserInputSubmit}
-        />
-        <UserInput
-          showEmoji={this.props.showEmoji}
-          onSubmit={this.onUserInputSubmit}
-          showFile={this.props.showFile}
-          onKeyPress={this.props.onKeyPress}
-        />
+        <div className="message-input">
+          <MessageList
+            messages={messageList}
+            imageUrl={this.props.agentProfile.imageUrl}
+            onDelete={this.props.onDelete}
+            onSubmit={this.onUserInputSubmit}
+          />
+          <UserInput
+            showEmoji={this.props.showEmoji}
+            onSubmit={this.onUserInputSubmit}
+            showFile={this.props.showFile}
+            onKeyPress={this.props.onKeyPress}
+          />
+        </div>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import sendIcon from './../../assets/send-icon.svg';
 
 class SendIcon extends Component {
 
@@ -10,7 +11,8 @@ class SendIcon extends Component {
       onClick={(e) => { e.preventDefault(); this.props.onClick(e); }}
       className="sc-user-input--send-icon-wrapper"
     >
-      <svg
+      <img src={sendIcon} alt="Send"/>
+      {/* <svg
         version='1.1'
         className="sc-user-input--send-icon"
         xmlns='http://www.w3.org/2000/svg'
@@ -26,7 +28,7 @@ class SendIcon extends Component {
           l33.079-14.078c0.368-0.157,0.607-0.519,0.608-0.919S36.879,17.752,36.511,17.594z M4.632,30.825L8.469,18.45h8.061
           c0.552,0,1-0.448,1-1s-0.448-1-1-1H8.395L3.866,5.751l29.706,12.757L4.632,30.825z' />
         </g>
-      </svg>
+      </svg> */}
     </button>
     );
   }

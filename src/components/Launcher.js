@@ -37,7 +37,6 @@ class Launcher extends Component {
           <img className={"sc-open-icon"} src={launcherIconActive} />
           <img className={"sc-closed-icon"} src={launcherIcon} />
         </div>
-        <div className="chat-box-container">
         <ChatWindow
           messageList={this.props.messageList}
           onUserInputSubmit={this.props.onMessageWasSent}
@@ -51,7 +50,6 @@ class Launcher extends Component {
           onDelete={this.props.onDelete}
         />
         </div>
-      </div>
     );
   }
 }

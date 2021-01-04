@@ -3,6 +3,7 @@ import TextMessage from "./TextMessage";
 import EmojiMessage from "./EmojiMessage";
 import FileMessage from "./FileMessage";
 import chatIconUrl from "./../../assets/chat-bot.svg";
+import userIconUrl from "./../../assets/user-icon.svg";
 
 class Message extends Component {
   _renderMessageOfType(type) {
@@ -34,12 +35,21 @@ class Message extends Component {
     return (
       <div className="sc-message">
         <div className={contentClassList.join(" ")}>
-          <div
-            className="sc-message--avatar"
-            style={{
-              backgroundImage: `url(${chatIconUrl})`,
-            }}
-          ></div>
+          {this.props.message.author === "me" ? (
+            <div
+              className="sc-message--avatar"
+              style={{
+                backgroundImage: `url(${userIconUrl})`,
+              }}
+            ></div>
+          ) : (
+            <div
+              className="sc-message--avatar"
+              style={{
+                backgroundImage: `url(${chatIconUrl})`,
+              }}
+            ></div>
+          )}
           {this._renderMessageOfType(this.props.message.type)}
         </div>
       </div>

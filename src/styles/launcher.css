@@ -45,10 +45,10 @@
 }
 
 .sc-launcher .sc-open-icon {
-  padding: 25px;
+  padding: 0;
   box-sizing: border-box;
   opacity: 0;
-  width: 120%;
+  /* width: 120%; */
 }
 
 .sc-launcher.opened .sc-open-icon {
