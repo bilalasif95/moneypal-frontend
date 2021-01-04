@@ -44,6 +44,34 @@ body {
 
   
 }
+.yesno-btn {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 0 3rem;
+}
+.yesno-btn button {
+  background-color: #fff;
+  display: block;
+  font-size: 12px;
+  text-align: center;
+  width: 215px;
+  border: 1px solid #bababb;
+  border-radius: 3px;
+  color: #2676fc;
+}
+.yesno-btn button {
+  display: block;
+  font-size: 12px;
+  text-align: center;
+  width: 215px;
+  border: 1px solid #bababb;
+  border-radius: 3px;
+  color: #2676fc;
+}
+.yesno-btn button:focus {
+  outline: none;
+}
 
 .sc-message-scroller {
   height: 100%;

@@ -53,20 +53,22 @@ class MessageList extends Component {
 
   render() {
     return (
-      <div className="sc-message-list" ref={(el) => (this.scrollList = el)}>
-        {this.props.messages.map((message, i) => {
-          return (
-            <Message message={message} key={i} onDelete={this.props.onDelete} />
-          );
-        })}
-        {this.props.fetchingMessage && <p>Typing...</p>}
-        {!this.state.continue && (
-          <div>
-            <button onClick={this.yes}>Yes</button>
-            <button onClick={this.no}>No</button>
-          </div>
-        )}
-      </div>
+      <div className="sc-message-list">
+        <div className="sc-message-scroller" ref={(el) => (this.scrollList = el)}>
+          {this.props.messages.map((message, i) => {
+            return (
+              <Message message={message} key={i} onDelete={this.props.onDelete} />
+            );
+          })}
+          {this.props.fetchingMessage && <p>Typing...</p>}
+          {!this.state.continue && (
+            <div className="yesno-btn">
+              <button onClick={this.yes}>Yes</button>
+              <button onClick={this.no}>No</button>
+            </div>
+          )}
+        </div>
+      </div >
     );
   }
 }
