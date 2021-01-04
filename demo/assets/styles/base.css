@@ -1,10 +1,12 @@
 body {
   padding: 0px;
   margin: 0px;
+  font-family: 'Poppins', sans-serif;
 }
 
 * {
-  font-family: Avenir Next, Helvetica Neue, Helvetica,sans-serif;
+  /* font-family: Avenir Next, Helvetica Neue, Helvetica,sans-serif; */
+  font-family: 'Poppins', sans-serif;
 }
 
 .demo-description {

@@ -1,6 +1,6 @@
 .sc-header {
-  background: #4e8cff;
-  min-height: 75px;
+  background: #2676fc;
+  min-height: 200px;
   border-top-left-radius: 9px;
   border-top-right-radius: 9px;
   color: white;
@@ -9,6 +9,26 @@
   position: relative;
   box-sizing: border-box;
   display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  position: absolute;
+  width: 100%;
+  z-index: -1;
+  padding: 1rem;
+}
+.sc-header h1 {
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  width: 100%;
+}
+.sc-header h1 img{
+  margin: 0 0 0 0.5rem;
+}
+.sc-header p {
+  margin: 0;
+  width: 100%;
 }
 
 .sc-header--img {

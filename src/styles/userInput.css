@@ -1,6 +1,6 @@
 .sc-user-input {
-  min-height: 55px;
-  margin: 0px;
+  min-height: 46px;
+  margin: 0 1rem;
   position: relative;
   bottom: 0;
   display: flex;
@@ -9,16 +9,37 @@
   border-bottom-right-radius: 10px;
   transition: background-color .2s ease,box-shadow .2s ease;
 }
+.input-bg {
+  /* background-color: #fff; */
+  padding: 0;
+  /* border-bottom-left-radius: 9px;
+  border-bottom-right-radius: 9px; */
+  margin: 0;
+  /* box-shadow: 0px 2px 4px 2px rgba(148, 149, 150, 0.3); */
+}
+.powered-by {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+.powered-by p {
+  color: #bababb;
+  font-size: 12px;
+  margin: 0;
+}
 
+.powered-by span {
+  color: #2676fc;
+}
 
 .sc-user-input--text {
-  width: 300px;
+  width: 100%;
   resize: none;
-  border: none;
+  border: 1px solid #bababb;
   outline: none;
-  border-bottom-left-radius: 10px;
+  border-radius: 5px;
   box-sizing: border-box;
-  padding: 18px;
+  padding: 10px;
   font-size: 15px;
   font-weight: 400;
   line-height: 1.33;
@@ -41,25 +62,29 @@
 }
 
 .sc-user-input--buttons {
-  width: 100px;
+  width: 50px;
   position: absolute;
-  right: 30px;
+  right: 0;
   height: 100%;
   display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 
-.sc-user-input--button:first-of-type {
+/* .sc-user-input--button:first-of-type {
   width: 40px;
-}
+} */
 
 .sc-user-input--button {
-  width: 30px;
-  height: 55px;
+  width: 40px;
+  height: 46px;
   padding-left: 3px;
   padding-right: 3px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
 }
 
 .sc-user-input.active {
@@ -132,6 +157,7 @@
   background: #4e8cff;
   border: 0;
   border-radius: 50%;
+  display: none;
 }
 
 .delete-message:hover {
@@ -163,6 +189,9 @@
   padding: 0px;
   margin: 0px;
   outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .sc-user-input--emoji-icon-wrapper:focus {

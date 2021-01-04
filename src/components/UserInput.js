@@ -76,7 +76,7 @@ class UserInput extends Component {
 
   render() {
     return (
-      <div>
+      <div className="input-bg">
         {
           this.state.file &&
           <div className='file-container' >
@@ -100,20 +100,23 @@ class UserInput extends Component {
           >
           </div>
           <div className="sc-user-input--buttons">
-            <div className="sc-user-input--button"></div>
-            <div className="sc-user-input--button">
-              {this.props.showEmoji && <EmojiIcon onEmojiPicked={this._handleEmojiPicked.bind(this)} />}
+            {/* <div className="sc-user-input--button"></div> */}
+            {/* <div className="sc-user-input--button">
+              {!this.props.showEmoji && <EmojiIcon onEmojiPicked={this._handleEmojiPicked.bind(this)} />}
             </div>
-            {this.props.showFile &&
+            {!this.props.showFile &&
               <div className="sc-user-input--button">
                 <FileIcons onChange={(file) => this._handleFileSubmit(file)} />
               </div>
-            }
+            } */}
             <div className="sc-user-input--button">
               <SendIcon onClick={this._submitText.bind(this)} />
             </div>
           </div>
         </form>
+        <div className="powered-by">
+          <p>Chat by <span>Ethica</span></p>
+        </div>
       </div>
     )
   }

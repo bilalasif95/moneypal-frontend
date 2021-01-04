@@ -8,19 +8,19 @@ const TextMessage = (props) => {
   const author = props.message.author
   return (
     <div className="sc-message--text">
-      {
+      {/* {
         props.message && 
         author === "me" && 
         props.onDelete && 
           <button className='delete-message' onClick={() => props.onDelete(props.message)}>
             x
           </button>
-      }
-      {
+      } */}
+      {/* {
         props.message && 
         author === "me" && 
           <img src={userIcon} alt=""/>
-      }
+      } */}
       {text}
       {meta && <p className='sc-message--meta'>{meta}</p>}
     </div>
