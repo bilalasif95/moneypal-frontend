@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import ChatWindow from './ChatWindow';
-import launcherIcon from './../assets/logo-no-bg.svg';
-import launcherIconActive from './../assets/close-icon.png';
+import launcherIcon from './../assets/chat-icon.svg';
+import launcherIconActive from './../assets/close-icon.svg';
 
 class Launcher extends Component {
 
@@ -37,6 +37,7 @@ class Launcher extends Component {
           <img className={"sc-open-icon"} src={launcherIconActive} />
           <img className={"sc-closed-icon"} src={launcherIcon} />
         </div>
+        <div className="chat-box-container">
         <ChatWindow
           messageList={this.props.messageList}
           onUserInputSubmit={this.props.onMessageWasSent}
@@ -49,6 +50,7 @@ class Launcher extends Component {
           onKeyPressDebounce={this.props.onKeyPressDebounce}
           onDelete={this.props.onDelete}
         />
+        </div>
       </div>
     );
   }

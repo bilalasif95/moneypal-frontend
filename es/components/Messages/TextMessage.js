@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import chatIconUrl from './../../assets/chat-icon.svg';
+import chatIconUrl from './../../assets/chat-bot.svg';
 
 var TextMessage = function TextMessage(props) {
   var meta = props.message.data.meta || null;

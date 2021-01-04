@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import chatIconUrl from './../../assets/chat-icon.svg';
+import userIcon from './../../assets/user-icon.svg';
 
 const TextMessage = (props) => {
   const meta = props.message.data.meta || null
@@ -14,6 +15,11 @@ const TextMessage = (props) => {
           <button className='delete-message' onClick={() => props.onDelete(props.message)}>
             x
           </button>
+      }
+      {
+        props.message && 
+        author === "me" && 
+          <img src={userIcon} alt=""/>
       }
       {text}
       {meta && <p className='sc-message--meta'>{meta}</p>}

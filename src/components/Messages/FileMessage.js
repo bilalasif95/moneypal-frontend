@@ -1,6 +1,6 @@
 import React from 'react';
 import genericFileIcon from '../../assets/file.svg';
-import closeIcon from '../../assets/close.svg'
+import closeIcon from '../../assets/close-icon.svg'
 
 const FileMessage = (props) => {
   const meta = props.message.data.meta || null

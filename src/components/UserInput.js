@@ -5,7 +5,7 @@ import SendIcon from './icons/SendIcon'
 import EmojiIcon from './icons/EmojiIcon'
 import EmojiPicker from './emoji-picker/EmojiPicker'
 import FileIcons from './icons/FileIcon'
-import closeIcon from '../assets/close.svg'
+import closeIcon from '../assets/close-icon.svg'
 import genericFileIcon from '../assets/file.svg'
 import _ from 'lodash'
 
