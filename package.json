@@ -24,7 +24,9 @@
     "gh-pages": "^1.1.0",
     "lodash": "^4.17.5",
     "prop-types": "15.5.10",
-    "react-highlight.js": "1.0.5",
+    "react-highlight.js": "^1.0.7",
+    "react-redux": "^7.2.2",
+    "redux": "^4.0.5",
     "socket.io-client": "2.0.3"
   },
   "peerDependencies": {
@@ -32,8 +34,8 @@
   },
   "devDependencies": {
     "nwb": "0.17.x",
-    "react": "15.6.1",
-    "react-dom": "15.6.1"
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
   },
   "author": "",
   "homepage": "https://mattmezza.github.io/react-beautiful-chat/",
