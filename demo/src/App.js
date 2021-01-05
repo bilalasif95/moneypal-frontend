@@ -1,11 +1,6 @@
 import React, { Component } from "react";
-import { render } from "react-dom";
 import { Launcher } from "../../src";
 import messageHistory from "./messageHistory";
-import TestArea from "./TestArea";
-import Header from "./Header";
-import Footer from "./Footer";
-import Highlight from "react-highlight.js";
 import {
   startFetchingAction,
   stopFetchingAction,
@@ -83,8 +78,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header />
-        <TestArea onMessage={this._sendMessage.bind(this)} />
+        {/* <Header /> */}
+        {/* <TestArea onMessage={this._sendMessage.bind(this)} /> */}
         <Launcher
           agentProfile={{
             teamName: "react-beautiful-chat",
@@ -102,7 +97,7 @@ class App extends Component {
           showFile
         />
         <div style={{ height: 200 }} />
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }
