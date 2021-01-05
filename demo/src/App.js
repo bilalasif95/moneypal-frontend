@@ -97,7 +97,7 @@ class App extends Component {
           showFile
         />
         {/* <div style={{ height: 200 }} /> */}
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
   }
