@@ -101,7 +101,7 @@ class App extends Component {
           showEmoji
           showFile
         />
-        <div style={{ height: 200 }} />
+        {/* <div style={{ height: 200 }} /> */}
         <Footer />
       </div>
     );

@@ -6,6 +6,8 @@ const TextMessage = (props) => {
   const meta = props.message.data.meta || null
   const text = props.message.data.text || ''
   const author = props.message.author
+
+  
   return (
     <div className="sc-message--text">
       {/* {
