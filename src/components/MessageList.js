@@ -67,6 +67,12 @@ class MessageList extends Component {
               <button onClick={this.no}>No</button>
             </div>
           )}
+          {!this.state.continue && (
+            <div className="yesno-btn">
+              <button onClick={this.yes}>Terminology</button>
+              <button onClick={this.no}>Question</button>
+            </div>
+          )}
         </div>
       </div >
     );
