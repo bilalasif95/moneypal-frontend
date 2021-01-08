@@ -20,7 +20,6 @@ class App extends Component {
   }
 
   _onMessageWasSent(message) {
-    console.log(message, "name");
     if (message.whattodo === "callapi") {
       this.props.startFetching();
       setTimeout(() => {
