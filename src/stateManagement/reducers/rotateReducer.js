@@ -20,6 +20,14 @@ export default (state, action) => {
       return {
         selectedQueryType: action.payload,
       };
+    case "settedUserNameError":
+      return {
+        settedUserNameError: action.payload,
+      };
+    case "settedUserName":
+      return {
+        settedUserName: action.payload,
+      };
     default:
       return state;
   }

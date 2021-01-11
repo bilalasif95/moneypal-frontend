@@ -1,16 +1,16 @@
-import PropTypes from 'prop-types';
-import React, { Component } from 'react';
-import ChatWindow from './ChatWindow';
-import launcherIcon from './../assets/chat-icon.svg';
-import launcherIconActive from './../assets/close-icon.svg';
+import PropTypes from "prop-types";
+import React, { Component } from "react";
+import API from "../utils/API";
+import ChatWindow from "./ChatWindow";
+import launcherIcon from "./../assets/chat-icon.svg";
+import launcherIconActive from "./../assets/close-icon.svg";
 
 class Launcher extends Component {
-
   constructor() {
     super();
     this.state = {
       launcherIcon,
-      isOpen: false
+      isOpen: false,
     };
   }
 
@@ -25,14 +25,16 @@ class Launcher extends Component {
   }
 
   render() {
-    const isOpen = this.props.hasOwnProperty('isOpen') ? this.props.isOpen : this.state.isOpen;
-    const classList = [
-      'sc-launcher',
-      (isOpen ? 'opened' : ''),
-    ];
+    const isOpen = this.props.hasOwnProperty("isOpen")
+      ? this.props.isOpen
+      : this.state.isOpen;
+    const classList = ["sc-launcher", isOpen ? "opened" : ""];
     return (
       <div>
-        <div className={classList.join(' ')} onClick={this.handleClick.bind(this)}>
+        <div
+          className={classList.join(" ")}
+          onClick={this.handleClick.bind(this)}
+        >
           <MessageCount count={this.props.newMessagesCount} isOpen={isOpen} />
           <img className={"sc-open-icon"} src={launcherIconActive} />
           <img className={"sc-closed-icon"} src={launcherIcon} />
@@ -49,19 +51,17 @@ class Launcher extends Component {
           onKeyPressDebounce={this.props.onKeyPressDebounce}
           onDelete={this.props.onDelete}
         />
-        </div>
+      </div>
     );
   }
 }
 
 const MessageCount = (props) => {
-  if (props.count === 0 || props.isOpen === true) { return null }
-  return (
-    <div className={"sc-new-messsages-count"}>
-      {props.count}
-    </div>
-  )
-}
+  if (props.count === 0 || props.isOpen === true) {
+    return null;
+  }
+  return <div className={"sc-new-messsages-count"}>{props.count}</div>;
+};
 
 Launcher.propTypes = {
   onMessageWasReceived: PropTypes.func,
@@ -73,11 +73,11 @@ Launcher.propTypes = {
   showEmoji: PropTypes.bool,
   showFile: PropTypes.bool,
   onKeyPress: PropTypes.func,
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
 };
 
 Launcher.defaultProps = {
-  newMessagesCount: 0
-}
+  newMessagesCount: 0,
+};
 
 export default Launcher;

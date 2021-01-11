@@ -7,7 +7,9 @@ const initialState = {
   conversationNameGet: false,
   conversationEmailGet: false,
   selectedQueryType: "",
-  savedNamed: "",
+  savedName: "",
+  settedUserNameError: "",
+  settedUserName: "",
 };
 function configureStore(state = { ...initialState }) {
   return createStore(rotateReducer, state);

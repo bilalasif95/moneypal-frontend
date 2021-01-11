@@ -5,8 +5,14 @@ import {
   startFetchingAction,
   stopFetchingAction,
 } from "../../src/stateManagement/actions/fetchingAction";
+
 import { connect } from "react-redux";
 import "./../assets/styles";
+import {
+  setNewUserName,
+  setNewUserNameError,
+} from "../../src/stateManagement/actions/nameActions";
+import API from "../../src/utils/API";
 
 class App extends Component {
   constructor() {
@@ -20,11 +26,16 @@ class App extends Component {
   }
 
   _onMessageWasSent(message) {
+    var data = new FormData();
+    data.append("name", message.data.text);
     if (message.whattodo === "callapi") {
-      this.props.startFetching();
-      setTimeout(() => {
-        this.props.stopFetching();
-      }, 3000);
+      API.post("/name", data).then((res) => {
+        if (res.data.error) {
+          // this.props.setNewUserNameError("Some Error Occured");
+        } else {
+          // this.props.setNewUserName(res.data.message);
+        }
+      });
     }
 
     this.setState({
@@ -65,7 +76,7 @@ class App extends Component {
   }
 
   onKeyPress = (userInput) => {
-    console.log(userInput);
+    // console.log(userInput);
   };
 
   onDelete = (msg) => {
@@ -109,6 +120,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   startFetching: () => dispatch(startFetchingAction),
   stopFetching: () => dispatch(stopFetchingAction),
+  setNewUserName: (payload) => dispatch(setNewUserName(payload)),
+  setNewUserNameError: (payload) => dispatch(setNewUserNameError(payload)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
