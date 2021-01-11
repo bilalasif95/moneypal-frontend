@@ -1,12 +1,16 @@
 module.exports = {
-  type: 'react-component',
+  type: "react-component",
   npm: {
     esModules: true,
     umd: {
-      global: 'liveChat',
+      global: "liveChat",
       externals: {
-        react: 'React'
-      }
-    }
-  }
-}
+        react: "React",
+      },
+    },
+  },
+  devServer: {
+    compress: true,
+    disableHostCheck: true,
+  },
+};
