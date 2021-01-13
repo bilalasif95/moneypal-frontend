@@ -45,6 +45,11 @@ class App extends Component {
           this._sendMessage("Let us know what you are interested in.")
           this.props.askQuestionAction(true);
           this.props.contentEditableAction(false);
+        }).catch((err) => {
+          this.props.stopFetching()
+          this._sendMessage(err.response.data.data)
+          this.props.whattocallAction("email");
+          this.props.contentEditableAction(true);
         })
       }
       if (this.props.whattocall === "terminology") {
@@ -56,6 +61,11 @@ class App extends Component {
           this._sendMessage("Is it what you have been looking for?")
           this.props.answerSatisfactionAction(true);
           this.props.contentEditableAction(false);
+        }).catch((err) => {
+          this.props.stopFetching()
+          this._sendMessage(err.response.data.data)
+          this.props.askQuestionAction(true);
+          this.props.contentEditableAction(false);
         })
       }
       if (this.props.whattocall === "question") {
@@ -66,6 +76,11 @@ class App extends Component {
           this._sendMessage(res.data.data)
           this._sendMessage("Is it what you have been looking for?")
           this.props.answerSatisfactionAction(true);
+          this.props.contentEditableAction(false);
+        }).catch((err) => {
+          this.props.stopFetching()
+          this._sendMessage(err.response.data.data)
+          this.props.askQuestionAction(true);
           this.props.contentEditableAction(false);
         })
       }

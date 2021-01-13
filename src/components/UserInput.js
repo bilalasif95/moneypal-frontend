@@ -32,12 +32,6 @@ class UserInput extends Component {
     { trailing: true }
   );
 
-  componentDidUpdate() {
-    if (this.props.whattocall === "terminology" || this.props.whattocall === "question") {
-      this.userInput.textContent = "I am confused about the term: "
-    }
-  }
-
   _submitText(event) {
     event.preventDefault();
     const text = this.userInput.textContent;
@@ -112,6 +106,7 @@ class UserInput extends Component {
         <form
           className={`sc-user-input ${this.state.inputActive ? "active" : ""}`}
         >
+          {this.props.whattocall === "terminology" && <div>I am confused about the term: </div>}
           <div
             role="button"
             tabIndex="0"
