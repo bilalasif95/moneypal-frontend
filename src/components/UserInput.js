@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { render } from "react-dom";
+import { connect } from "react-redux";
 import SendIcon from "./icons/SendIcon";
-import EmojiIcon from "./icons/EmojiIcon";
-import EmojiPicker from "./emoji-picker/EmojiPicker";
-import FileIcons from "./icons/FileIcon";
+// import EmojiIcon from "./icons/EmojiIcon";
+// import FileIcons from "./icons/FileIcon";
 import closeIcon from "../assets/close-icon.svg";
 import genericFileIcon from "../assets/file.svg";
 import _ from "lodash";
+import { whattocallAction } from "../../src/stateManagement/actions/conversationFlowUpdate";
 
 class UserInput extends Component {
   constructor() {
@@ -31,6 +31,12 @@ class UserInput extends Component {
     300,
     { trailing: true }
   );
+
+  componentDidUpdate() {
+    if (this.props.whattocall === "terminology" || this.props.whattocall === "question") {
+      this.userInput.textContent = "I am confused about the term: "
+    }
+  }
 
   _submitText(event) {
     event.preventDefault();
@@ -62,6 +68,7 @@ class UserInput extends Component {
           whattodo: "callapi",
         });
         this.userInput.innerHTML = "";
+        this.props.whattocallAction("");
       }
     }
   }
@@ -79,6 +86,8 @@ class UserInput extends Component {
   }
 
   render() {
+    const { contentEditable } = this.props;
+
     return (
       <div>
         {this.state.file && (
@@ -117,12 +126,11 @@ class UserInput extends Component {
             }}
             onKeyDown={this.handleKey}
             onKeyPress={this.handleKeyPress}
-            contentEditable="true"
+            contentEditable={contentEditable ? true : false}
             placeholder="Write a reply..."
             className="sc-user-input--text"
           ></div>
           <div className="sc-user-input--buttons">
-            {/* <div className="sc-user-input--button"></div> */}
             {/* <div className="sc-user-input--button">
               {this.props.showEmoji && (
                 <EmojiIcon onEmojiPicked={this._handleEmojiPicked.bind(this)} />
@@ -160,4 +168,12 @@ UserInput.defaultProps = {
   showFile: true,
 };
 
-export default UserInput;
+const mapStateToProps = (state) => ({
+  ...state,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  whattocallAction: (data) => dispatch(whattocallAction(data)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserInput);

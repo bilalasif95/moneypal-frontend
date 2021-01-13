@@ -2,31 +2,38 @@ export default (state, action) => {
   switch (action.type) {
     case "fetchingMessage":
       return {
+        ...state,
         fetchingMessage: action.payload,
       };
     case "conversationContinue":
       return {
+        ...state,
         conversationContinue: action.payload,
       };
-    case "conversationNameGet":
+    case "whattocall":
       return {
-        conversationNameGet: action.payload,
+        ...state,
+        whattocall: action.payload,
       };
-    case "conversationEmailGet":
+    case "askQuestionType":
       return {
-        conversationEmailGet: action.payload,
+        ...state,
+        askQuestionType: action.payload,
       };
-    case "selectedQueryType":
+    case "answerSatisfaction":
       return {
-        selectedQueryType: action.payload,
+        ...state,
+        answerSatisfaction: action.payload,
       };
-    case "settedUserNameError":
+    case "knowMore":
       return {
-        settedUserNameError: action.payload,
+        ...state,
+        knowMore: action.payload,
       };
-    case "settedUserName":
+    case "contentEditable":
       return {
-        settedUserName: action.payload,
+        ...state,
+        contentEditable: action.payload,
       };
     default:
       return state;

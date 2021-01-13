@@ -1,25 +1,8 @@
-# react-beautiful-chat
-
-`react-beautiful-chat` provides an intercom-like chat window that can be included easily in any project for free. It provides no messaging facilities, only the view component.
-
-`react-beautiful-chat` is an improved version of `react-chat-window` (which you can find [here](https://github.com/kingofthestack/react-live-chat))
-
-<a href="https://www.npmjs.com/package/react-beautiful-chat" target="\_parent">
-  <img alt="" src="https://img.shields.io/npm/dm/react-beautiful-chat.svg" />
-</a>
-<a href="https://github.com/mattmezza/react-beautiful-chat" target="\_parent">
-  <img alt="" src="https://img.shields.io/github/stars/mattmezza/react-beautiful-chat.svg?style=social&label=Star" />
-</a>
-
-![gif](https://media.giphy.com/media/3ohs4wE4DqXw84xAMo/giphy.gif)
-
 ## Features
 
 - Customizeable
 - Backend agnostic
 - Free
-
-## [Demo](https://mattmezza.github.io/react-beautiful-chat/)
 
 ## Table of Contents
 - [Installation](#installation)
@@ -29,7 +12,10 @@
 ## Installation
 
 ```
-$ npm install react-beautiful-chat
+git clone https://bitbucket.org/Shehrozerao/moneypal-frontend.git
+git checkout newdesign_development
+npm install
+npm start
 ```
 
 ## Example
@@ -70,7 +56,7 @@ class Demo extends Component {
     return (<div>
       <Launcher
         agentProfile={{
-          teamName: 'react-beautiful-chat',
+          teamName: 'moneypal',
           imageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png'
         }}
         onMessageWasSent={this._onMessageWasSent.bind(this)}
@@ -88,7 +74,7 @@ For more detailed examples see the demo folder.
 
 # Launcher
 
-`Launcher` is the only component needed to use react-beautiful-chat. It will react dynamically to changes in messages. All new messages must be added via a change in props as shown in the example.
+`Launcher` is the only component needed to use moneypal. It will react dynamically to changes in messages. All new messages must be added via a change in props as shown in the example.
 
 Launcher props:
 
@@ -134,4 +120,3 @@ Message objects are rendered differently depending on their type. Currently, onl
 }
 
 ```
-

@@ -57,6 +57,7 @@ body {
   text-align: center;
   width: 215px;
   color: #2676fc;
+  cursor: pointer;
 }
 .yesno-btn button:first-child {
   border-top: 1px solid #bababb;

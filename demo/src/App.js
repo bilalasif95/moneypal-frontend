@@ -5,13 +5,9 @@ import {
   startFetchingAction,
   stopFetchingAction,
 } from "../../src/stateManagement/actions/fetchingAction";
-
+import { whattocallAction, askQuestionAction, contentEditableAction, answerSatisfactionAction } from "../../src/stateManagement/actions/conversationFlowUpdate";
 import { connect } from "react-redux";
 import "./../assets/styles";
-import {
-  setNewUserName,
-  setNewUserNameError,
-} from "../../src/stateManagement/actions/nameActions";
 import API from "../../src/utils/API";
 
 class App extends Component {
@@ -29,13 +25,50 @@ class App extends Component {
     var data = new FormData();
     data.append("name", message.data.text);
     if (message.whattodo === "callapi") {
-      API.post("/name", data).then((res) => {
-        if (res.data.error) {
-          // this.props.setNewUserNameError("Some Error Occured");
-        } else {
-          // this.props.setNewUserName(res.data.message);
-        }
-      });
+      this.props.startFetching();
+      this.props.askQuestionAction(false);
+      this.props.answerSatisfactionAction(false);
+      if (this.props.whattocall === "name") {
+        API.post("/name", data).then((res) => {
+          this.props.stopFetching()
+          this._sendMessage(`Nice name ${res.data.data}`)
+          this._sendMessage("Please let us have your email address that we may send you relevant newsletters.")
+          this.props.whattocallAction("email");
+        })
+      }
+      if (this.props.whattocall === "email") {
+        var email = new FormData();
+        email.append("email", message.data.text);
+        API.post("/email", email).then(() => {
+          this.props.stopFetching()
+          this._sendMessage("Great! Let’s begin.")
+          this._sendMessage("Let us know what you are interested in.")
+          this.props.askQuestionAction(true);
+          this.props.contentEditableAction(false);
+        })
+      }
+      if (this.props.whattocall === "terminology") {
+        var terminology = new FormData();
+        terminology.append("terminology", message.data.text);
+        API.post("/terminology", terminology).then((res) => {
+          this.props.stopFetching()
+          this._sendMessage(res.data.data[1])
+          this._sendMessage("Is it what you have been looking for?")
+          this.props.answerSatisfactionAction(true);
+          this.props.contentEditableAction(false);
+        })
+      }
+      if (this.props.whattocall === "question") {
+        var question = new FormData();
+        question.append("question", message.data.text);
+        API.post("/question", question).then((res) => {
+          this.props.stopFetching()
+          this._sendMessage(res.data.data)
+          this._sendMessage("Is it what you have been looking for?")
+          this.props.answerSatisfactionAction(true);
+          this.props.contentEditableAction(false);
+        })
+      }
     }
 
     this.setState({
@@ -75,9 +108,7 @@ class App extends Component {
     });
   }
 
-  onKeyPress = (userInput) => {
-    // console.log(userInput);
-  };
+  onKeyPress = () => { };
 
   onDelete = (msg) => {
     this.setState({
@@ -88,8 +119,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* <Header /> */}
-        {/* <TestArea onMessage={this._sendMessage.bind(this)} /> */}
         <Launcher
           agentProfile={{
             teamName: "react-beautiful-chat",
@@ -106,8 +135,6 @@ class App extends Component {
           showEmoji
           showFile
         />
-        {/* <div style={{ height: 200 }} /> */}
-        {/* <Footer /> */}
       </div>
     );
   }
@@ -120,8 +147,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   startFetching: () => dispatch(startFetchingAction),
   stopFetching: () => dispatch(stopFetchingAction),
-  setNewUserName: (payload) => dispatch(setNewUserName(payload)),
-  setNewUserNameError: (payload) => dispatch(setNewUserNameError(payload)),
+  whattocallAction: (data) => dispatch(whattocallAction(data)),
+  askQuestionAction: (data) => dispatch(askQuestionAction(data)),
+  contentEditableAction: (data) => dispatch(contentEditableAction(data)),
+  answerSatisfactionAction: (data) => dispatch(answerSatisfactionAction(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Message from "./Messages";
 import { connect } from "react-redux";
+import { continuewithConverstaion, contentEditableAction, whattocallAction, knowMoreAction, askQuestionAction, answerSatisfactionAction } from "../stateManagement/actions/conversationFlowUpdate";
 import {
   startFetchingAction,
   stopFetchingAction,
-} from "../stateManagement/actions/fetchingAction";
-import { continuewithConverstaion } from "../stateManagement/actions/conversationFlowUpdate";
+} from "../../src/stateManagement/actions/fetchingAction";
 
 class MessageList extends Component {
   constructor() {
@@ -15,31 +15,24 @@ class MessageList extends Component {
     };
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    this.scrollList.scrollTop = this.scrollList.scrollHeight;
-    if (prevProps.messages.length !== this.props.messages.length) {
-      if (
-        this.props.messages[this.props.messages.length - 1].data.text ===
-        "Great let us have your good name"
-      ) {
-      }
-    }
-  }
-
   yes = () => {
     this.props.onSubmit({
       type: "text",
       author: "me",
       data: { text: "Yes" },
     });
-    this.props.continuewithConverstaion();
+    this.props.startFetching();
+    this.props.contentEditableAction(true);
+    this.props.continuewithConverstaion(true);
     setTimeout(() => {
+      this.props.stopFetching()
       this.props.onSubmit({
         type: "text",
         author: "them",
-        data: { text: "Great let us have your good name" },
+        data: { text: "Great! First let us have your good name." },
       });
-    }, 1000);
+    }, 1000)
+    this.props.whattocallAction("name");
   };
 
   no = () => {
@@ -48,30 +41,159 @@ class MessageList extends Component {
       author: "me",
       data: { text: "No" },
     });
-    this.setState({
-      continue: true,
+    this.props.startFetching();
+    this.props.contentEditableAction(false);
+    this.props.continuewithConverstaion(true);
+    setTimeout(() => {
+      this.props.stopFetching()
+      this.props.onSubmit({
+        type: "text",
+        author: "them",
+        data: { text: "Oh! Okay. We wish you a nice day." },
+      })
+    }, 1000)
+  };
+
+  terminology = () => {
+    this.props.onSubmit({
+      type: "text",
+      author: "me",
+      data: { text: "Terminology" },
     });
+    this.props.askQuestionAction(false);
+    this.props.knowMoreAction(false);
+    this.props.contentEditableAction(true);
+    this.props.whattocallAction("terminology");
+  };
+
+  question = () => {
+    this.props.onSubmit({
+      type: "text",
+      author: "me",
+      data: { text: "Question" },
+    });
+    this.props.askQuestionAction(false);
+    this.props.contentEditableAction(true);
+    this.props.knowMoreAction(false);
+    this.props.whattocallAction("question");
+  };
+
+  answerSatisfactionYes = () => {
+    this.props.onSubmit({
+      type: "text",
+      author: "me",
+      data: { text: "Yes" },
+    });
+    this.props.startFetching();
+    this.props.contentEditableAction(false);
+    this.props.answerSatisfactionAction(false);
+    this.props.continuewithConverstaion(true);
+    setTimeout(() => {
+      this.props.stopFetching()
+      this.props.onSubmit({
+        type: "text",
+        author: "them",
+        data: { text: "Very well. Would you like to know more?" },
+      });
+    }, 1000)
+    this.props.knowMoreAction(true);
+  };
+
+  answerSatisfactionNo = () => {
+    this.props.onSubmit({
+      type: "text",
+      author: "me",
+      data: { text: "No" },
+    });
+    this.props.startFetching();
+    this.props.contentEditableAction(false);
+    this.props.knowMoreAction(false);
+    this.props.answerSatisfactionAction(false);
+    setTimeout(() => {
+      this.props.stopFetching()
+      this.props.onSubmit({
+        type: "text",
+        author: "them",
+        data: { text: "Oh! Okay. We wish you a nice day." },
+      });
+    }, 1000)
+  };
+
+  knowMoreYes = () => {
+    this.props.onSubmit({
+      type: "text",
+      author: "me",
+      data: { text: "Yes" },
+    });
+    this.props.startFetching();
+    this.props.contentEditableAction(false);
+    this.props.answerSatisfactionAction(false);
+    setTimeout(() => {
+      this.props.stopFetching()
+      this.props.onSubmit({
+        type: "text",
+        author: "them",
+        data: { text: "What are you interested in exploring?" },
+      });
+    }, 1000)
+    this.props.askQuestionAction(true);
+  };
+
+  knowMoreNo = () => {
+    this.props.onSubmit({
+      type: "text",
+      author: "me",
+      data: { text: "No" },
+    });
+    this.props.startFetching();
+    this.props.knowMoreAction(false);
+    this.props.contentEditableAction(false);
+    this.props.answerSatisfactionAction(false);
+    this.props.continuewithConverstaion(true);
+    setTimeout(() => {
+      this.props.stopFetching()
+      this.props.onSubmit({
+        type: "text",
+        author: "them",
+        data: { text: "Oh! Okay. We wish you a nice day." },
+      });
+    }, 1000)
   };
 
   returningConversationFlow() {
-    const { conversationContinue, conversationNameGet } = this.props;
+    const { conversationContinue, askQuestionType, answerSatisfaction, knowMore } = this.props;
 
     if (!conversationContinue) {
       return (
         <div className="yesno-btn">
-          <button onClick={this.yes}>Yes</button>
-          <button onClick={this.no}>No</button>
+          <button onClick={this.yes}>YES</button>
+          <button onClick={this.no}>NO</button>
         </div>
       );
     }
-    if (conversationContinue && !conversationNameGet) {
-      return <div></div>;
-      // return (
-      //   <div className="yesno-btn">
-      //     <button onClick={this.yes}>Yes</button>
-      //     <button onClick={this.no}>No</button>
-      //   </div>
-      // );
+    if (askQuestionType) {
+      return (
+        <div className="yesno-btn">
+          <button onClick={this.terminology}>TERMINOLOGY</button>
+          <button onClick={this.question}>QUESTION</button>
+        </div>
+      );
+    }
+    if (answerSatisfaction) {
+      return (
+        <div className="yesno-btn">
+          <button onClick={this.answerSatisfactionYes}>YES</button>
+          <button onClick={this.answerSatisfactionNo}>NO</button>
+        </div>
+      );
+    }
+    if (knowMore) {
+      return (
+        <div className="yesno-btn">
+          <button onClick={this.knowMoreYes}>YES</button>
+          <button onClick={this.knowMoreNo}>NO</button>
+        </div>
+      );
     }
   }
 
@@ -102,13 +224,20 @@ class MessageList extends Component {
 const mapStateToProps = (state) => ({
   fetchingMessage: state.fetchingMessage,
   conversationContinue: state.conversationContinue,
-  conversationNameGet: state.conversationNameGet,
-  conversationEmailGet: state.conversationEmailGet,
-  selectedQueryType: state.selectedQueryType,
+  askQuestionType: state.askQuestionType,
+  answerSatisfaction: state.answerSatisfaction,
+  knowMore: state.knowMore,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  continuewithConverstaion: () => dispatch(continuewithConverstaion),
+  startFetching: () => dispatch(startFetchingAction),
+  stopFetching: () => dispatch(stopFetchingAction),
+  continuewithConverstaion: (data) => dispatch(continuewithConverstaion(data)),
+  whattocallAction: (data) => dispatch(whattocallAction(data)),
+  contentEditableAction: (data) => dispatch(contentEditableAction(data)),
+  askQuestionAction: (data) => dispatch(askQuestionAction(data)),
+  knowMoreAction: (data) => dispatch(knowMoreAction(data)),
+  answerSatisfactionAction: (data) => dispatch(answerSatisfactionAction(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageList);

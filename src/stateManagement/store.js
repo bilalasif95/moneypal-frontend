@@ -4,12 +4,11 @@ import rotateReducer from "./reducers/rotateReducer";
 const initialState = {
   fetchingMessage: false,
   conversationContinue: false,
-  conversationNameGet: false,
-  conversationEmailGet: false,
-  selectedQueryType: "",
-  savedName: "",
-  settedUserNameError: "",
-  settedUserName: "",
+  whattocall: "",
+  askQuestionType: false,
+  answerSatisfaction: false,
+  knowMore: false,
+  contentEditable: false,
 };
 function configureStore(state = { ...initialState }) {
   return createStore(rotateReducer, state);

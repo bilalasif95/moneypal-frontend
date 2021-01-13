@@ -26,7 +26,6 @@ class ChatWindow extends Component {
     ];
     return (
       <div className={classList.join(" ")}>
-        {/* <div className="sc-chat-window"> */}
         <Header
           teamName={this.props.agentProfile.teamName}
           imageUrl={this.props.agentProfile.imageUrl}

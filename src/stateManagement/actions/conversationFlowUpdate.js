@@ -1,24 +1,41 @@
-export const continuewithConverstaion = {
-  type: "conversationContinue",
-  payload: true,
+export const continuewithConverstaion = (data) => {
+  return {
+    type: "conversationContinue",
+    payload: data,
+  }
 };
 
-export const getNameandcontinue = {
-  type: "conversationNameGet",
-  payload: true,
+export const contentEditableAction = (data) => {
+  return {
+    type: "contentEditable",
+    payload: data
+  };
 };
 
-export const getEmailandContinue = {
-  type: "conversationNameGet",
-  payload: true,
+export const whattocallAction = (data) => {
+  return {
+    type: "whattocall",
+    payload: data
+  };
 };
 
-export const selectQuestionasQuery = {
-  type: "selectedQueryType",
-  payload: "Question",
+export const knowMoreAction = (data) => {
+  return {
+    type: "knowMore",
+    payload: data
+  };
 };
 
-export const selectTerminologyasQuery = {
-  type: "selectedQueryType",
-  payload: "Terminology",
+export const askQuestionAction = (data) => {
+  return {
+    type: "askQuestionType",
+    payload: data
+  };
+};
+
+export const answerSatisfactionAction = (data) => {
+  return {
+    type: "answerSatisfaction",
+    payload: data
+  };
 };
