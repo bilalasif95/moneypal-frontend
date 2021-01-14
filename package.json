@@ -11,9 +11,9 @@
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component --copy-files",
+    "build": "nwb build-react-component --copy-files --config ./nwb.config.js",
     "clean": "nwb clean-module && nwb clean-demo",
-    "start": "nwb serve-react-demo",
+    "start": "nwb serve-react-demo --config ./nwb.config.js",
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server",
