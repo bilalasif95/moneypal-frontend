@@ -4,7 +4,7 @@
       "name": "moneypal-frontend",
       "script": "npx",
       "interpreter": "none",
-      "args": "serve -s build -l 7090"
+      "args": "serve -s build -l 7001"
     }
   ]
 }
