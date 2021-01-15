@@ -6,6 +6,7 @@ import {
   startFetchingAction,
   stopFetchingAction,
 } from "../../src/stateManagement/actions/fetchingAction";
+import chatIconUrl from "./../assets/chat-bot.svg";
 
 class MessageList extends Component {
   constructor() {
@@ -213,7 +214,29 @@ class MessageList extends Component {
               />
             );
           })}
-          {this.props.fetchingMessage && <p>Typing...</p>}
+          {this.props.fetchingMessage && 
+           <div className="sc-message">
+           {/* <div className={contentClassList.join(" ")}> */}
+             {/* {this.props.message.author === "me" ? ( */}
+               <div
+                 className="sc-message--avatar"
+                 style={{
+                   backgroundImage: `url(${chatIconUrl})`,
+                 }}
+               ></div>
+             {/* ) : ( */}
+               {/* <div
+                 className="sc-message--avatar"
+                 style={{
+                   backgroundImage: `url(${chatIconUrl})`,
+                 }}
+               ></div>
+             )} */}
+            <p className="typing">Typing...</p>
+           </div>
+        //  </div>
+          
+          }
           {this.returningConversationFlow()}
         </div>
       </div>
