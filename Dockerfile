@@ -6,11 +6,10 @@ RUN npm i -g serve
 RUN apt-get update && apt-get install -y \
   curl 
 
-COPY  /node_modules ./node_modules
-COPY  /demo ./demo
-COPY  /es ./es
-COPY  /lib ./lib
-COPY  /umd ./umd
+WORKDIR /app
+COPY  . /app
+
+
 
 HEALTHCHECK --interval=5s --timeout=2s --retries=12 \
   CMD curl --silent --fail localhost:${PORT} || exit 1
