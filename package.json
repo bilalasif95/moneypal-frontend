@@ -11,7 +11,10 @@
     "umd"
   ],
   "scripts": {
-    "build": "nwb build-react-component --copy-files --config ./nwb.config.js",
+    "build": "nwb build-react-component --copy-files --config ./nwb.${BUILD_ENV}.config.js",
+    "build:staging": "BUILD_ENV=staging npm run build",
+    "build:production": "BUILD_ENV=production npm run build",
+    "build:development": "BUILD_ENV=development npm run build",
     "clean": "nwb clean-module && nwb clean-demo",
     "start": "nwb serve-react-demo --config ./nwb.config.js",
     "test": "nwb test-react",
