@@ -119,4 +119,12 @@ Message objects are rendered differently depending on their type. Currently, onl
   }
 }
 
+
+# START
+
+REACT_APP_API_URL=http://192.168.100.114 npm start
+
+# START
+REACT_APP_API_URL=http://192.168.100.114 npm run build
+
 ```

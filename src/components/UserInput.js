@@ -143,7 +143,7 @@ class UserInput extends Component {
         </form>
         <div className="powered-by">
           <p>
-            Chat by <span>Ethica</span>
+            Chat by <span>iWealth</span>
           </p>
         </div>
       </div>

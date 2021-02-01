@@ -5,6 +5,7 @@ import Message from "./Messages";
 import { connect } from "react-redux";
 import { continuewithConverstaion, contentEditableAction, whattocallAction, knowMoreAction, askQuestionAction, answerSatisfactionAction } from "./stateManagement/actions/conversationFlowUpdate";
 import { startFetchingAction, stopFetchingAction } from "./stateManagement/actions/fetchingAction";
+import chatIconUrl from "../assets/chat-bot.svg";
 
 class MessageList extends Component {
   constructor() {
@@ -249,7 +250,17 @@ class MessageList extends Component {
         key: i,
         onDelete: this.props.onDelete
       });
-    }), this.props.fetchingMessage && /*#__PURE__*/React.createElement("p", null, "Typing..."), this.returningConversationFlow()));
+    }), this.props.fetchingMessage && /*#__PURE__*/React.createElement("div", {
+      className: "sc-message"
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "sc-message--avatar",
+      style: {
+        backgroundImage: `url(${chatIconUrl})`
+      }
+    }), /*#__PURE__*/React.createElement("p", {
+      className: "typing"
+    }, "Typing...")) //  </div>
+    , this.returningConversationFlow()));
   }
 
 }

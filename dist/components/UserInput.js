@@ -149,7 +149,7 @@ class UserInput extends Component {
       onClick: this._submitText.bind(this)
     })))), /*#__PURE__*/React.createElement("div", {
       className: "powered-by"
-    }, /*#__PURE__*/React.createElement("p", null, "Chat by ", /*#__PURE__*/React.createElement("span", null, "Ethica"))));
+    }, /*#__PURE__*/React.createElement("p", null, "Chat by ", /*#__PURE__*/React.createElement("span", null, "iWealth"))));
   }
 
 }
