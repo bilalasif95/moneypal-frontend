@@ -1,25 +1,30 @@
 {
-  "name": "react-beautiful-chat",
-  "version": "1.1.0",
+  "name": "rnssolution-chatbot",
+  "version": "2.2.2",
   "description": "A simple and beautiful React chat component backend agnostic and with Emoji and File support.",
   "main": "lib/index.js",
   "module": "es/index.js",
-  "files": [
-    "css",
-    "es",
-    "lib",
-    "umd"
-  ],
+  "private": false,
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
   "scripts": {
-    "build": "nwb build-react-component --copy-files",
+    "build": "nwb build-react-app --copy-files",
     "clean": "nwb clean-module && nwb clean-demo",
-    "start": "nwb serve-react-demo",
+    "start": "nwb serve-react-app",
     "test": "nwb test-react",
     "test:coverage": "nwb test-react --coverage",
     "test:watch": "nwb test-react --server",
-    "gh:publish": "nwb build-demo && gh-pages -d demo/dist"
+    "gh:publish": "nwb build-react-app && gh-pages -d dist",
+    "publish:npm": "rm -rf dist && mkdir dist && babel src -d dist --copy-files"
   },
   "dependencies": {
+    "@babel/core": "^7.12.10",
     "axios": "^0.21.1",
     "emoji-js": "3.2.2",
     "gh-pages": "^1.1.0",
@@ -34,6 +39,10 @@
     "react": "15.x"
   },
   "devDependencies": {
+    "@babel/cli": "^7.12.10",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-syntax-class-properties": "^7.12.1",
+    "@babel/preset-react": "^7.12.10",
     "nwb": "0.17.x",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"

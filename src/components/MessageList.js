@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import Message from "./Messages";
 import { connect } from "react-redux";
-import { continuewithConverstaion, contentEditableAction, whattocallAction, knowMoreAction, askQuestionAction, answerSatisfactionAction } from "../stateManagement/actions/conversationFlowUpdate";
+import { continuewithConverstaion, contentEditableAction, whattocallAction, knowMoreAction, askQuestionAction, answerSatisfactionAction } from "./stateManagement/actions/conversationFlowUpdate";
 import {
   startFetchingAction,
   stopFetchingAction,
-} from "../../src/stateManagement/actions/fetchingAction";
+} from "./stateManagement/actions/fetchingAction";
 
 class MessageList extends Component {
   constructor() {

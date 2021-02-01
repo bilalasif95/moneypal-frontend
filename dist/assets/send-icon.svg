@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="28" height="25.228" viewBox="0 0 28 25.228">
+  <g id="Group_126" data-name="Group 126" transform="translate(-2253 -1673)">
+    <g id="Group_125" data-name="Group 125">
+      <g id="Group_124" data-name="Group 124">
+        <g id="Group_123" data-name="Group 123" transform="translate(-269 -378)">
+          <g id="Group_122" data-name="Group 122">
+            <path id="Path_1" data-name="Path 1" d="M0,0H24V24H0Z" transform="translate(2549 2076) rotate(180)" fill="none"/>
+            <g id="Group_56" data-name="Group 56" transform="translate(2170 756)">
+              <path id="Path_1-2" data-name="Path 1" d="M0,0H24V24H0Z" transform="translate(380 1320) rotate(180)" fill="none"/>
+              <path id="ios-send" d="M145.349,128.12l-17.056,7.434a.391.391,0,0,0,.014.711l4.614,2.607a.744.744,0,0,0,.85-.084l9.1-7.843c.06-.051.2-.149.26-.093s-.033.2-.084.26l-7.871,8.865a.741.741,0,0,0-.074.887l3.015,4.837a.392.392,0,0,0,.706-.009l7.053-17.056A.391.391,0,0,0,145.349,128.12Z" transform="translate(364.62 1113.873) rotate(45)" fill="#bababb"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

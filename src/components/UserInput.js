@@ -7,7 +7,7 @@ import SendIcon from "./icons/SendIcon";
 import closeIcon from "../assets/close-icon.svg";
 import genericFileIcon from "../assets/file.svg";
 import _ from "lodash";
-import { whattocallAction } from "../../src/stateManagement/actions/conversationFlowUpdate";
+import { whattocallAction } from "./stateManagement/actions/conversationFlowUpdate";
 
 class UserInput extends Component {
   constructor() {

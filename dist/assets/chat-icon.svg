@@ -1,0 +1,28 @@
+<svg id="Component_5_7" data-name="Component 5 – 7" xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <g id="Group_55" data-name="Group 55" transform="translate(-528 -2468)" opacity="0">
+    <g id="Group_54" data-name="Group 54">
+      <rect id="Rectangle_22" data-name="Rectangle 22" width="60" height="60" rx="5" transform="translate(528 2468)" fill="#0a5bff"/>
+      <g id="close-24px_4_" data-name="close-24px (4)" transform="translate(540 2480)">
+        <path id="Path_13" data-name="Path 13" d="M0,0H36V36H0Z" fill="none"/>
+        <path id="Path_14" data-name="Path 14" d="M31,7.619,28.381,5,18,15.381,7.619,5,5,7.619,15.381,18,5,28.381,7.619,31,18,20.619,28.381,31,31,28.381,20.619,18Z" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+  <g id="Group_53" data-name="Group 53" transform="translate(-594 -2468)">
+    <g id="Group_52" data-name="Group 52">
+      <g id="Group_51" data-name="Group 51">
+        <g id="Group_50" data-name="Group 50">
+          <g id="Group_49" data-name="Group 49">
+            <rect id="Rectangle_21" data-name="Rectangle 21" width="60" height="60" rx="5" transform="translate(594 2468)" fill="#0a5bff"/>
+            <g id="Group_48" data-name="Group 48" transform="translate(73)">
+              <g id="Group_47" data-name="Group 47">
+                <path id="Path_11" data-name="Path 11" d="M0,0H28.8V28.8H0Z" transform="translate(537 2484)" fill="rgba(255,255,255,0)"/>
+                <path id="Path_12" data-name="Path 12" d="M23.6,2H4.4A2.4,2.4,0,0,0,2.012,4.4L2,26l4.8-4.8H23.6A2.407,2.407,0,0,0,26,18.8V4.4A2.407,2.407,0,0,0,23.6,2ZM6.8,10.4H21.2v2.4H6.8Zm9.6,6H6.8V14h9.6Zm4.8-7.2H6.8V6.8H21.2Z" transform="translate(537 2484)" fill="#fff"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
