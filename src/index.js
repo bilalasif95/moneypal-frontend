@@ -1,4 +1,12 @@
-import './styles';
-import Launcher from './components/Launcher';
+import React from "react";
+import App from "./App";
+import { render } from "react-dom";
+import { Provider } from "react-redux";
+import configureStore from "./components/stateManagement/store";
 
-export { Launcher };
+render(
+  <Provider store={configureStore()}>
+    <App />
+  </Provider>,
+  document.querySelector("#demo")
+);

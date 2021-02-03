@@ -27,9 +27,9 @@ class ChatWindow extends Component {
     return (
       <div className={classList.join(" ")}>
         <Header
-          teamName={this.props.agentProfile.teamName}
-          imageUrl={this.props.agentProfile.imageUrl}
-          onClose={this.props.onClose}
+        // teamName={this.props.agentProfile.teamName}
+        // imageUrl={this.props.agentProfile.imageUrl}
+        // onClose={this.props.onClose}
         />
         <div className="message-input">
           <MessageList

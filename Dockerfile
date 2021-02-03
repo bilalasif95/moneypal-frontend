@@ -15,4 +15,4 @@ HEALTHCHECK --interval=5s --timeout=2s --retries=12 \
   CMD curl --silent --fail localhost:${PORT} || exit 1
 
 EXPOSE ${PORT}
-CMD ["serve","-s", "demo/dist/", "-l", "3000"]
+CMD ["serve","-s", "dist/", "-l", "3000"]

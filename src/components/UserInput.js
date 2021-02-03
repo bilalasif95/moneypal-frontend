@@ -7,7 +7,7 @@ import SendIcon from "./icons/SendIcon";
 import closeIcon from "../assets/close-icon.svg";
 import genericFileIcon from "../assets/file.svg";
 import _ from "lodash";
-import { whattocallAction } from "../../src/stateManagement/actions/conversationFlowUpdate";
+import { whattocallAction } from "./stateManagement/actions/conversationFlowUpdate";
 
 class UserInput extends Component {
   constructor() {
@@ -55,14 +55,26 @@ class UserInput extends Component {
       }
     } else {
       if (text && text.length > 0) {
-        this.props.onSubmit({
-          author: "me",
-          type: "text",
-          data: { text },
-          whattodo: "callapi",
-        });
-        this.userInput.innerHTML = "";
-        this.props.whattocallAction("");
+        if (this.props.whattocall === "takequestion") {
+          this.props.onSubmit({
+            author: "me",
+            type: "text",
+            data: { text },
+            whattodo: "showMessages",
+          });
+          this.userInput.innerHTML = "";
+          this.props.whattocallAction("");
+        }
+        else {
+          this.props.onSubmit({
+            author: "me",
+            type: "text",
+            data: { text },
+            whattodo: "callapi",
+          });
+          this.userInput.innerHTML = "";
+          this.props.whattocallAction("");
+        }
       }
     }
   }
@@ -143,7 +155,7 @@ class UserInput extends Component {
         </form>
         <div className="powered-by">
           <p>
-            Chat by <span>iWealth</span>
+            Chat by <span>MoneyPAL</span>
           </p>
         </div>
       </div>
