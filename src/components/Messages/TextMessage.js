@@ -7,7 +7,7 @@ const TextMessage = (props) => {
   const text = props.message.data.text || ''
   const author = props.message.author
 
-  
+
   return (
     <div className="sc-message--text">
       {/* {
@@ -23,10 +23,10 @@ const TextMessage = (props) => {
         author === "me" && 
           <img src={userIcon} alt=""/>
       } */}
-      {text}
+      {text === "https://moneypal.com" ? <a target="_blank" rel="noopener noreferrer" href={text}>{text}</a> : text}
       {meta && <p className='sc-message--meta'>{meta}</p>}
     </div>
-    )
+  )
 }
 
 export default TextMessage

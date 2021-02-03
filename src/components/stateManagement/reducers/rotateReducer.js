@@ -20,6 +20,36 @@ export default (state, action) => {
         ...state,
         askQuestionType: action.payload,
       };
+    case "askCategoryType":
+      return {
+        ...state,
+        askCategoryType: action.payload,
+      };
+    case "selectedCategoryType":
+      return {
+        ...state,
+        selectedCategoryType: action.payload,
+      };
+    case "confirmQuestionType":
+      return {
+        ...state,
+        confirmQuestionType: action.payload,
+      };
+    case "numberOfTimesQuestionAsked":
+      return {
+        ...state,
+        numberOfTimesQuestionAsked: action.payload,
+      };
+    case "userName":
+      return {
+        ...state,
+        userName: action.payload,
+      };
+    case "askedQuestion":
+      return {
+        ...state,
+        askedQuestion: action.payload,
+      };
     case "answerSatisfaction":
       return {
         ...state,

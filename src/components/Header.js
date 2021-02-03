@@ -8,7 +8,7 @@ class Header extends Component {
     return (
       <div className="sc-header">
         <div>
-          <h1>Hi there <img src={handIcon} /></h1>
+          <h1>Hello <img src={handIcon} /></h1>
           <p>Good to see you here.</p>
         </div>
         {/* <img className="sc-header--img" src={this.props.imageUrl} alt="" />

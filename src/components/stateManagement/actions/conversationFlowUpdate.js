@@ -33,6 +33,47 @@ export const askQuestionAction = (data) => {
   };
 };
 
+export const askCategoryAction = (data) => {
+  return {
+    type: "askCategoryType",
+    payload: data
+  };
+};
+
+export const selectedCategory = (data) => {
+  return {
+    type: "selectedCategoryType",
+    payload: data
+  };
+};
+
+export const userNameAction = (data) => {
+  return {
+    type: "userName",
+    payload: data
+  };
+};
+
+export const confirmQuestionAction = (data) => {
+  return {
+    type: "confirmQuestionType",
+    payload: data
+  };
+};
+
+export const numberOfTimesQuestionAskedAction = (data) => {
+  return {
+    type: "numberOfTimesQuestionAsked",
+    payload: data
+  };
+};
+
+export const askedQuestionAction = (data) => {
+  return {
+    type: "askedQuestion",
+    payload: data
+  };
+};
 export const answerSatisfactionAction = (data) => {
   return {
     type: "answerSatisfaction",
