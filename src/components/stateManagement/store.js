@@ -14,6 +14,7 @@ const initialState = {
   askedQuestion: "",
   answerSatisfaction: false,
   knowMore: false,
+  answer: "",
   contentEditable: false,
 };
 function configureStore(state = { ...initialState }) {

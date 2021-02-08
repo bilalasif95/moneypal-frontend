@@ -7,6 +7,7 @@ import {
   stopFetchingAction,
 } from "./stateManagement/actions/fetchingAction";
 import chatIconUrl from "../assets/chat-bot.svg";
+import API from "../utils/API";
 
 class MessageList extends Component {
   constructor() {
@@ -90,6 +91,12 @@ class MessageList extends Component {
     this.props.contentEditableAction(false);
     this.props.answerSatisfactionAction(false);
     this.props.continuewithConverstaion(true);
+    var data = new FormData();
+    data.append("category", this.props.selectedCategoryType);
+    data.append("question", this.props.askedQuestion);
+    data.append("answer", this.props.answer);
+    data.append("satisfied", true);
+    API.post("/saveData", data).then(() => { }).catch(() => { })
     setTimeout(() => {
       this.props.stopFetching()
       this.props.onSubmit({
@@ -97,14 +104,28 @@ class MessageList extends Component {
         author: "them",
         data: { text: "Fantastic! So glad I could assist you today." },
       });
-      this.props.onSubmit({
-        type: "text",
-        author: "them",
-        data: { text: "If you enter your email contact, I can send you this Answer in a few moments." },
-        whattodo: "callApi"
-      });
-      this.props.whattocallAction("email");
-      this.props.contentEditableAction(true);
+      if (this.props.numberOfTimesQuestionAsked === 1) {
+        this.props.onSubmit({
+          type: "text",
+          author: "them",
+          data: { text: "If you enter your email contact, I can send you this Answer in a few moments." },
+          whattodo: "callApi"
+        });
+        this.props.whattocallAction("email");
+        this.props.contentEditableAction(true);
+      }
+      else {
+        this.props.onSubmit({
+          type: "text",
+          author: "them",
+          data: { text: "Thanks for checking in with MoneyPAL. Feel free to come back anytime." },
+        });
+        this.props.onSubmit({
+          type: "text",
+          author: "them",
+          data: { text: "See you soon! Stay well……" },
+        });
+      }
     }, 1000)
     // this.props.knowMoreAction(true);
   };
@@ -119,6 +140,12 @@ class MessageList extends Component {
     this.props.contentEditableAction(false);
     this.props.knowMoreAction(false);
     this.props.answerSatisfactionAction(false);
+    var data = new FormData();
+    data.append("category", this.props.selectedCategoryType);
+    data.append("question", this.props.askedQuestion);
+    data.append("answer", this.props.answer);
+    data.append("satisfied", false);
+    API.post("/saveData", data).then(() => { }).catch(() => { })
     setTimeout(() => {
       this.props.stopFetching()
       this.props.onSubmit({
@@ -249,7 +276,12 @@ class MessageList extends Component {
     this.props.startFetching();
     this.props.confirmQuestionAction(false);
     this.props.contentEditableAction(false);
-    this.props.whattocallAction("question");
+    if (this.props.selectedCategoryType === "Glossary of Terms") {
+      this.props.whattocallAction("terminology");
+    }
+    else {
+      this.props.whattocallAction("question");
+    }
     setTimeout(() => {
       this.props.stopFetching()
       this.props.onSubmit({
@@ -419,7 +451,9 @@ const mapStateToProps = (state) => ({
   askCategoryType: state.askCategoryType,
   askedQuestion: state.askedQuestion,
   confirmQuestionType: state.confirmQuestionType,
+  selectedCategoryType: state.selectedCategoryType,
   answerSatisfaction: state.answerSatisfaction,
+  answer: state.answer,
   numberOfTimesQuestionAsked: state.numberOfTimesQuestionAsked,
   knowMore: state.knowMore,
 });

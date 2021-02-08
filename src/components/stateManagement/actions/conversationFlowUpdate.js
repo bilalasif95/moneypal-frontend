@@ -26,6 +26,13 @@ export const knowMoreAction = (data) => {
   };
 };
 
+export const answerAction = (data) => {
+  return {
+    type: "answer",
+    payload: data
+  };
+};
+
 export const askQuestionAction = (data) => {
   return {
     type: "askQuestionType",
