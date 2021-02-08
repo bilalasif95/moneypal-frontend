@@ -118,7 +118,7 @@ class UserInput extends Component {
         <form
           className={`sc-user-input ${this.state.inputActive ? "active" : ""}`}
         >
-          {this.props.whattocall === "terminology" && <div>I am confused about the term: </div>}
+          {/* {this.props.whattocall === "terminology" && <div>I am confused about the term: </div>} */}
           <div
             role="button"
             tabIndex="0"

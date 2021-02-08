@@ -60,6 +60,11 @@ export default (state, action) => {
         ...state,
         knowMore: action.payload,
       };
+    case "answer":
+      return {
+        ...state,
+        answer: action.payload,
+      };
     case "contentEditable":
       return {
         ...state,

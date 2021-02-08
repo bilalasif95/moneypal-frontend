@@ -5,7 +5,7 @@ import {
   startFetchingAction,
   stopFetchingAction,
 } from "./components/stateManagement/actions/fetchingAction";
-import { whattocallAction, askQuestionAction, askedQuestionAction, knowMoreAction, userNameAction, askCategoryAction, contentEditableAction, answerSatisfactionAction } from "./components/stateManagement/actions/conversationFlowUpdate";
+import { whattocallAction, askQuestionAction, askedQuestionAction, knowMoreAction, userNameAction, askCategoryAction, contentEditableAction, answerAction, answerSatisfactionAction } from "./components/stateManagement/actions/conversationFlowUpdate";
 import { connect } from "react-redux";
 import "./assets/styles";
 import API from "./utils/API";
@@ -61,11 +61,12 @@ class App extends Component {
       }
       if (this.props.whattocall === "terminology") {
         var terminology = new FormData();
-        terminology.append("terminology", message.data.text);
+        terminology.append("terminology", this.props.askedQuestion);
         API.post("/terminology", terminology).then((res) => {
           this.props.stopFetching()
-          this._sendMessage(res.data.data[1])
-          this._sendMessage("Is it what you have been looking for?")
+          this.props.answerAction(res.data.data[1])
+          this._sendMessage(`Answer is: ${res.data.data[1]}`)
+          this._sendMessage(`${this.props.userName}, are you satisfied?`)
           this.props.answerSatisfactionAction(true);
           this.props.contentEditableAction(false);
         }).catch((err) => {
@@ -78,9 +79,9 @@ class App extends Component {
       if (this.props.whattocall === "question") {
         var question = new FormData();
         question.append("question", this.props.askedQuestion);
-        question.append("category", this.props.selectedCategoryType);
         API.post("/question", question).then((res) => {
           this.props.stopFetching()
+          this.props.answerAction(res.data.data)
           this._sendMessage(`Answer is: ${res.data.data}`)
           this._sendMessage(`${this.props.userName}, are you satisfied?`)
           this.props.answerSatisfactionAction(true);
@@ -98,7 +99,7 @@ class App extends Component {
       this.props.contentEditableAction(false);
       var question = new FormData();
       question.append("question", message.data.text);
-      API.post("/verifyquestion", question).then((res) => {
+      API.post("/question", question).then((res) => {
         this.props.stopFetching();
         this.props.askedQuestionAction(message.data.text);
         this._sendMessage("OK great! Now which knowledge area does it fit into?")
@@ -195,6 +196,7 @@ const mapDispatchToProps = (dispatch) => ({
   askCategoryAction: (data) => dispatch(askCategoryAction(data)),
   contentEditableAction: (data) => dispatch(contentEditableAction(data)),
   answerSatisfactionAction: (data) => dispatch(answerSatisfactionAction(data)),
+  answerAction: (data) => dispatch(answerAction(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
