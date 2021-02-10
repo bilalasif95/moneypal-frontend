@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import React, { Component } from "react";
 import API from "../utils/API";
 import ChatWindow from "./ChatWindow";
-import launcherIcon from "./../assets/chat-icon.svg";
-import launcherIconActive from "./../assets/close-icon.svg";
+import launcherIcon from "./../assets/chatIcon.png";
+import launcherIconActive from "./../assets/closeIcon.png";
 
 class Launcher extends Component {
   constructor() {
