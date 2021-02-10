@@ -61,9 +61,9 @@
   opacity: 0;
 }
 
-.sc-launcher.opened:before {
+/* .sc-launcher.opened:before {
   box-shadow: 0px 0px 400px 250px rgba(148, 149, 150, 0.2);
-}
+} */
 
 .sc-launcher:hover {
   box-shadow: 0 0px 27px 1.5px rgba(0,0,0,0.2);

@@ -346,8 +346,8 @@ class MessageList extends Component {
     if (!conversationContinue) {
       return (
         <div className="yesno-btn">
-          <button onClick={this.yes}>YES</button>
-          <button onClick={this.no}>NO</button>
+          <button onClick={this.yes}>Yes</button>
+          <button onClick={this.no}>No</button>
         </div>
       );
     }
@@ -356,26 +356,26 @@ class MessageList extends Component {
         <div className="yesno-btn">
           {/* <button onClick={this.terminology}>TERMINOLOGY</button>
           <button onClick={this.question}>QUESTION</button> */}
-          <button onClick={this.yesSubscribe}>YES</button>
-          <button onClick={this.noSubscribe}>NO</button>
+          <button onClick={this.yesSubscribe}>Yes</button>
+          <button onClick={this.noSubscribe}>No</button>
         </div>
       );
     }
     if (confirmQuestionType) {
       return (
         <div className="yesno-btn">
-          <button onClick={this.questionConfirmedAsYes}>YES</button>
-          <button onClick={this.questionConfirmedAsNo}>NO</button>
+          <button onClick={this.questionConfirmedAsYes}>Yes</button>
+          <button onClick={this.questionConfirmedAsNo}>No</button>
         </div>
       );
     }
     if (askCategoryType) {
       return (
-        <div className="yesno-btn">
+        <div className="cat-btn">
           <button onClick={() => this.category("General Finance")}>General Finance</button>
-          <button onClick={() => this.category("Insurance")}>Insurance</button>
-          <button onClick={() => this.category("Islamic Finance")}>Islamic Finance</button>
-          <button onClick={() => this.category("Takaful")}>Takaful</button>
+          <button className="nthBtn" onClick={() => this.category("Insurance")}>Insurance</button>
+          <button className="nthBtn" onClick={() => this.category("Islamic Finance")}>Islamic Finance</button>
+          <button className="nthBtn" onClick={() => this.category("Takaful")}>Takaful</button>
           <button onClick={() => this.category("Glossary of Terms")}>Glossary of Terms</button>
         </div>
       );
@@ -383,16 +383,16 @@ class MessageList extends Component {
     if (answerSatisfaction) {
       return (
         <div className="yesno-btn">
-          <button onClick={this.answerSatisfactionYes}>YES</button>
-          <button onClick={this.answerSatisfactionNo}>NO</button>
+          <button onClick={this.answerSatisfactionYes}>Yes</button>
+          <button onClick={this.answerSatisfactionNo}>No</button>
         </div>
       );
     }
     if (knowMore) {
       return (
         <div className="yesno-btn">
-          <button onClick={this.knowMoreYes}>YES</button>
-          <button onClick={this.knowMoreNo}>NO</button>
+          <button onClick={this.knowMoreYes}>Yes</button>
+          <button onClick={this.knowMoreNo}>No</button>
         </div>
       );
     }
@@ -432,7 +432,8 @@ class MessageList extends Component {
                  }}
                ></div>
              )} */}
-              <p className="typing">Typing...</p>
+              {/* <p className="typing">Typing...</p> */}
+              <div class="typing-loader"></div>
             </div>
             //  </div>
 

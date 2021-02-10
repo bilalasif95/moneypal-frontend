@@ -116,7 +116,7 @@ class UserInput extends Component {
           </div>
         )}
         <form
-          className={`sc-user-input ${this.state.inputActive ? "active" : ""}`}
+          className={`sc-user-input ${contentEditable ? "active" : ""}`}
         >
           {/* {this.props.whattocall === "terminology" && <div>I am confused about the term: </div>} */}
           <div
@@ -136,6 +136,7 @@ class UserInput extends Component {
             contentEditable={contentEditable ? true : false}
             placeholder="Write a reply..."
             className="sc-user-input--text"
+            style={{cursor: contentEditable ? "default" : "not-allowed"}}
           ></div>
           <div className="sc-user-input--buttons">
             {/* <div className="sc-user-input--button">
@@ -149,7 +150,7 @@ class UserInput extends Component {
               </div>
             )} */}
             <div className="sc-user-input--button">
-              <SendIcon onClick={this._submitText.bind(this)} />
+              <SendIcon contentEditable={contentEditable} onClick={this._submitText.bind(this)} />
             </div>
           </div>
         </form>
