@@ -433,7 +433,7 @@ class MessageList extends Component {
                ></div>
              )} */}
               {/* <p className="typing">Typing...</p> */}
-              <div class="typing-loader"></div>
+              <div className="typing-loader"></div>
             </div>
             //  </div>
 
