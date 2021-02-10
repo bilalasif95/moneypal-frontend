@@ -6,15 +6,15 @@ class SendIcon extends Component {
 
   render() {
     return (
-    <button
-      onFocus={this.props.onFocus}
-      onBlur={this.props.onBlur}
-      style={{cursor: this.props.contentEditable ? "pointer" : "not-allowed"}}
-      onClick={(e) => { e.preventDefault(); this.props.onClick(e); }}
-      className="sc-user-input--send-icon-wrapper"
-    >
-      {this.props.contentEditable ? <img src={sendIconBlue} alt="Send"/> : <img src={sendIcon} alt="Send"/>}
-      {/* <svg
+      <button
+        onFocus={this.props.onFocus}
+        onBlur={this.props.onBlur}
+        style={{ cursor: this.props.contentEditable ? "pointer" : "not-allowed" }}
+        onClick={(e) => { e.preventDefault(); this.props.onClick(e); }}
+        className="sc-user-input--send-icon-wrapper"
+      >
+        {this.props.contentEditable ? <img src={sendIconBlue} alt="Send" /> : <img src={sendIcon} alt="Send" />}
+        {/* <svg
         version='1.1'
         className="sc-user-input--send-icon"
         xmlns='http://www.w3.org/2000/svg'
@@ -31,7 +31,7 @@ class SendIcon extends Component {
           c0.552,0,1-0.448,1-1s-0.448-1-1-1H8.395L3.866,5.751l29.706,12.757L4.632,30.825z' />
         </g>
       </svg> */}
-    </button>
+      </button>
     );
   }
 }
