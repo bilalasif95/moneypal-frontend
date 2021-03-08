@@ -9,7 +9,7 @@ export default [
     id: 2,
     type: "text",
     author: "them",
-    data: { text: "We are experts in Islamic Financing." },
+    data: { text: "We are experts in finance and insurance." },
   },
   {
     id: 3,
