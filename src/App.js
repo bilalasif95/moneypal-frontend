@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Launcher } from "./Launcher";
 import messageHistory from "./messageHistory";
+import { Route, Switch, Router } from "react-router-dom";
 import {
   startFetchingAction,
   stopFetchingAction,
@@ -9,6 +10,8 @@ import { whattocallAction, askQuestionAction, askedQuestionAction, knowMoreActio
 import { connect } from "react-redux";
 import "./assets/styles";
 import API from "./utils/API";
+import NewForm from "./form";
+import history from './history';
 
 class App extends Component {
   constructor() {
@@ -160,6 +163,11 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Router history={history}>
+          <Switch>
+            <Route path="/form" component={NewForm} />
+          </Switch>
+        </Router>
         <Launcher
           agentProfile={{
             teamName: "react-beautiful-chat",

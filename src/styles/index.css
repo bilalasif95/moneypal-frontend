@@ -1,6 +1,137 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 body {
   font-family: 'Poppins', sans-serif !important;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.App {
+  background: #000 url("https://i.imgur.com/Nt7oxPn.jpg") no-repeat center center fixed;
+  background-position: fixed 0 0;
+  background-size: cover;
+  height: 100%;
+}
+.form-container {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  margin: 5rem 0;
+}
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 2rem;
+}
+.form-header button {
+  margin-left: 10px;
+}
+.var-add {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.var-add button {
+  background-color: transparent !important;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  font-size: 30px;
+  font-weight: 600;
+  width: 40px;
+  height: 40px;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.var-add button:hover, 
+.var-add button:focus {
+  color: #000;
+}
+.quiz-var {
+  padding: 0 0 0 1rem;
+  margin: 1rem 0 0;
+}
+
+.quiz-var li {
+  list-style: decimal;
+  line-height: 30px;
+}
+.quiz-var li button {
+  cursor: pointer;
+  font-size: 40px;
+  color: #f7412b;
+  transform: rotate(45deg);
+  line-height: 18px;
+  margin: 0;
+  position: absolute;
+  top: -15px;
+  width: 26px;
+  padding: 0;
+  background-color: transparent !important;
+  border: none;
+}
+.del-btn {
+  align-items: center;
+  display: inline-flex;
+  width: 20px;
+  position: relative;
+}
+.footer-btn {
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0 0;
+}
+.App button {
+  color: #fff;
+  width: 100px;
+}
+.btn--radius {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.btn--blue {
+  background: #3c6cd8 !important;
+}
+
+.btn--blue:hover {
+  background: #437cfd;
+}
+.btn--red {
+  background: #ff0000 !important;
+}
+
+.btn--red:hover {
+  background: #ff0000;
+}
+h2 {
+  font-size: 40px;
+  margin: 0;
+}
+#qid,
+#date {
+  cursor: not-allowed;
+}
+@media (max-width: 480px) {
+  .form-container {
+    border-radius: 5px;
+    padding: 15px;
+    margin: 1rem 0;
+  }
+  .form-header {
+    flex-wrap: wrap;
+  }
+  .btn--group {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0 0;
+    width: 100%;
+  }
+  .form-header button {
+    margin-left: 0;
+}
 }
 .sc-chat-window {
   width: 370px;
