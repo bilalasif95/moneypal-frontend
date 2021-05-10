@@ -145,7 +145,16 @@
 }
 
 @media (max-width: 450px) {
+  .sc-message-scroller {
+    padding: 0 1rem;
+  }
   .sc-message {
-    width: 80%;
+    width: 100%;
+  }
+  .sc-message--content.received .sc-message--text {
+    margin-right: 0;
+  }
+  .sc-message--content.sent .sc-message--text {
+    max-width: 100%;
   }
 }
