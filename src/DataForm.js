@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Button, Col, Container, Form, FormGroup, Row, Label, Input } from 'reactstrap';
 import API from "./utils/API";
 
-function NewForm() {
+function DataForm() {
     useEffect(() => {
         API.get("/query")
             .then((res) => {
@@ -27,17 +27,11 @@ function NewForm() {
                             </div>
                             <Form>
                                 <Row>
-                                    <Col lg={4} md={4} sm={12}>
-                                        <FormGroup>
-                                            <Label for="qid">QID</Label>
-                                            <Input type="text" placeholder="QID" id="qid" name="qid" readOnly />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col lg={4} md={4} sm={12}>
+                                    <Col lg={6} md={6} sm={12}>
                                         <FormGroup>
                                             <FormGroup>
                                                 <Label for="category">Category</Label>
-                                                <Input type="select" name="select" id="category">
+                                                <Input type="select" name="category" id="category">
                                                     <option>Takaful</option>
                                                     <option>Islamic Finance</option>
                                                     <option>Islamic Insurance</option>
@@ -46,35 +40,21 @@ function NewForm() {
                                             </FormGroup>
                                         </FormGroup>
                                     </Col>
-                                    <Col lg={4} md={4} sm={12}>
-                                        {/* <FormGroup>
+                                    <Col lg={6} md={6} sm={12}>
+                                        <FormGroup>
                                             <FormGroup>
                                                 <Label for="intent">Intent</Label>
-                                                <Input type="select" name="select" id="intent">
-                                                    <option>Intent 1</option>
-                                                    <option>Intent 2</option>
-                                                    <option>Intent 3</option>
-                                                    <option>Intent 4</option>
-                                                    <option>Intent 5</option>
-                                                </Input>
+                                                <Input type="text" name="intent" id="intent" />
                                             </FormGroup>
-                                        </FormGroup> */}
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col lg={12} md={12} sm={12}>
-                                        <FormGroup>
-                                            <Label for="question">Question</Label>
-                                            <Input type="text" placeholder="Enter your question" id="question" name="question" />
                                         </FormGroup>
                                     </Col>
                                 </Row>
                                 <Row>
                                     <Col lg={12} md={12} sm={12}>
                                         <FormGroup>
-                                            <Label for="q_variant">Question Variant</Label>
+                                            <Label for="example"> Examples</Label>
                                             <div className="var-add">
-                                                <Input type="text" placeholder="Enter question variant" id="q_variant" name="q_variant" />
+                                                <Input type="text" placeholder="Enter  Example" id="example" name="example" />
                                                 <Button>+</Button>
                                             </div>
 
@@ -98,11 +78,6 @@ function NewForm() {
                                                         <button>+</button>
                                                     </div>
                                                 </li>
-                                                <li><span>Lorem ipsum, or lipsum as it is sometimes known.</span>
-                                                    <div className="del-btn">
-                                                        <button>+</button>
-                                                    </div>
-                                                </li>
                                             </ul>
                                         </FormGroup>
                                     </Col>
@@ -110,16 +85,8 @@ function NewForm() {
                                 <Row>
                                     <Col lg={12} md={12} sm={12}>
                                         <FormGroup>
-                                            <Label for="long_ans">Long Answer</Label>
-                                            <textarea rows="4" placeholder="Enter long answer" id="long_ans" name="long_ans" className="form-control" />
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col lg={12} md={12} sm={12}>
-                                        <FormGroup>
-                                            <Label for="short_ans">Short Answer</Label>
-                                            <Input type="text" placeholder="Enter short answer" id="short_ans" name="short_ans" />
+                                            <Label for="response">Response</Label>
+                                            <textarea rows="4" placeholder="Takaful is a type of Islamic insurance wherein members contribute money into a pool system to guarantee each other against loss or damage. Takaful-branded insurance is based on sharia or Islamic religious law, which explains how individuals are responsible to cooperate and protect one another." id="response" name="response" className="form-control" readOnly/>
                                         </FormGroup>
                                     </Col>
                                 </Row>
@@ -133,7 +100,7 @@ function NewForm() {
                                     <Col lg={4} md={4} sm={12}>
                                         <FormGroup>
                                             <Label for="modify_at">Last Modify by</Label>
-                                            <Input type="text" name="modify_by" id="modify_by" readOnly />
+                                            <Input type="text" name="modify_by" id="modify_by"/>
                                         </FormGroup>
                                     </Col>
                                     <Col lg={4} md={4} sm={12}>
@@ -156,4 +123,4 @@ function NewForm() {
     );
 }
 
-export default NewForm;
+export default DataForm;

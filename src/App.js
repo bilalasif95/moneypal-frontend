@@ -12,6 +12,7 @@ import "./assets/styles";
 import API from "./utils/API";
 import NewForm from "./form";
 import history from './history';
+import DataForm from "./DataForm";
 
 class App extends Component {
   constructor() {
@@ -166,6 +167,7 @@ class App extends Component {
         <Router history={history}>
           <Switch>
             <Route path="/form" component={NewForm} />
+            <Route path="/dataform" component={DataForm} />
           </Switch>
         </Router>
         <Launcher
