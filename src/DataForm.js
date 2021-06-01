@@ -6,10 +6,10 @@ function DataForm() {
     useEffect(() => {
         API.get("/query")
             .then((res) => {
-                console.log(res, "========")
+                
             })
             .catch((err) => {
-                console.log(err, "========")
+                
             })
     }, [])
     return (

@@ -1,17 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Form, FormGroup, Row, Label, Input } from 'reactstrap';
 import API from "./utils/API";
 
 function NewForm() {
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [definition, setDefinition] = useState("")
+    const [detail, setDetail] = useState("")
+    const [activeStep, setActiveStep] = useState(0)
     useEffect(() => {
-        API.get("/query")
+        API.get("/def_all")
             .then((res) => {
-                console.log(res, "========")
+                setData(res.data)
+                setLoading(false)
             })
-            .catch((err) => {
-                console.log(err, "========")
+            .catch(() => {
+                setLoading(false)
             })
     }, [])
+    const previousStep = () => {
+        if (activeStep > 0) {
+            setActiveStep(activeStep - 1)
+        }
+    }
+    const nextStep = () => {
+        if (activeStep < data.length - 1) {
+            setActiveStep(activeStep + 1)
+        }
+    }
+    const onDefinitionChange = (e) => {
+        setDefinition(e.target.value)
+    }
+    const onDetailChange = (e) => {
+        setDetail(e.target.value)
+    }
     return (
         <div className="App">
             <Container>
@@ -25,29 +47,33 @@ function NewForm() {
                                     <Button color="primary">Add</Button>
                                 </div>
                             </div>
-                            <Form>
-                                <Row>
-                                    <Col lg={4} md={4} sm={12}>
-                                        <FormGroup>
-                                            <Label for="qid">QID</Label>
-                                            <Input type="text" placeholder="QID" id="qid" name="qid" readOnly />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col lg={4} md={4} sm={12}>
-                                        <FormGroup>
+                            {loading ? <div>Loading...</div> :
+                                <Form>
+                                    <Row>
+                                        <Col lg={4} md={4} sm={12}>
                                             <FormGroup>
-                                                <Label for="category">Category</Label>
-                                                <Input type="select" name="select" id="category">
-                                                    <option>Takaful</option>
-                                                    <option>Islamic Finance</option>
-                                                    <option>Islamic Insurance</option>
-                                                    <option>Types of Takaful</option>
-                                                </Input>
+                                                <Label for="id">ID</Label>
+                                                <Input type="text" value={data[activeStep]._id} id="id" name="id" readOnly />
                                             </FormGroup>
-                                        </FormGroup>
-                                    </Col>
-                                    <Col lg={4} md={4} sm={12}>
-                                        {/* <FormGroup>
+                                        </Col>
+                                        <Col lg={4} md={4} sm={12}>
+                                            <FormGroup>
+                                                <Label for="term">Term</Label>
+                                                <Input type="text" value={data[activeStep].term} id="term" name="term" readOnly />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col lg={4} md={4} sm={12}>
+                                            <FormGroup>
+                                                <FormGroup>
+                                                    <Label for="category">Category</Label>
+                                                    <Input type="select" name="select" id="category">
+                                                        <option>{data[activeStep].category}</option>
+                                                    </Input>
+                                                </FormGroup>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col lg={4} md={4} sm={12}>
+                                            {/* <FormGroup>
                                             <FormGroup>
                                                 <Label for="intent">Intent</Label>
                                                 <Input type="select" name="select" id="intent">
@@ -59,94 +85,78 @@ function NewForm() {
                                                 </Input>
                                             </FormGroup>
                                         </FormGroup> */}
-                                    </Col>
-                                </Row>
-                                <Row>
+                                        </Col>
+                                    </Row>
+                                    {/* <Row>
                                     <Col lg={12} md={12} sm={12}>
                                         <FormGroup>
                                             <Label for="question">Question</Label>
                                             <Input type="text" placeholder="Enter your question" id="question" name="question" />
                                         </FormGroup>
                                     </Col>
-                                </Row>
-                                <Row>
-                                    <Col lg={12} md={12} sm={12}>
-                                        <FormGroup>
-                                            <Label for="q_variant">Question Variant</Label>
-                                            <div className="var-add">
-                                                <Input type="text" placeholder="Enter question variant" id="q_variant" name="q_variant" />
-                                                <Button>+</Button>
-                                            </div>
-
-                                            <ul className="quiz-var">
-                                                <li><span>What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and
-                                                typesetting
-                                        industry. Lorem ipsum, or lipsum as it is sometimes known.</span>
-                                                    <div className="del-btn">
-                                                        <button>+</button>
-                                                    </div>
-                                                </li>
-                                                <li><span>Lorem ipsum, or lipsum as it is sometimes known.</span>
-                                                    <div className="del-btn">
-                                                        <button>+</button>
-                                                    </div>
-                                                </li>
-                                                <li><span>What is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and
-                                                typesetting
-                                        industry.</span>
-                                                    <div className="del-btn">
-                                                        <button>+</button>
-                                                    </div>
-                                                </li>
-                                                <li><span>Lorem ipsum, or lipsum as it is sometimes known.</span>
-                                                    <div className="del-btn">
-                                                        <button>+</button>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col lg={12} md={12} sm={12}>
-                                        <FormGroup>
-                                            <Label for="long_ans">Long Answer</Label>
-                                            <textarea rows="4" placeholder="Enter long answer" id="long_ans" name="long_ans" className="form-control" />
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                                <Row>
+                                </Row> */}
+                                    <Row>
+                                        <Col lg={12} md={12} sm={12}>
+                                            <FormGroup>
+                                                <Label for="definition">Definitions</Label>
+                                                <div className="var-add">
+                                                    <Input type="text" onChange={(e) => onDefinitionChange(e)} value={definition} placeholder="Enter definition" id="definition" name="definition" />
+                                                    <Button>+</Button>
+                                                </div>
+                                                {data[activeStep].definition.length !== 0 &&
+                                                    <ul className="quiz-var">
+                                                        {data[activeStep].definition.map((res) =>
+                                                            <li><span>{res}</span>
+                                                                <div className="del-btn">
+                                                                    <button>+</button>
+                                                                </div>
+                                                            </li>
+                                                        )}
+                                                    </ul>}
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <Col lg={12} md={12} sm={12}>
+                                            <FormGroup>
+                                                <Label for="long_ans">Detail</Label>
+                                                <textarea rows="4" placeholder="Enter detailed answer" onChange={(e) => onDetailChange(e)} value={detail || data[activeStep].detail} id="long_ans" name="long_ans" className="form-control" />
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+                                    {/* <Row>
                                     <Col lg={12} md={12} sm={12}>
                                         <FormGroup>
                                             <Label for="short_ans">Short Answer</Label>
                                             <Input type="text" placeholder="Enter short answer" id="short_ans" name="short_ans" />
                                         </FormGroup>
                                     </Col>
-                                </Row>
-                                <Row>
-                                    <Col lg={4} md={4} sm={12}>
-                                        <FormGroup>
-                                            <Label for="source">Source</Label>
-                                            <Input type="text" placeholder="Enter source" id="source" name="source" />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col lg={4} md={4} sm={12}>
-                                        <FormGroup>
-                                            <Label for="modify_at">Last Modify by</Label>
-                                            <Input type="text" name="modify_by" id="modify_by" readOnly />
-                                        </FormGroup>
-                                    </Col>
-                                    <Col lg={4} md={4} sm={12}>
-                                        <FormGroup>
-                                            <Label for="modify_at">Last Modify at</Label>
-                                            <Input type="date" name="modify_at" id="modify_at" readOnly />
-                                        </FormGroup>
-                                    </Col>
-                                </Row>
-                            </Form>
+                                </Row> */}
+                                    <Row>
+                                        <Col lg={4} md={4} sm={12}>
+                                            <FormGroup>
+                                                <Label for="source">Source</Label>
+                                                <Input type="text" value={data[activeStep].source} placeholder="Enter source" id="source" name="source" />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col lg={4} md={4} sm={12}>
+                                            <FormGroup>
+                                                <Label for="modify_at">Last Modify by</Label>
+                                                <Input type="text" name="modify_by" placeholder="Enter your Name" id="modify_by" />
+                                            </FormGroup>
+                                        </Col>
+                                        <Col lg={4} md={4} sm={12}>
+                                            <FormGroup>
+                                                <Label for="modify_at">Last Modify at</Label>
+                                                <Input type="date" name="modify_at" id="modify_at" readOnly />
+                                            </FormGroup>
+                                        </Col>
+                                    </Row>
+                                </Form>
+                            }
                             <div className="footer-btn">
-                                <Button className="btn btn--radius btn--blue" color="primary" type="submit">Back</Button>
-                                <Button className="btn btn--radius btn--blue" color="primary" type="submit">Next</Button>
+                                <Button onClick={() => previousStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Back</Button>
+                                <Button onClick={() => nextStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Next</Button>
                             </div>
                         </div>
                     </Col>
