@@ -74,9 +74,17 @@ body {
 }
 .del-btn {
   align-items: center;
-  display: inline-flex;
+  display: contents;
   width: 20px;
   position: relative;
+  cursor: pointer;
+  font-size: 24px !important;
+}
+.del svg path {
+  fill: red;
+}
+.edit svg path {
+  fill: orange;
 }
 .footer-btn {
   display: flex;

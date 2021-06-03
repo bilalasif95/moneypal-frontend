@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 import "./assets/styles";
 import API from "./utils/API";
 import NewForm from "./form";
+import Home from "./Home";
 import history from './history';
 import DataForm from "./DataForm";
 
@@ -166,6 +167,7 @@ class App extends Component {
       <div>
         <Router history={history}>
           <Switch>
+          <Route path="/home" component={Home} />
             <Route path="/form" component={NewForm} />
             <Route path="/dataform" component={DataForm} />
           </Switch>

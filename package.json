@@ -35,6 +35,7 @@
     "moment": "^2.29.1",
     "prop-types": "15.5.10",
     "react-highlight.js": "^1.0.7",
+    "react-icons": "^4.2.0",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "reactstrap": "^8.9.0",
