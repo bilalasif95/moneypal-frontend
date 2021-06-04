@@ -4,8 +4,6 @@ import API from "./utils/API";
 import Moment from 'moment'
 import { BiEdit } from "react-icons/bi";
 import { BsX } from "react-icons/bs";
-
-
 function NewForm() {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
@@ -22,15 +20,11 @@ function NewForm() {
     const [editSynonymIndex, setEditSynonymIndex] = useState(-1);
     const [synonym, setSynonym] = useState('')
     const [synonymArray, setSynonymArray] = useState([])
-
-
     const [activeStep, setActiveStep] = useState(0)
     const [source, setSource] = useState(data[activeStep] && data[activeStep].source)
     const today = new Date()
-
     const OnUpdate_Form = () => {
         const updatedName = localStorage.getItem('name')
-
         const payload = {
             term: term,
             source: source,
@@ -53,15 +47,12 @@ function NewForm() {
             .catch(() => {
                 setLoading(false)
             })
-
     }
-
-
     useEffect(() => {
         setLoading(true)
         API.get("api/v1/terms")
             .then((res) => {
-
+                console.log("data", res.data)
                 setData(res.data)
                 setLoading(false)
                 setSource(res.data[activeStep].source)
@@ -77,8 +68,6 @@ function NewForm() {
                 setLoading(false)
             })
     }, [activeStep])
-
-
     const previousStep = () => {
         if (activeStep > 0) {
             setActiveStep(activeStep - 1)
@@ -96,7 +85,6 @@ function NewForm() {
             setTerm(data[activeStep] && data[activeStep].term)
         }
     }
-
     const onDetailChange = (e) => {
         setDetail(e.target.value)
     }
@@ -111,11 +99,8 @@ function NewForm() {
         setModifyAt('')
         setModifyBy('')
         setCategory('')
-
     }
     const OnSubmit_Form = () => {
-
-
         const payload = {
             term: term,
             synonyms: synonymArray,
@@ -136,7 +121,6 @@ function NewForm() {
             .catch(() => {
                 setLoading(false)
             })
-
     }
     const onBackHandleChange = (e) => {
         setAddForm(false);
@@ -150,6 +134,7 @@ function NewForm() {
     }
     const onSynonymsChange = (e) => {
         setSynonym(e.target.value)
+        console.log("synonym", synonym)
 
     }
     const addDefination = (e) => {
@@ -158,14 +143,11 @@ function NewForm() {
             const some_array = [...definationArray]
             some_array[editIndex] = definition;
             setDefinationArray(some_array)
-
         }
         else {
             setDefinationArray(prev =>
                 prev.concat(definition))
-
         }
-
     }
     const addSynonyms = (e) => {
         e.preventDefault();
@@ -178,45 +160,31 @@ function NewForm() {
             setSynonymArray(prev =>
                 prev.concat(synonym))
         }
-
-
-
     }
-
-
-
-    const editDwfActivestep = (e, index) => {
+    const ediitDefinationIndex = (e, index) => {
         e.preventDefault();
 
         setEditIndex(index)
-
-
+        console.log("editIndex",editIndex)
         setDefinition(data[activeStep].definition[index])
     }
-
-
-    const editsynonymsActivestep = (e, index) => {
+    const editSynonymIndexFunc = (e, index) => {
         e.preventDefault();
-
         setEditSynonymIndex(index)
-
-
-        setSynonym(data[activeStep].synonym[index])
+        console.log(".....", editSynonymIndex)
+        setSynonym(data[activeStep].synonyms[index])
     }
-
-
-
     const onDeleteHandle = (e, index) => {
         e.preventDefault();
-
         const filterData = definationArray.filter((res, ind) => ind !== index)
         setDefinationArray(filterData)
     }
-
-
-
+    const onSynonymDelete =(e, index)=>{
+        e.preventDefault();
+        const synonymFilterData = synonymArray.filter((res, ind)=>ind !== index)
+        setSynonymArray(synonymFilterData)
+    }
     return (
-
         <div className="App">
             <Container>
                 <Row>
@@ -224,10 +192,8 @@ function NewForm() {
                         <div className="form-container">
                             <div className="form-header">
                                 {
-                                    addForm ? <h2> Add Form</h2> :
-                                        <h2> Form</h2>
+                                    addForm ? <h2> Add Form</h2> :<h2> Form</h2>
                                 }
-
                                 {
                                     addForm ?
                                         <div className="btn--group">
@@ -275,9 +241,7 @@ function NewForm() {
                                                             <Input type="select" name="select" id="category" value={category}>
                                                                 <option>{category || data[activeStep].category}</option>
                                                             </Input>
-
                                                     }
-
                                                 </FormGroup>
                                             </FormGroup>
                                         </Col>
@@ -297,21 +261,17 @@ function NewForm() {
                                                         {definationArray.map((res, index) =>
                                                             <li key={index}><span>{res}</span>
                                                                 <button className="del-btn edit">
-                                                                    <BiEdit onClick={(e) => editDwfActivestep(e, index)} />
+                                                                    <BiEdit onClick={(e) => ediitDefinationIndex(e, index)} />
                                                                 </button>
                                                                 <button className="del-btn del">
                                                                     <BsX onClick={(e) => onDeleteHandle(e, index)} />
                                                                 </button>
-
-
                                                             </li>
                                                         )}
                                                     </ul>}
                                             </FormGroup>
                                         </Col>
                                     </Row>
-
-
                                     <Row>
                                         <Col lg={12} md={12} sm={12}>
                                             <FormGroup>
@@ -325,23 +285,17 @@ function NewForm() {
                                                         {synonymArray && synonymArray.map((res, index) =>
                                                             <li key={index}><span>{res}</span>
                                                                 <button className="del-btn edit">
-                                                                    <BiEdit onClick={(e) => editsynonymsActivestep(e, index)} />
+                                                                    <BiEdit onClick={(e) => editSynonymIndexFunc(e, index)} />
                                                                 </button>
                                                                 <button className="del-btn del">
-                                                                    <BsX onClick={(e) => onsynonymsDeleteHandle(e, index)} />
+                                                                    <BsX onClick={(e) => onSynonymDelete(e, index)} />
                                                                 </button>
-
-
                                                             </li>
                                                         )}
                                                     </ul>}
                                             </FormGroup>
                                         </Col>
                                     </Row>
-
-
-
-
                                     <Row>
                                         <Col lg={12} md={12} sm={12}>
                                             <FormGroup>
@@ -369,23 +323,14 @@ function NewForm() {
                                                     <Input type="text" name="modify_by" value={modify_by} placeholder="Enter your Name" onChange={e => setModifyBy(e.target.value)}
                                                         id="modify_by" readOnly />
                                                 }
-
-
                                             </FormGroup>
                                         </Col>
                                         <Col lg={4} md={4} sm={12}>
                                             {
-                                                addForm ?
-                                                    ''
-                                                    :
+                                                addForm ?'':
                                                     <FormGroup>
                                                         <Label for="modify_at">Last Modify at</Label>
-
                                                         <Input type="date" name="modify_at" value={modify_at} id="modify_at" onChange={e => setModifyAt(e.target.value)} readOnly />
-
-
-
-
                                                     </FormGroup>
                                             }
                                         </Col>
@@ -394,18 +339,14 @@ function NewForm() {
                             }
                             <div className="footer-btn">
                                 {
-                                    addForm ?
-                                        ''
-                                        :
+                                    addForm ?'':
                                         <Button onClick={() => previousStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Back</Button>
                                 }
-
                                 {
                                     addForm ?
                                         <Button onClick={() => OnSubmit_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Submit</Button>
                                         :
                                         <Button onClick={() => OnUpdate_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Update</Button>
-
                                 }
 
                                 {
