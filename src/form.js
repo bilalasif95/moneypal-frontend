@@ -4,6 +4,9 @@ import API from "./utils/API";
 import Moment from 'moment'
 import { BiEdit } from "react-icons/bi";
 import { BsX } from "react-icons/bs";
+import { BsCheck } from "react-icons/bs";
+
+
 
 function NewForm() {
     const [data, setData] = useState([])
@@ -155,7 +158,6 @@ function NewForm() {
     const tikSynonym = (e, index) => {
         e.preventDefault();
         const some_array = [...synonymArray]
-        console.log(";;;;;", some_array, some_array[editIndex], editSynonym)
         some_array[editSynonymIndex] = editSynonym;
         setSynonymArray(some_array)
         setEditSynonymIndex(-1)
@@ -182,13 +184,11 @@ function NewForm() {
         }
     }
     const ediitDefinationIndex = (e, index) => {
-
         e.preventDefault();
         setEditIndex(index)
         setEditDefinition(definationArray[index])
 
     }
-    console.log("in", editDefinition)
     const editSynonymIndexFunc = (e, index) => {
         e.preventDefault();
         setEditSynonymIndex(index)
@@ -204,7 +204,6 @@ function NewForm() {
         e.preventDefault();
         const synonymfilterData = synonymArray.filter((res, ind) => ind !== index)
         setSynonymArray(synonymfilterData)
-
     }
     return (
         <div className="App">
@@ -279,15 +278,15 @@ function NewForm() {
                                                 {definationArray.length !== 0 &&
                                                     <ul className="quiz-var">
                                                         {definationArray.map((res, index) =>
-                                                            <li key={index}><span>{editIndex === index ? <Input type="text" onChange={(e) => onEditDefinitionChange(e)} value={editDefinition} placeholder="Edit definition" id="editDefinition" name="editDefinition" /> : res}</span>
+                                                            <li key={index}><span className="spaninline">{editIndex === index ? <Input type="text" onChange={(e) => onEditDefinitionChange(e)} value={editDefinition} placeholder="Edit definition" id="editDefinition" name="editDefinition" /> : res}</span>
                                                                 {
                                                                     editIndex === index ?
-                                                                        <button className="del-btn edit">
+                                                                        <button className="del-btn tick">
 
-                                                                            <BiEdit onClick={(e) => tickButton(e, index)} />
+                                                                            <BsCheck onClick={(e) => tickButton(e, index)} />
                                                                         </button>
                                                                         :
-                                                                        <div style={{ display: 'flex' }}>
+                                                                        <span>
                                                                             <button className="del-btn edit">
 
                                                                                 <BiEdit onClick={(e) => ediitDefinationIndex(e, index)} />
@@ -295,7 +294,7 @@ function NewForm() {
                                                                             <button className="del-btn del">
                                                                                 <BsX onClick={(e) => onDeleteHandle(e, index)} />
                                                                             </button>
-                                                                        </div>
+                                                                        </span>
                                                                 }
                                                             </li>
                                                         )}
@@ -314,14 +313,17 @@ function NewForm() {
                                                 {synonymArray &&
                                                     <ul className="quiz-var">
                                                         {synonymArray && synonymArray.map((res, index) =>
-                                                            <li key={index}><span>{editSynonymIndex === index ? <Input type="text" onChange={(e) => onEditSynonymChange(e)} value={editSynonym} placeholder="Edit definition" id="editSynonym" name="editSynonym" /> : res}</span>
+                                                            <li key={index}><span className="spaninline">{editSynonymIndex === index ? <Input type="text" onChange={(e) => onEditSynonymChange(e)} value={editSynonym} placeholder="Edit definition" id="editSynonym" name="editSynonym" /> : res}</span>
                                                                 {
                                                                     editSynonymIndex === index ?
-                                                                        <button className="del-btn edit">
-                                                                            <BiEdit onClick={(e) => tikSynonym(e, index)} />
-                                                                        </button>
+                                                                        <span>
+                                                                            <button className="del-btn tick">
+                                                                                <BsCheck onClick={(e) => tikSynonym(e, index)} />
+                                                                            </button>
+
+                                                                        </span>
                                                                         :
-                                                                        <div>
+                                                                        <span>
 
                                                                             <button className="del-btn edit">
                                                                                 <BiEdit onClick={(e) => editSynonymIndexFunc(e, index)} />
@@ -330,7 +332,7 @@ function NewForm() {
                                                                                 <BsX onClick={(e) => onSynonymDelete(e, index)} />
                                                                             </button>
 
-                                                                        </div>
+                                                                        </span>
                                                                 }
                                                             </li>
                                                         )}

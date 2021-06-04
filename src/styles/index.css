@@ -86,6 +86,12 @@ body {
 .edit svg path {
   fill: orange;
 }
+.tick svg path {
+  fill: green;
+}
+.spaninline{
+  display: inline-block;
+}
 .footer-btn {
   display: flex;
   justify-content: space-between;
