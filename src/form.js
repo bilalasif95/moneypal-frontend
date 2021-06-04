@@ -4,6 +4,7 @@ import API from "./utils/API";
 import Moment from 'moment'
 import { BiEdit } from "react-icons/bi";
 import { BsX } from "react-icons/bs";
+
 function NewForm() {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true)
@@ -38,7 +39,6 @@ function NewForm() {
         const id = data[activeStep] && data[activeStep]._id;
         API.put(`api/v1/terms/${id}`, payload)
             .then((res) => {
-
                 setSource(res.data.source)
                 setTerm(res.data.term)
                 setModifyBy(res.data.updated_by)
@@ -52,7 +52,6 @@ function NewForm() {
         setLoading(true)
         API.get("api/v1/terms")
             .then((res) => {
-                console.log("data", res.data)
                 setData(res.data)
                 setLoading(false)
                 setSource(res.data[activeStep].source)
@@ -77,7 +76,6 @@ function NewForm() {
     }
     const nextStep = () => {
         setDefinationArray([])
-
         if (activeStep < data.length - 1) {
             setActiveStep(activeStep + 1)
             setSource(data[activeStep].source)
@@ -88,7 +86,7 @@ function NewForm() {
     const onDetailChange = (e) => {
         setDetail(e.target.value)
     }
-    const onAddFormhandle = (e) => {
+    const onAddFormhandle = () => {
         setAddForm(true)
         setSource('')
         setTerm('')
@@ -112,30 +110,31 @@ function NewForm() {
             updated_by: modify_by,
             updated_at: today
         }
-
         API.post(`api/v1/terms`, payload)
             .then(() => {
-
                 setAddForm(false)
             })
             .catch(() => {
                 setLoading(false)
             })
     }
-    const onBackHandleChange = (e) => {
+    const onBackHandleChange = () => {
         setAddForm(false);
+        setDefinationArray(data[activeStep].definition)
+        setSynonymArray(data[activeStep] && data[activeStep].synonyms)
+        setSource(data[activeStep].source)
+        setModifyBy(data[activeStep].updated_by)
+        setTerm(data[activeStep] && data[activeStep].term)
+        setModifyAt(Moment(data[activeStep] && data[activeStep].updated_at).format('YYYY-MM-DD'))
     }
     const categoryHandlechange = e => {
         setCategory(e.target.value)
     }
     const onDefinitionChange = (e) => {
         setDefinition(e.target.value)
-
     }
     const onSynonymsChange = (e) => {
         setSynonym(e.target.value)
-        console.log("synonym", synonym)
-
     }
     const addDefination = (e) => {
         e.preventDefault();
@@ -163,21 +162,18 @@ function NewForm() {
     }
     const ediitDefinationIndex = (e, index) => {
         e.preventDefault();
-
         setEditIndex(index)
-        console.log("editIndex",editIndex)
         setDefinition(data[activeStep].definition[index])
     }
     const editSynonymIndexFunc = (e, index) => {
         e.preventDefault();
         setEditSynonymIndex(index)
-        console.log(".....", editSynonymIndex)
         setSynonym(data[activeStep].synonyms[index])
     }
     const onDeleteHandle = (e, index) => {
         e.preventDefault();
         const filterData = definationArray.filter((res, ind) => ind !== index)
-        setDefinationArray(filterData)
+        setDefinationArray(filterData)       
     }
     const onSynonymDelete =(e, index)=>{
         e.preventDefault();
@@ -198,9 +194,8 @@ function NewForm() {
                                     addForm ?
                                         <div className="btn--group">
                                             <Button color="danger" onClick={onBackHandleChange}>Back</Button>
-
                                         </div>
-                                        : (
+                                        :(
                                             <div className="btn--group">
                                                 <Button color="danger">Delete</Button>
                                                 <Button color="primary" onClick={onAddFormhandle}>Add</Button>
@@ -235,7 +230,6 @@ function NewForm() {
                                                             <Input type="select" name="select" id="category" value={category} onChange={categoryHandlechange}>
                                                                 <option>Select Category</option>
                                                                 <option>Takaful</option>
-
                                                             </Input>
                                                             :
                                                             <Input type="select" name="select" id="category" value={category}>
@@ -300,7 +294,7 @@ function NewForm() {
                                         <Col lg={12} md={12} sm={12}>
                                             <FormGroup>
                                                 <Label for="long_ans">Detail</Label>
-                                                <textarea rows="4" placeholder="Enter detailed answer" onChange={(e) => onDetailChange(e)} value={detail} id="long_ans" name="long_ans" className="form-control" />
+                                                <textarea rows="4" placeholder="Enter detailed answer" onChange={(e) => onDetailChange(e)} value={detail} id="long_ans" name="long_ans" className="form-control" required={true}/>
                                             </FormGroup>
                                         </Col>
                                     </Row>
@@ -308,14 +302,12 @@ function NewForm() {
                                         <Col lg={4} md={4} sm={12}>
                                             <FormGroup>
                                                 <Label for="source">Source</Label>
-
                                                 <Input type="text" value={source} name="source" placeholder="Enter source" id="source" onChange={e => setSource(e.target.value)} name="source" />
                                             </FormGroup>
                                         </Col>
                                         <Col lg={4} md={4} sm={12}>
                                             <FormGroup>
-                                                <Label for="modify_at">Last Modify by</Label>
-
+                                                <Label for="modify_by">Last Modify by</Label>
                                                 {addForm ?
                                                     <Input type="text" name="modify_by" value={modify_by} placeholder="Enter your Name" onChange={e => setModifyBy(e.target.value)}
                                                         id="modify_by" />
@@ -348,13 +340,10 @@ function NewForm() {
                                         :
                                         <Button onClick={() => OnUpdate_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Update</Button>
                                 }
-
                                 {
                                     addForm ? '' :
                                         <Button onClick={() => nextStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Next</Button>
-
                                 }
-
                             </div>
                         </div>
                     </Col>
