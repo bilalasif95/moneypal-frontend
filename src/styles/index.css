@@ -368,3 +368,13 @@ h2 {
     height: 70%;
   }
 }
+
+.errorMessage{ 
+  text-align: center;
+  color: red;
+}
+
+.successMessage{ 
+  text-align: center;
+  color: green;
+}
