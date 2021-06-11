@@ -336,9 +336,9 @@ class MessageList extends Component {
   //   }, 1000)
   // };
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   this.scrollList.scrollTop = this.scrollList.scrollHeight;
-  // }
+  componentDidUpdate(prevProps, prevState) {
+    this.scrollList.scrollTop = this.scrollList.scrollHeight;
+  }
 
   returningConversationFlow() {
     // const { conversationContinue, askQuestionType, confirmQuestionType, askCategoryType, answerSatisfaction, knowMore } = this.props;
