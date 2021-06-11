@@ -160,13 +160,9 @@ class App extends Component {
     }
   }
 
-  _handleClick() {
+  componentDidMount() {
     this.props.startFetching();
     this.props.contentEditableAction(false);
-    this.setState({
-      isOpen: !this.state.isOpen,
-      newMessagesCount: 0,
-    });
     let data = {
       sender: "test_user",
       message :"hello"
@@ -180,6 +176,16 @@ class App extends Component {
     }).catch((err) => {
       console.log("err:::", err);
     })
+    
+  }
+
+  _handleClick() {
+   
+    this.setState({
+      isOpen: !this.state.isOpen,
+      newMessagesCount: 0,
+    });
+   
   }
 
   onKeyPress = () => { };
