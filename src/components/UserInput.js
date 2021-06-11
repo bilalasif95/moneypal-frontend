@@ -55,17 +55,17 @@ class UserInput extends Component {
       }
     } else {
       if (text && text.length > 0) {
-        if (this.props.whattocall === "takequestion") {
-          this.props.onSubmit({
-            author: "me",
-            type: "text",
-            data: { text },
-            whattodo: "showMessages",
-          });
-          this.userInput.innerHTML = "";
-          this.props.whattocallAction("");
-        }
-        else {
+        // if (this.props.whattocall === "takequestion") {
+        //   this.props.onSubmit({
+        //     author: "me",
+        //     type: "text",
+        //     data: { text },
+        //     whattodo: "showMessages",
+        //   });
+        //   this.userInput.innerHTML = "";
+        //   this.props.whattocallAction("");
+        // }
+        // else {
           this.props.onSubmit({
             author: "me",
             type: "text",
@@ -74,7 +74,7 @@ class UserInput extends Component {
           });
           this.userInput.innerHTML = "";
           this.props.whattocallAction("");
-        }
+        //}
       }
     }
   }

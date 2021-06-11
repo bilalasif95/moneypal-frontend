@@ -9,7 +9,7 @@ import {
 import { whattocallAction, askQuestionAction, askedQuestionAction, knowMoreAction, userNameAction, askCategoryAction, contentEditableAction, answerAction, answerSatisfactionAction } from "./components/stateManagement/actions/conversationFlowUpdate";
 import { connect } from "react-redux";
 import "./assets/styles";
-import API from "./utils/API";
+import API from "./utils/RASAAPI";
 import NewForm from "./form";
 import Home from "./Home";
 import history from './history';
@@ -23,100 +23,113 @@ class App extends Component {
       newMessagesCount: 0,
       isOpen: false,
     };
-    this.lastId = messageHistory[messageHistory.length - 1].id;
+    //this.lastId = messageHistory[messageHistory.length - 1].id;
   }
 
   _onMessageWasSent(message) {
     if (message.whattodo === "callapi") {
       this.props.startFetching();
-      this.props.askQuestionAction(false);
-      this.props.answerSatisfactionAction(false);
-      if (this.props.whattocall === "name") {
-        var data = new FormData();
-        data.append("name", message.data.text);
+      // this.props.askQuestionAction(false);
+      // this.props.answerSatisfactionAction(false);
+      // if (this.props.whattocall === "name") {
+      //   var data = new FormData();
+      //   data.append("name", message.data.text);
         this.props.contentEditableAction(false);
-        API.post("/name", data).then((res) => {
+        let data = {
+          sender: "test_user",
+          message : message.data.text
+        }
+        API.post("/api/message/send", data ).then((response) => {
           this.props.stopFetching()
-          this._sendMessage(res.data.data)
-          this.props.userNameAction(res.data.name)
-          this._sendMessage("I can resolve your query in just a few clicks..")
-          this._sendMessage("Can you type in your question?")
-          // this.props.whattocallAction("email");
-          this.props.whattocallAction("takequestion");
           this.props.contentEditableAction(true);
-        })
-      }
-      if (this.props.whattocall === "email") {
-        this.props.contentEditableAction(false);
-        var email = new FormData();
-        email.append("email", message.data.text);
-        API.post("/email", email).then(() => {
-          this.props.stopFetching()
-          this._sendMessage("Thank you. Would you also like to join our quarterly newsletter on events hosted by MoneyPAL?")
-          // this._sendMessage("Let us know what you are interested in.")
-          this.props.askQuestionAction(true);
+          response.data.map((data) => {   
+           this._sendMessage(data.text)
+            })
         }).catch((err) => {
-          this.props.stopFetching()
-          // this._sendMessage(err.response.data.data)
-          this._sendMessage("Ok if you do not want to provide your email, it is fine.");
-          this._sendMessage("Do you have any other question?")
-          // this.props.whattocallAction("email");
-          this.props.knowMoreAction(true);
+          console.log("err:::", err);
         })
-      }
-      if (this.props.whattocall === "terminology") {
-        var terminology = new FormData();
-        terminology.append("terminology", this.props.askedQuestion);
-        API.post("/terminology", terminology).then((res) => {
-          this.props.stopFetching()
-          this.props.answerAction(res.data.data[1])
-          this._sendMessage(`Answer is: ${res.data.data[1]}`)
-          this._sendMessage(`${this.props.userName}, are you satisfied?`)
-          this.props.answerSatisfactionAction(true);
-          this.props.contentEditableAction(false);
-        }).catch((err) => {
-          this.props.stopFetching()
-          this._sendMessage(err.response.data.data)
-          this.props.askQuestionAction(true);
-          this.props.contentEditableAction(false);
-        })
-      }
-      if (this.props.whattocall === "question") {
-        var question = new FormData();
-        question.append("question", this.props.askedQuestion);
-        API.post("/question", question).then((res) => {
-          this.props.stopFetching()
-          this.props.answerAction(res.data.data)
-          this._sendMessage(`Answer is: ${res.data.data}`)
-          this._sendMessage(`${this.props.userName}, are you satisfied?`)
-          this.props.answerSatisfactionAction(true);
-          this.props.contentEditableAction(false);
-        }).catch((err) => {
-          this.props.stopFetching()
-          this._sendMessage(err.response.data.data)
-          this.props.askQuestionAction(true);
-          this.props.contentEditableAction(false);
-        })
-      }
+        // API.post("/name", data).then((res) => {
+        //   this.props.stopFetching()
+        //   this._sendMessage(res.data.data)
+        //   this.props.userNameAction(res.data.name)
+        //   this._sendMessage("I can resolve your query in just a few clicks..")
+        //   this._sendMessage("Can you type in your question?")
+        //   // this.props.whattocallAction("email");
+        //   this.props.whattocallAction("takequestion");
+        //   this.props.contentEditableAction(true);
+        // })
+      //}
+      // if (this.props.whattocall === "email") {
+      //   //this.props.contentEditableAction(false);
+      //   var email = new FormData();
+      //   email.append("email", message.data.text);
+      //   API.post("/email", email).then(() => {
+      //     this.props.stopFetching()
+      //     this._sendMessage("Thank you. Would you also like to join our quarterly newsletter on events hosted by MoneyPAL?")
+      //     // this._sendMessage("Let us know what you are interested in.")
+      //     this.props.askQuestionAction(true);
+      //   }).catch((err) => {
+      //     this.props.stopFetching()
+      //     // this._sendMessage(err.response.data.data)
+      //     this._sendMessage("Ok if you do not want to provide your email, it is fine.");
+      //     this._sendMessage("Do you have any other question?")
+      //     // this.props.whattocallAction("email");
+      //     this.props.knowMoreAction(true);
+      //   })
+      // }
+      // if (this.props.whattocall === "terminology") {
+      //   var terminology = new FormData();
+      //   terminology.append("terminology", this.props.askedQuestion);
+      //   API.post("/terminology", terminology).then((res) => {
+      //     this.props.stopFetching()
+      //     this.props.answerAction(res.data.data[1])
+      //     this._sendMessage(`Answer is: ${res.data.data[1]}`)
+      //     this._sendMessage(`${this.props.userName}, are you satisfied?`)
+      //     this.props.answerSatisfactionAction(true);
+      //     this.props.contentEditableAction(false);
+      //   }).catch((err) => {
+      //     this.props.stopFetching()
+      //     this._sendMessage(err.response.data.data)
+      //     this.props.askQuestionAction(true);
+      //     this.props.contentEditableAction(false);
+      //   })
+      // }
+      // if (this.props.whattocall === "question") {
+      //   var question = new FormData();
+      //   question.append("question", this.props.askedQuestion);
+      //   API.post("/question", question).then((res) => {
+      //     this.props.stopFetching()
+      //     this.props.answerAction(res.data.data)
+      //     this._sendMessage(`Answer is: ${res.data.data}`)
+      //     this._sendMessage(`${this.props.userName}, are you satisfied?`)
+      //     this.props.answerSatisfactionAction(true);
+      //     this.props.contentEditableAction(false);
+      //   }).catch((err) => {
+      //     this.props.stopFetching()
+      //     this._sendMessage(err.response.data.data)
+      //     this.props.askQuestionAction(true);
+      //     this.props.contentEditableAction(false);
+      //   })
+      // }
     }
-    if (message.whattodo === "showMessages") {
-      this.props.startFetching();
-      this.props.contentEditableAction(false);
-      var question = new FormData();
-      question.append("question", message.data.text);
-      API.post("/question", question).then((res) => {
-        this.props.stopFetching();
-        this.props.askedQuestionAction(message.data.text);
-        this._sendMessage("OK great! Now which knowledge area does it fit into?")
-        this.props.askCategoryAction(true);
-      }).catch((err) => {
-        this.props.stopFetching();
-        this.props.whattocallAction("takequestion");
-        this._sendMessage(err.response.data.data);
-        this.props.contentEditableAction(true);
-      })
-      // this._sendMessage("OK great! Now which knowledge area does it fit into?");
-    }
+    // if (message.whattodo === "showMessages") {
+    //   this.props.startFetching();
+    //   this.props.contentEditableAction(false);
+    //   var question = new FormData();
+    //   question.append("question", message.data.text);
+    //   API.post("/question", question).then((res) => {
+    //     this.props.stopFetching();
+    //     this.props.askedQuestionAction(message.data.text);
+    //     this._sendMessage("OK great! Now which knowledge area does it fit into?")
+    //     this.props.askCategoryAction(true);
+    //   }).catch((err) => {
+    //     this.props.stopFetching();
+    //     this.props.whattocallAction("takequestion");
+    //     this._sendMessage(err.response.data.data);
+    //     this.props.contentEditableAction(true);
+    //   })
+    //   // this._sendMessage("OK great! Now which knowledge area does it fit into?");
+    // }
     this.setState({
       messageList: [
         ...this.state.messageList,
@@ -148,10 +161,25 @@ class App extends Component {
   }
 
   _handleClick() {
+    this.props.startFetching();
+    this.props.contentEditableAction(false);
     this.setState({
       isOpen: !this.state.isOpen,
       newMessagesCount: 0,
     });
+    let data = {
+      sender: "test_user",
+      message :"hello"
+    }
+    API.post("/api/message/send", data ).then((response) => {
+      this.props.stopFetching();
+      this.props.contentEditableAction(true);
+      response.data.map((data, index) => {   
+        this._sendMessage(data.text)
+      })
+    }).catch((err) => {
+      console.log("err:::", err);
+    })
   }
 
   onKeyPress = () => { };
