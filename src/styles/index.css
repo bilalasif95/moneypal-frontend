@@ -405,9 +405,9 @@ h2 {
 }
 .closeBtn {
   position: absolute;
-  right: 40px;
+  right: 25px;
   z-index: 9999;
-  top: 5px;
+  top: 0px;
 }
 .mt-0 {
   margin-top: 0px !important;
