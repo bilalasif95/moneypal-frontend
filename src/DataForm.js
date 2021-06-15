@@ -6,6 +6,8 @@ import { Redirect } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { BsX } from "react-icons/bs";
 import { BsCheck } from "react-icons/bs";
+import Pagination from "react-js-pagination";
+import 'bootstrap/dist/css/bootstrap.css';
 
 function DataForm() {
     const [data, setData] = useState([])
@@ -25,6 +27,10 @@ function DataForm() {
     const [activeStep, setActiveStep] = useState(0)
     const [source, setSource] = useState("")
     const [editExample, setEditExample] = useState('')
+    const [search, setSearch] = useState("")
+    const [activePage, setActivePage] = useState()
+    const [length, setLength] = useState('')
+
     const today = new Date()
     const OnUpdate_Form = () => {
         setError("")
@@ -50,6 +56,7 @@ function DataForm() {
                         setLoading(false)
                         setSuccess("")
                         setAddForm(false)
+                        setLength(res.data.length)
                         setSource(res.data[activeStep].source)
                         setResponse(res.data[activeStep].response)
                         setModifyBy(res.data[activeStep].updated_by)
@@ -71,9 +78,11 @@ function DataForm() {
     }
     useEffect(() => {
         setLoading(true)
+        if(search === ""){
         API.get("api/v1/intents")
             .then((res) => {
                 setData(res.data)
+                setLength(res.data.length)
                 setLoading(false)
                 setSource(res.data[activeStep].source)
                 setResponse(res.data[activeStep].response)
@@ -88,12 +97,36 @@ function DataForm() {
                 setError(err.response.data)
                 setLoading(false)
             })
+        }
+        else{
+                API.get(`api/v1/intents?starts_with=${search}`)
+                .then((res) => {
+                setData(res.data)
+                setLoading(false)
+                setSource(res.data[activeStep].source)
+                setModifyBy(res.data[activeStep].updated_by)
+                setLength(res.data.length)
+                setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                setCategory(res.data[activeStep] && res.data[activeStep].category)
+                })
+                .catch((err) => {
+                    console.log("err:::", err);
+                    setError(err.response.data)
+                    setLoading(false)
+                })
+
+        }    
     }, [activeStep])
     const previousStep = () => {
         if (activeStep > 0) {
             setActiveStep(activeStep - 1)
         }
     }
+    const handlePageChange = (e) => {
+        setActivePage(e);
+        setActiveStep(e - 1)
+      }
     const nextStep = () => {
         setExampleArray([])
         if (activeStep < data.length - 1) {
@@ -179,6 +212,47 @@ function DataForm() {
     const onEditExampleChange = (e) => {
         setEditExample(e.target.value)
     }
+    const searchText = () => {
+        setLoading(true)
+            API.get(`api/v1/intents?starts_with=${search}`)
+                .then((res) => {
+                setData(res.data)
+                setLoading(false)
+                setSource(res.data[activeStep].source)
+                setModifyBy(res.data[activeStep].updated_by)
+                setLength(res.data.length)
+                setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                setCategory(res.data[activeStep] && res.data[activeStep].category)
+                })
+                .catch((err) => {
+                    console.log("err:::", err);
+                    // setError(err.response.data)
+                    setLoading(false)
+                })
+      
+    }
+    const redirect = () => {
+        setLoading(true)
+        setSearch("")
+        API.get("api/v1/intents")
+        .then((res) => {
+        setData(res.data)
+        setLoading(false)
+        setSource(res.data[activeStep].source)
+        setModifyBy(res.data[activeStep].updated_by)
+        setLength(res.data.length)
+        setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+        setFormID(res.data[activeStep] && res.data[activeStep]._id)
+        setCategory(res.data[activeStep] && res.data[activeStep].category)
+        })
+        .catch((err) => {
+            console.log("err:::", err);
+            setError(err.response.data)
+            setLoading(false)
+        })
+       
+    }
     const tickButton = (e) => {
         e.preventDefault();
         const some_array = [...examplesArray]
@@ -243,20 +317,42 @@ function DataForm() {
                     <Row>
                         <Col lg={12}>
                             <div className="form-container">
-                                <div className="form-header">
-                                    {addForm ? <h2>Add Form</h2> : <h2>Form</h2>}
+                            <div className="form-header">
+                                    {addForm ? <h2 className="mt-0">Add Form</h2> : <h2 className="mt-0">Form</h2>}
                                     {addForm ?
                                         <div className="btn--group">
                                             <Button color="danger" onClick={onBackHandleChange}>Back</Button>
                                         </div>
                                         :
                                         <div className="btn--group">
-                                            <Button color="danger" onClick={() => onDeleteButtonClick(data[activeStep]._id)}>Delete</Button>
-                                            <Button color="primary" onClick={onAddFormhandle}>Add</Button>
+                                          <div class="input-group">
+                                            <div class="form-outline">
+                                                <input id="search-focus" type="search" id="form1" value={search} onChange={e => setSearch(e.target.value)} class="form-control" placeholder="Search..."/>
+                                                <Button className="searchBtn" type="button" onClick={searchText}>
+                                                <i class="fa fa-search"></i>
+                                            </Button>
+                                            <div className="closeBtn">
+                                            <button className="del-btn del">
+                                                <BsX onClick={redirect} />
+                                            </button>
+                                            </div>
+
+                                            </div>
+                                            
+                                            
+                                            </div>
+
+                                            <div className="deleteBtns">
+                                                <Button color="danger" onClick={() => onDeleteButtonClick(data[activeStep]._id)}>Delete</Button>
+                                                <Button color="primary" onClick={onAddFormhandle}>Add</Button>
+                                            </div>
+                                           
                                         </div>
+                                        
                                     }
                                 </div>
                                 {loading ? <div>Loading...</div> :
+                                <div>
                                     <Form>
                                         <Row>
                                             {!addForm ? <Col lg={4} md={4} sm={12}>
@@ -358,7 +454,17 @@ function DataForm() {
                                             </Col>
                                         </Row>
                                     </Form>
+                                    <Pagination
+                                    activePage={activePage}
+                                    itemsCountPerPage={1}
+                                    totalItemsCount={length}
+                                    pageRangeDisplayed={10}
+                                    onChange={(e) => handlePageChange(e)}
+                        
+                                  />
+                                  </div>
                                 }
+                                
                                 {success && <div className="successMessage">{success}</div>}
                                 {error && result.map((res) => res.map((response) => <div className="errorMessage">{response}</div>))}
                                 <div className="footer-btn">

@@ -6,6 +6,13 @@ import { Redirect } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { BsX } from "react-icons/bs";
 import { BsCheck } from "react-icons/bs";
+import Pagination from "react-js-pagination";
+//import 'bootstrap/less/bootstrap.less';
+import 'bootstrap/dist/css/bootstrap.css';
+// import 'bootstrap/dist/less/bootstrap.less';
+// import './bootstrap/bootstrap.less';
+
+
 
 function NewForm() {
     const [data, setData] = useState([])
@@ -29,6 +36,9 @@ function NewForm() {
     const [source, setSource] = useState("")
     const [editDefinition, setEditDefinition] = useState('')
     const [editSynonym, setEditSynonym] = useState('')
+    const [length, setLength] = useState('')
+    const [activePage, setActivePage] = useState()
+    const [search, setSearch] = useState("")
     const today = new Date()
     const OnUpdate_Form = () => {
         setError("")
@@ -45,6 +55,7 @@ function NewForm() {
             category: category,
             detail: detail
         }
+       
         const id = data[activeStep] && data[activeStep]._id;
         API.put(`api/v1/term/${id}`, payload)
             .then(() => {
@@ -59,6 +70,7 @@ function NewForm() {
                         setDetail(res.data[activeStep].detail)
                         setModifyBy(res.data[activeStep].updated_by)
                         setTerm(res.data[activeStep] && res.data[activeStep].term)
+                        setLength(res.data.length)
                         setDefinitionArray(res.data[activeStep].definition)
                         setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
                         setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
@@ -75,9 +87,14 @@ function NewForm() {
                 setLoading(false)
             })
     }
+    const handlePageChange = (e) => {
+        setActivePage(e);
+        setActiveStep(e - 1)
+      }
     useEffect(() => {
         setLoading(true)
-        API.get("api/v1/terms")
+        if(search === ""){
+            API.get("api/v1/terms")
             .then((res) => {
                 setData(res.data)
                 setLoading(false)
@@ -85,6 +102,7 @@ function NewForm() {
                 setDetail(res.data[activeStep].detail)
                 setModifyBy(res.data[activeStep].updated_by)
                 setTerm(res.data[activeStep] && res.data[activeStep].term)
+                setLength(res.data.length)
                 setDefinitionArray(res.data[activeStep].definition)
                 setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
                 setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
@@ -95,6 +113,31 @@ function NewForm() {
                 setError(err.response.data)
                 setLoading(false)
             })
+
+        }
+    else{
+        API.get(`api/v1/terms?starts_with=${search}`)
+                .then((res) => {
+                setData(res.data)
+                setLoading(false)
+                setSource(res.data[activeStep].source)
+                setDetail(res.data[activeStep].detail)
+                setModifyBy(res.data[activeStep].updated_by)
+                setTerm(res.data[activeStep] && res.data[activeStep].term)
+                setLength(res.data.length)
+                setDefinitionArray(res.data[activeStep].definition)
+                setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
+                setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                setCategory(res.data[activeStep] && res.data[activeStep].category)
+                })
+                .catch((err) => {
+                    console.log("err:::", err);
+                    setError(err.response.data)
+                    setLoading(false)
+                })
+    }    
+        
     }, [activeStep])
     const previousStep = () => {
         if (activeStep > 0) {
@@ -231,6 +274,56 @@ function NewForm() {
         setEditIndex(index)
         setEditDefinition(definitionArray[index])
     }
+    const searchText = () => {
+        setLoading(true)
+            API.get(`api/v1/terms?starts_with=${search}`)
+                .then((res) => {
+                setData(res.data)
+                setLoading(false)
+                setSource(res.data[activeStep].source)
+                setDetail(res.data[activeStep].detail)
+                setModifyBy(res.data[activeStep].updated_by)
+                setTerm(res.data[activeStep] && res.data[activeStep].term)
+                setLength(res.data.length)
+                setDefinitionArray(res.data[activeStep].definition)
+                setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
+                setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                setCategory(res.data[activeStep] && res.data[activeStep].category)
+                })
+                .catch((err) => {
+                    console.log("err:::", err);
+                    setError(err.response.data)
+                    setLoading(false)
+                })
+      
+    }
+    console.log("search::::", search);
+    const redirect = () => {
+        setLoading(true)
+        setSearch("")
+        API.get("api/v1/terms")
+        .then((res) => {
+        setData(res.data)
+        setLoading(false)
+        setSource(res.data[activeStep].source)
+        setDetail(res.data[activeStep].detail)
+        setModifyBy(res.data[activeStep].updated_by)
+        setTerm(res.data[activeStep] && res.data[activeStep].term)
+        setLength(res.data.length)
+        setDefinitionArray(res.data[activeStep].definition)
+        setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
+        setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+        setFormID(res.data[activeStep] && res.data[activeStep]._id)
+        setCategory(res.data[activeStep] && res.data[activeStep].category)
+        })
+        .catch((err) => {
+            console.log("err:::", err);
+            setError(err.response.data)
+            setLoading(false)
+        })
+       
+    }
     const editSynonymIndexFunc = (e, index) => {
         e.preventDefault();
         setEditSynonymIndex(index)
@@ -279,6 +372,7 @@ function NewForm() {
                 setLoading(false)
             })
     }
+   
     if (localStorage.getItem('name')) {
         return (
             <div className="App">
@@ -287,19 +381,41 @@ function NewForm() {
                         <Col lg={12}>
                             <div className="form-container">
                                 <div className="form-header">
-                                    {addForm ? <h2>Add Form</h2> : <h2>Form</h2>}
+                                    {addForm ? <h2 className="mt-0">Add Form</h2> : <h2 className="mt-0">Form</h2>}
                                     {addForm ?
                                         <div className="btn--group">
                                             <Button color="danger" onClick={onBackHandleChange}>Back</Button>
                                         </div>
                                         :
                                         <div className="btn--group">
-                                            <Button color="danger" onClick={() => onDeleteButtonClick(data[activeStep]._id)}>Delete</Button>
-                                            <Button color="primary" onClick={onAddFormhandle}>Add</Button>
+                                          <div class="input-group">
+                                            <div class="form-outline">
+                                                <input id="search-focus" type="search" id="form1" value={search} onChange={e => setSearch(e.target.value)} class="form-control" placeholder="Search..."/>
+                                                <Button className="searchBtn" type="button" onClick={searchText}>
+                                                <i class="fa fa-search"></i>
+                                            </Button>
+                                            <div className="closeBtn">
+                                            <button className="del-btn del">
+                                                <BsX onClick={redirect} />
+                                            </button>
+                                            </div>
+
+                                            </div>
+                                            
+                                            
+                                            </div>
+
+                                            <div className="deleteBtns">
+                                                <Button color="danger" onClick={() => onDeleteButtonClick(data[activeStep]._id)}>Delete</Button>
+                                                <Button color="primary" onClick={onAddFormhandle}>Add</Button>
+                                            </div>
+                                           
                                         </div>
+                                        
                                     }
                                 </div>
                                 {loading ? <div>Loading...</div> :
+                                <div>
                                     <Form>
                                         <Row>
                                             {!addForm ? <Col lg={4} md={4} sm={12}>
@@ -435,7 +551,18 @@ function NewForm() {
                                             </Col>
                                         </Row>
                                     </Form>
+
+                                <Pagination
+                                activePage={activePage}
+                                itemsCountPerPage={1}
+                                totalItemsCount={length}
+                                pageRangeDisplayed={10}
+                                onChange={(e) => handlePageChange(e)}
+
+                                />
+                                </div>
                                 }
+                               
                                 {success && <div className="successMessage">{success}</div>}
                                 {error && result.map((res) => res.map((response) => <div className="errorMessage">{response}</div>))}
                                 <div className="footer-btn">

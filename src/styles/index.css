@@ -148,9 +148,9 @@ h2 {
 }
 }
 .sc-chat-window {
-  width: 370px;
+  width: 400px;
   height: calc(100% - 120px);
-  max-height: 600px;
+  /* max-height: 600px; */
   position: fixed;
   right: 10px;
   bottom: 100px;
@@ -185,7 +185,7 @@ h2 {
   /* overflow-y: auto; */
 
   /* background-size: 100%; */
-  padding: 15px 0 0;
+  /* padding: 15px 0 0; */
 
   
 }
@@ -377,4 +377,38 @@ h2 {
 .successMessage{ 
   text-align: center;
   color: green;
+}
+.pagination {
+  margin: 20px auto !important;
+  display: table !important;
+}
+.btn--group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.deleteBtns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.searchBtn {
+  width: auto !important;
+}
+.input-group input {
+  position: relative !important;
+}
+.input-group .searchBtn {
+  position: absolute;
+  right: 0px;
+  z-index: 9999;
+}
+.closeBtn {
+  position: absolute;
+  right: 40px;
+  z-index: 9999;
+  top: 5px;
+}
+.mt-0 {
+  margin-top: 0px !important;
 }
