@@ -7,7 +7,6 @@ import { BiEdit } from "react-icons/bi";
 import { BsX } from "react-icons/bs";
 import { BsCheck } from "react-icons/bs";
 import Pagination from "react-js-pagination";
-import 'bootstrap/dist/css/bootstrap.css';
 
 function DataForm() {
     const [data, setData] = useState([])

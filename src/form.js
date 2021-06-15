@@ -7,12 +7,6 @@ import { BiEdit } from "react-icons/bi";
 import { BsX } from "react-icons/bs";
 import { BsCheck } from "react-icons/bs";
 import Pagination from "react-js-pagination";
-//import 'bootstrap/less/bootstrap.less';
-import 'bootstrap/dist/css/bootstrap.css';
-// import 'bootstrap/dist/less/bootstrap.less';
-// import './bootstrap/bootstrap.less';
-
-
 
 function NewForm() {
     const [data, setData] = useState([])
