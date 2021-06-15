@@ -233,24 +233,32 @@ function DataForm() {
       
     }
     const redirect = () => {
-        setLoading(true)
-        setSearch("")
-        API.get("api/v1/intents")
-        .then((res) => {
-        setData(res.data)
-        setLoading(false)
-        setSource(res.data[activeStep].source)
-        setModifyBy(res.data[activeStep].updated_by)
-        setLength(res.data.length)
-        setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
-        setFormID(res.data[activeStep] && res.data[activeStep]._id)
-        setCategory(res.data[activeStep] && res.data[activeStep].category)
-        })
-        .catch((err) => {
-            console.log("err:::", err);
-            setError(err.response.data)
+        if(search === "") {
+
+        }
+        else {
+
+            setLoading(true)
+            setSearch("")
+            API.get("api/v1/intents")
+            .then((res) => {
+            setData(res.data)
             setLoading(false)
-        })
+            setSource(res.data[activeStep].source)
+            setModifyBy(res.data[activeStep].updated_by)
+            setLength(res.data.length)
+            setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+            setFormID(res.data[activeStep] && res.data[activeStep]._id)
+            setCategory(res.data[activeStep] && res.data[activeStep].category)
+            })
+            .catch((err) => {
+                console.log("err:::", err);
+                setError(err.response.data)
+                setLoading(false)
+            })
+           
+
+        }
        
     }
     const tickButton = (e) => {

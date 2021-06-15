@@ -298,30 +298,37 @@ function NewForm() {
                 })
       
     }
-    console.log("search::::", search);
     const redirect = () => {
-        setLoading(true)
-        setSearch("")
-        API.get("api/v1/terms")
-        .then((res) => {
-        setData(res.data)
-        setLoading(false)
-        setSource(res.data[activeStep].source)
-        setDetail(res.data[activeStep].detail)
-        setModifyBy(res.data[activeStep].updated_by)
-        setTerm(res.data[activeStep] && res.data[activeStep].term)
-        setLength(res.data.length)
-        setDefinitionArray(res.data[activeStep].definition)
-        setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
-        setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
-        setFormID(res.data[activeStep] && res.data[activeStep]._id)
-        setCategory(res.data[activeStep] && res.data[activeStep].category)
-        })
-        .catch((err) => {
-            console.log("err:::", err);
-            setError(err.response.data)
+        if(search === "") {
+
+        }
+        else{
+
+            setLoading(true)
+            setSearch("")
+            API.get("api/v1/terms")
+            .then((res) => {
+            setData(res.data)
             setLoading(false)
-        })
+            setSource(res.data[activeStep].source)
+            setDetail(res.data[activeStep].detail)
+            setModifyBy(res.data[activeStep].updated_by)
+            setTerm(res.data[activeStep] && res.data[activeStep].term)
+            setLength(res.data.length)
+            setDefinitionArray(res.data[activeStep].definition)
+            setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
+            setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+            setFormID(res.data[activeStep] && res.data[activeStep]._id)
+            setCategory(res.data[activeStep] && res.data[activeStep].category)
+            })
+            .catch((err) => {
+                console.log("err:::", err);
+                setError(err.response.data)
+                setLoading(false)
+            })
+           
+
+        }
        
     }
     const editSynonymIndexFunc = (e, index) => {
