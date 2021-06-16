@@ -272,6 +272,8 @@ function NewForm() {
         setLoading(true)
             API.get(`api/v1/terms?starts_with=${search}`)
                 .then((res) => {
+                    setActivePage(1);
+                    setActiveStep(0);
                 setData(res.data)
                 setLoading(false)
                 setSource(res.data[activeStep].source)

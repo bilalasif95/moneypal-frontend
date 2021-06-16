@@ -100,14 +100,19 @@ function DataForm() {
         else{
                 API.get(`api/v1/intents?starts_with=${search}`)
                 .then((res) => {
-                setData(res.data)
-                setLoading(false)
-                setSource(res.data[activeStep].source)
-                setModifyBy(res.data[activeStep].updated_by)
-                setLength(res.data.length)
-                setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
-                setFormID(res.data[activeStep] && res.data[activeStep]._id)
-                setCategory(res.data[activeStep] && res.data[activeStep].category)
+                    //setActivePage(1);
+                    //setActiveStep(0);
+                    setData(res.data)
+                    setLength(res.data.length)
+                    setLoading(false)
+                    setSource(res.data[activeStep].source)
+                    setResponse(res.data[activeStep].response)
+                    setModifyBy(res.data[activeStep].updated_by)
+                    setIntent(res.data[activeStep] && res.data[activeStep].intent)
+                    setExampleArray(res.data[activeStep].examples)
+                    setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                    setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                    setCategory(res.data[activeStep] && res.data[activeStep].category)
                 })
                 .catch((err) => {
                     console.log("err:::", err);
@@ -215,20 +220,26 @@ function DataForm() {
         setLoading(true)
             API.get(`api/v1/intents?starts_with=${search}`)
                 .then((res) => {
-                setData(res.data)
-                setLoading(false)
-                setSource(res.data[activeStep].source)
-                setModifyBy(res.data[activeStep].updated_by)
-                setLength(res.data.length)
-                setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
-                setFormID(res.data[activeStep] && res.data[activeStep]._id)
-                setCategory(res.data[activeStep] && res.data[activeStep].category)
+                    setActivePage(1);
+                    setActiveStep(0);
+                    setData(res.data)
+                    setLength(res.data.length)
+                    setLoading(false)
+                    setSource(res.data[activeStep].source)
+                    setResponse(res.data[activeStep].response)
+                    setModifyBy(res.data[activeStep].updated_by)
+                    setIntent(res.data[activeStep] && res.data[activeStep].intent)
+                    setExampleArray(res.data[activeStep].examples)
+                    setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                    setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                    setCategory(res.data[activeStep] && res.data[activeStep].category)
                 })
                 .catch((err) => {
                     console.log("err:::", err);
                     // setError(err.response.data)
                     setLoading(false)
                 })
+
       
     }
     const redirect = () => {
@@ -241,14 +252,17 @@ function DataForm() {
             setSearch("")
             API.get("api/v1/intents")
             .then((res) => {
-            setData(res.data)
-            setLoading(false)
-            setSource(res.data[activeStep].source)
-            setModifyBy(res.data[activeStep].updated_by)
-            setLength(res.data.length)
-            setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
-            setFormID(res.data[activeStep] && res.data[activeStep]._id)
-            setCategory(res.data[activeStep] && res.data[activeStep].category)
+                setData(res.data)
+                setLength(res.data.length)
+                setLoading(false)
+                setSource(res.data[activeStep].source)
+                setResponse(res.data[activeStep].response)
+                setModifyBy(res.data[activeStep].updated_by)
+                setIntent(res.data[activeStep] && res.data[activeStep].intent)
+                setExampleArray(res.data[activeStep].examples)
+                setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                setCategory(res.data[activeStep] && res.data[activeStep].category)
             })
             .catch((err) => {
                 console.log("err:::", err);
