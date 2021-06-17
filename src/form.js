@@ -39,25 +39,51 @@ function NewForm() {
         setSuccess("")
         setLoading(true)
         const updatedName = localStorage.getItem('name')
-        const payload = {
-            term: term,
-            source: source,
-            updated_by: updatedName,
-            updated_at: today,
-            definition: definitionArray,
-            synonyms: synonymArray,
-            category: category,
-            detail: detail
+        let payload ={}
+        if(detail === ""){
+            payload = {
+                term: term,
+                source: source,
+                updated_by: updatedName,
+                updated_at: today,
+                definition: definitionArray,
+                synonyms: synonymArray,
+                category: category,
+            }  
         }
+        else{
+            payload = {
+                term: term,
+                source: source,
+                updated_by: updatedName,
+                updated_at: today,
+                definition: definitionArray,
+                synonyms: synonymArray,
+                category: category,
+                detail: detail
+            }  
+        }
+        // const payload = {
+        //     term: term,
+        //     source: source,
+        //     updated_by: updatedName,
+        //     updated_at: today,
+        //     definition: definitionArray,
+        //     synonyms: synonymArray,
+        //     category: category,
+        //     detail: detail
+        // }
        
         const id = data[activeStep] && data[activeStep]._id;
         API.put(`api/v1/term/${id}`, payload)
             .then(() => {
                 setSuccess("Record Updated Successfully")
+                if(search === ""){
                 API.get("api/v1/terms")
                     .then((res) => {
                         setData(res.data)
                         setLoading(false)
+                        setActiveStep(activeStep);
                         setSuccess("")
                         setAddForm(false)
                         setSource(res.data[activeStep].source)
@@ -75,11 +101,39 @@ function NewForm() {
                         setError(err.response.data)
                         setLoading(false)
                     })
+                }
+                else{
+
+                    API.get(`api/v1/terms?starts_with=${search}`)
+                    .then((res) => {
+                        setData(res.data)
+                        setLoading(false)
+                        setActiveStep(activeStep);
+                        setSuccess("")
+                        setAddForm(false)
+                        setSource(res.data[activeStep].source)
+                        setDetail(res.data[activeStep].detail)
+                        setModifyBy(res.data[activeStep].updated_by)
+                        setTerm(res.data[activeStep] && res.data[activeStep].term)
+                        setLength(res.data.length)
+                        setDefinitionArray(res.data[activeStep].definition)
+                        setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
+                        setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                        setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                        setCategory(res.data[activeStep] && res.data[activeStep].category)
+                    })
+                    .catch((err) => {
+                        setError(err.response.data)
+                        setLoading(false)
+                    })
+
+                }
             })
             .catch((err) => {
                 setError(err.response.data)
                 setLoading(false)
             })
+            
     }
     const handlePageChange = (e) => {
         setActivePage(e);
@@ -134,11 +188,15 @@ function NewForm() {
         
     }, [activeStep])
     const previousStep = () => {
+        setEditSynonymIndex(-1)
+        setEditIndex(-1)
         if (activeStep > 0) {
             setActiveStep(activeStep - 1)
         }
     }
     const nextStep = () => {
+        setEditSynonymIndex(-1)
+        setEditIndex(-1)
         setDefinitionArray([])
         if (activeStep < data.length - 1) {
             setActiveStep(activeStep + 1)
@@ -165,17 +223,43 @@ function NewForm() {
         setError("")
         setSuccess("")
         setLoading(true)
-        const payload = {
-            term: term,
-            synonyms: synonymArray,
-            faq_frequency: 0,
-            category: category,
-            definition: definitionArray,
-            detail: detail,
-            source: source,
-            updated_by: modify_by,
-            updated_at: today
+        let payload = {}
+        if(detail === ""){
+            payload = {
+                term: term,
+                synonyms: synonymArray,
+                faq_frequency: 0,
+                category: category,
+                definition: definitionArray,
+                source: source,
+                updated_by: modify_by,
+                updated_at: today
+            }
         }
+        else{
+            payload = {
+                term: term,
+                synonyms: synonymArray,
+                faq_frequency: 0,
+                category: category,
+                definition: definitionArray,
+                detail: detail,
+                source: source,
+                updated_by: modify_by,
+                updated_at: today
+            }
+        }
+        // const payload = {
+        //     term: term,
+        //     synonyms: synonymArray,
+        //     faq_frequency: 0,
+        //     category: category,
+        //     definition: definitionArray,
+        //     detail: detail,
+        //     source: source,
+        //     updated_by: modify_by,
+        //     updated_at: today
+        // }
         API.post(`api/v1/terms`, payload)
             .then(() => {
                 setSuccess("Record Created Successfully")
@@ -573,7 +657,7 @@ function NewForm() {
                                     {addForm ?
                                         <Button onClick={() => OnSubmit_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Submit</Button>
                                         :
-                                        <Button onClick={() => OnUpdate_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Update</Button>
+                                        <Button onClick={() => OnUpdate_Form()} className="btn btn--radius btn--red" color="danger" type="submit">Update</Button>
                                     }
                                     {addForm ? '' : <Button onClick={() => nextStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Next</Button>}
                                 </div>

@@ -31,7 +31,17 @@ function DataForm() {
     const [length, setLength] = useState('')
 
     const today = new Date()
-    const OnUpdate_Form = () => {
+    const OnUpdate_Form = (e) => {
+        // if(e==="1"){
+
+        // }
+        // else{
+        //     setEditIndex(-1)
+        //     setExampleArray([])
+        //     if (activeStep < data.length - 1) {
+        //         setActiveStep(activeStep + 1)
+        //     }
+        // }
         setError("")
         setSuccess("")
         setLoading(true)
@@ -49,11 +59,13 @@ function DataForm() {
         API.put(`api/v1/intent/${id}`, payload)
             .then(() => {
                 setSuccess("Record Updated Successfully")
+                if(search === ""){
                 API.get("api/v1/intents")
                     .then((res) => {
                         setData(res.data)
                         setLoading(false)
                         setSuccess("")
+                        setActiveStep(activeStep);
                         setAddForm(false)
                         setLength(res.data.length)
                         setSource(res.data[activeStep].source)
@@ -69,6 +81,31 @@ function DataForm() {
                         setError(err.response.data)
                         setLoading(false)
                     })
+                }
+                else{
+                    API.get(`api/v1/intents?starts_with=${search}`)
+                    .then((res) => {
+                        setData(res.data)
+                        setLoading(false)
+                        setSuccess("")
+                        setActiveStep(activeStep);
+                        setAddForm(false)
+                        setLength(res.data.length)
+                        setSource(res.data[activeStep].source)
+                        setResponse(res.data[activeStep].response)
+                        setModifyBy(res.data[activeStep].updated_by)
+                        setIntent(res.data[activeStep] && res.data[activeStep].intent)
+                        setExampleArray(res.data[activeStep].examples)
+                        setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                        setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                        setCategory(res.data[activeStep] && res.data[activeStep].category)
+                    })
+                    .catch((err) => {
+                        setError(err.response.data)
+                        setLoading(false)
+                    })
+
+                }
             })
             .catch((err) => {
                 setError(err.response.data)
@@ -123,6 +160,7 @@ function DataForm() {
         }    
     }, [activeStep])
     const previousStep = () => {
+        setEditIndex(-1)
         if (activeStep > 0) {
             setActiveStep(activeStep - 1)
         }
@@ -132,6 +170,7 @@ function DataForm() {
         setActiveStep(e - 1)
       }
     const nextStep = () => {
+        setEditIndex(-1)
         setExampleArray([])
         if (activeStep < data.length - 1) {
             setActiveStep(activeStep + 1)
@@ -493,7 +532,7 @@ function DataForm() {
                                     {addForm ?
                                         <Button onClick={() => OnSubmit_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Submit</Button>
                                         :
-                                        <Button onClick={() => OnUpdate_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Update</Button>
+                                        <Button onClick={(e) => OnUpdate_Form()} className="btn btn--radius btn--red" color="danger" type="submit">Update</Button>
                                     }
                                     {addForm ? '' : <Button onClick={() => nextStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Next</Button>}
                                 </div>

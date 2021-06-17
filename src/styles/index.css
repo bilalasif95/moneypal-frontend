@@ -90,7 +90,8 @@ body {
   fill: green;
 }
 .spaninline{
-  display: inline-block;
+  /* display: inline-block; */
+  /* display: block; */
 }
 .footer-btn {
   display: flex;
