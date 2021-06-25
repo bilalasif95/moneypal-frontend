@@ -125,6 +125,7 @@ function NewForm() {
         setActivePage(e);
         setActiveStep(e - 1)
         setEditSynonymIndex(-1)
+        setError("")
         setEditIndex(-1)
         setDefinition("")
         setSynonym("")
@@ -176,20 +177,24 @@ function NewForm() {
     }, [activeStep])
     const previousStep = () => {
         setEditSynonymIndex(-1)
+        setError("")
         setEditIndex(-1)
         setDefinition("")
         setSynonym("")
         if (activeStep > 0) {
             setActiveStep(activeStep - 1)
+            setActivePage(activePage - 1)
         }
     }
     const nextStep = () => {
         setEditSynonymIndex(-1)
+        setError("")
         setEditIndex(-1)
         setDefinition("")
         setSynonym("")
         if (activeStep < data.length - 1) {
             setActiveStep(activeStep + 1)
+            setActivePage(activePage + 1)
         }
     }
     const onDetailChange = (e) => {
@@ -617,13 +622,13 @@ function NewForm() {
                                 {success && <div className="successMessage">{success}</div>}
                                 {error && result.map((res) => res.map((response) => <div className="errorMessage">{response}</div>))}
                                 <div className="footer-btn">
-                                    {addForm ? '' : <Button disabled={loading} onClick={() => previousStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Back</Button>}
+                                    {addForm ? '' : <Button disabled={loading || activeStep <= 0} onClick={() => previousStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Back</Button>}
                                     {addForm ?
                                         <Button disabled={loading} onClick={() => OnSubmit_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Submit</Button>
                                         :
                                         <Button disabled={loading} onClick={() => OnUpdate_Form()} className="btn btn--radius btn--red" color="danger" type="submit">Update</Button>
                                     }
-                                    {addForm ? '' : <Button disabled={loading} onClick={() => nextStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Next</Button>}
+                                    {addForm ? '' : <Button disabled={loading || !(activeStep < data.length - 1)} onClick={() => nextStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Next</Button>}
                                 </div>
                             </div>
                         </Col>

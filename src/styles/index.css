@@ -524,4 +524,6 @@ h2 {
 .modal-head {
   margin-bottom: 40px;
 }
-
+.btn.disabled {
+  cursor: not-allowed;
+}
