@@ -17,6 +17,7 @@ function Home(props) {
                 <Row>
                     <Col lg={12}>
                         <div className="form-container">
+                            <div className="HomeContainer">
                             <div className="form-header">
                                 <h2>Home</h2>
                             </div>
@@ -32,6 +33,7 @@ function Home(props) {
                             </Form>
                             <div className="footer-btn">
                                 <Button onClick={() => nameStorage()} className="btn btn--radius btn--blue" color="primary" type="submit">Ok</Button>
+                            </div>
                             </div>
                         </div>
                     </Col>

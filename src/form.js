@@ -31,7 +31,7 @@ function NewForm() {
     const [editDefinition, setEditDefinition] = useState('')
     const [editSynonym, setEditSynonym] = useState('')
     const [length, setLength] = useState('')
-    const [activePage, setActivePage] = useState()
+    const [activePage, setActivePage] = useState(1)
     const [search, setSearch] = useState("")
     const today = new Date()
     const OnUpdate_Form = () => {
@@ -39,8 +39,8 @@ function NewForm() {
         setSuccess("")
         setLoading(true)
         const updatedName = localStorage.getItem('name')
-        let payload ={}
-        if(detail === ""){
+        let payload = {}
+        if (detail === "") {
             payload = {
                 term: term,
                 source: source,
@@ -49,9 +49,9 @@ function NewForm() {
                 definition: definitionArray,
                 synonyms: synonymArray,
                 category: category,
-            }  
+            }
         }
-        else{
+        else {
             payload = {
                 term: term,
                 source: source,
@@ -61,135 +61,124 @@ function NewForm() {
                 synonyms: synonymArray,
                 category: category,
                 detail: detail
-            }  
+            }
         }
-        // const payload = {
-        //     term: term,
-        //     source: source,
-        //     updated_by: updatedName,
-        //     updated_at: today,
-        //     definition: definitionArray,
-        //     synonyms: synonymArray,
-        //     category: category,
-        //     detail: detail
-        // }
-       
         const id = data[activeStep] && data[activeStep]._id;
         API.put(`api/v1/term/${id}`, payload)
             .then(() => {
                 setSuccess("Record Updated Successfully")
-                if(search === ""){
-                API.get("api/v1/terms")
-                    .then((res) => {
-                        setData(res.data)
-                        setLoading(false)
-                        setActiveStep(activeStep);
-                        setSuccess("")
-                        setAddForm(false)
-                        setSource(res.data[activeStep].source)
-                        setDetail(res.data[activeStep].detail)
-                        setModifyBy(res.data[activeStep].updated_by)
-                        setTerm(res.data[activeStep] && res.data[activeStep].term)
-                        setLength(res.data.length)
-                        setDefinitionArray(res.data[activeStep].definition)
-                        setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
-                        setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
-                        setFormID(res.data[activeStep] && res.data[activeStep]._id)
-                        setCategory(res.data[activeStep] && res.data[activeStep].category)
-                    })
-                    .catch((err) => {
-                        setError(err.response.data)
-                        setLoading(false)
-                    })
+                if (search === "") {
+                    API.get("api/v1/terms")
+                        .then((res) => {
+                            setData(res.data)
+                            setLoading(false)
+                            setActiveStep(activeStep);
+                            setSuccess("")
+                            setAddForm(false)
+                            setSource(res.data[activeStep].source)
+                            setDetail(res.data[activeStep].detail)
+                            setModifyBy(res.data[activeStep].updated_by)
+                            setTerm(res.data[activeStep] && res.data[activeStep].term)
+                            setLength(res.data.length)
+                            setDefinitionArray(res.data[activeStep].definition)
+                            setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
+                            setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                            setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                            setCategory(res.data[activeStep] && res.data[activeStep].category)
+                        })
+                        .catch((err) => {
+                            setError(err.response.data)
+                            setLoading(false)
+                        })
                 }
-                else{
-
+                else {
                     API.get(`api/v1/terms?starts_with=${search}`)
-                    .then((res) => {
-                        setData(res.data)
-                        setLoading(false)
-                        setActiveStep(activeStep);
-                        setSuccess("")
-                        setAddForm(false)
-                        setSource(res.data[activeStep].source)
-                        setDetail(res.data[activeStep].detail)
-                        setModifyBy(res.data[activeStep].updated_by)
-                        setTerm(res.data[activeStep] && res.data[activeStep].term)
-                        setLength(res.data.length)
-                        setDefinitionArray(res.data[activeStep].definition)
-                        setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
-                        setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
-                        setFormID(res.data[activeStep] && res.data[activeStep]._id)
-                        setCategory(res.data[activeStep] && res.data[activeStep].category)
-                    })
-                    .catch((err) => {
-                        setError(err.response.data)
-                        setLoading(false)
-                    })
-
+                        .then((res) => {
+                            setData(res.data)
+                            setLoading(false)
+                            setActiveStep(activeStep);
+                            setSuccess("")
+                            setAddForm(false)
+                            setSource(res.data[activeStep].source)
+                            setDetail(res.data[activeStep].detail)
+                            setModifyBy(res.data[activeStep].updated_by)
+                            setTerm(res.data[activeStep] && res.data[activeStep].term)
+                            setLength(res.data.length)
+                            setDefinitionArray(res.data[activeStep].definition)
+                            setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
+                            setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                            setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                            setCategory(res.data[activeStep] && res.data[activeStep].category)
+                        })
+                        .catch((err) => {
+                            setError(err.response.data)
+                            setLoading(false)
+                        })
                 }
             })
             .catch((err) => {
                 setError(err.response.data)
                 setLoading(false)
             })
-            
     }
     const handlePageChange = (e) => {
         setActivePage(e);
         setActiveStep(e - 1)
-      }
+        setEditSynonymIndex(-1)
+        setEditIndex(-1)
+        setDefinition("")
+        setSynonym("")
+    }
     useEffect(() => {
         setLoading(true)
-        if(search === ""){
+        if (search === "") {
             API.get("api/v1/terms")
-            .then((res) => {
-                setData(res.data)
-                setLoading(false)
-                setSource(res.data[activeStep].source)
-                setDetail(res.data[activeStep].detail)
-                setModifyBy(res.data[activeStep].updated_by)
-                setTerm(res.data[activeStep] && res.data[activeStep].term)
-                setLength(res.data.length)
-                setDefinitionArray(res.data[activeStep].definition)
-                setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
-                setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
-                setFormID(res.data[activeStep] && res.data[activeStep]._id)
-                setCategory(res.data[activeStep] && res.data[activeStep].category)
-            })
-            .catch((err) => {
-                setError(err.response.data)
-                setLoading(false)
-            })
-
-        }
-    else{
-        API.get(`api/v1/terms?starts_with=${search}`)
                 .then((res) => {
-                setData(res.data)
-                setLoading(false)
-                setSource(res.data[activeStep].source)
-                setDetail(res.data[activeStep].detail)
-                setModifyBy(res.data[activeStep].updated_by)
-                setTerm(res.data[activeStep] && res.data[activeStep].term)
-                setLength(res.data.length)
-                setDefinitionArray(res.data[activeStep].definition)
-                setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
-                setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
-                setFormID(res.data[activeStep] && res.data[activeStep]._id)
-                setCategory(res.data[activeStep] && res.data[activeStep].category)
+                    setData(res.data)
+                    setLoading(false)
+                    setSource(res.data[activeStep].source)
+                    setDetail(res.data[activeStep].detail)
+                    setModifyBy(res.data[activeStep].updated_by)
+                    setTerm(res.data[activeStep] && res.data[activeStep].term)
+                    setLength(res.data.length)
+                    setDefinitionArray(res.data[activeStep].definition)
+                    setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
+                    setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                    setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                    setCategory(res.data[activeStep] && res.data[activeStep].category)
                 })
                 .catch((err) => {
-                    console.log("err:::", err);
                     setError(err.response.data)
                     setLoading(false)
                 })
-    }    
-        
+        }
+        else {
+            API.get(`api/v1/terms?starts_with=${search}`)
+                .then((res) => {
+                    setData(res.data)
+                    setLoading(false)
+                    setSource(res.data[activeStep].source)
+                    setDetail(res.data[activeStep].detail)
+                    setModifyBy(res.data[activeStep].updated_by)
+                    setTerm(res.data[activeStep] && res.data[activeStep].term)
+                    setLength(res.data.length)
+                    setDefinitionArray(res.data[activeStep].definition)
+                    setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
+                    setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                    setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                    setCategory(res.data[activeStep] && res.data[activeStep].category)
+                })
+                .catch((err) => {
+                    setError(err.response.data)
+                    setLoading(false)
+                })
+        }
     }, [activeStep])
     const previousStep = () => {
         setEditSynonymIndex(-1)
         setEditIndex(-1)
+        setDefinition("")
+        setSynonym("")
         if (activeStep > 0) {
             setActiveStep(activeStep - 1)
         }
@@ -197,7 +186,8 @@ function NewForm() {
     const nextStep = () => {
         setEditSynonymIndex(-1)
         setEditIndex(-1)
-        setDefinitionArray([])
+        setDefinition("")
+        setSynonym("")
         if (activeStep < data.length - 1) {
             setActiveStep(activeStep + 1)
         }
@@ -224,7 +214,7 @@ function NewForm() {
         setSuccess("")
         setLoading(true)
         let payload = {}
-        if(detail === ""){
+        if (detail === "") {
             payload = {
                 term: term,
                 synonyms: synonymArray,
@@ -236,7 +226,7 @@ function NewForm() {
                 updated_at: today
             }
         }
-        else{
+        else {
             payload = {
                 term: term,
                 synonyms: synonymArray,
@@ -249,17 +239,6 @@ function NewForm() {
                 updated_at: today
             }
         }
-        // const payload = {
-        //     term: term,
-        //     synonyms: synonymArray,
-        //     faq_frequency: 0,
-        //     category: category,
-        //     definition: definitionArray,
-        //     detail: detail,
-        //     source: source,
-        //     updated_by: modify_by,
-        //     updated_at: today
-        // }
         API.post(`api/v1/terms`, payload)
             .then(() => {
                 setSuccess("Record Created Successfully")
@@ -354,10 +333,10 @@ function NewForm() {
     }
     const searchText = () => {
         setLoading(true)
-            API.get(`api/v1/terms?starts_with=${search}`)
-                .then((res) => {
-                    setActivePage(1);
-                    setActiveStep(0);
+        API.get(`api/v1/terms?starts_with=${search}`)
+            .then((res) => {
+                setActivePage(1);
+                setActiveStep(0);
                 setData(res.data)
                 setLoading(false)
                 setSource(res.data[activeStep].source)
@@ -370,46 +349,37 @@ function NewForm() {
                 setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
                 setFormID(res.data[activeStep] && res.data[activeStep]._id)
                 setCategory(res.data[activeStep] && res.data[activeStep].category)
-                })
-                .catch((err) => {
-                    console.log("err:::", err);
-                    setError(err.response.data)
-                    setLoading(false)
-                })
-      
-    }
-    const redirect = () => {
-        if(search === "") {
-
-        }
-        else{
-
-            setLoading(true)
-            setSearch("")
-            API.get("api/v1/terms")
-            .then((res) => {
-            setData(res.data)
-            setLoading(false)
-            setSource(res.data[activeStep].source)
-            setDetail(res.data[activeStep].detail)
-            setModifyBy(res.data[activeStep].updated_by)
-            setTerm(res.data[activeStep] && res.data[activeStep].term)
-            setLength(res.data.length)
-            setDefinitionArray(res.data[activeStep].definition)
-            setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
-            setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
-            setFormID(res.data[activeStep] && res.data[activeStep]._id)
-            setCategory(res.data[activeStep] && res.data[activeStep].category)
             })
             .catch((err) => {
-                console.log("err:::", err);
                 setError(err.response.data)
                 setLoading(false)
             })
-           
-
+    }
+    const redirect = () => {
+        if (search === "") { }
+        else {
+            setLoading(true)
+            setSearch("")
+            API.get("api/v1/terms")
+                .then((res) => {
+                    setData(res.data)
+                    setLoading(false)
+                    setSource(res.data[activeStep].source)
+                    setDetail(res.data[activeStep].detail)
+                    setModifyBy(res.data[activeStep].updated_by)
+                    setTerm(res.data[activeStep] && res.data[activeStep].term)
+                    setLength(res.data.length)
+                    setDefinitionArray(res.data[activeStep].definition)
+                    setSynonymArray(res.data[activeStep] && res.data[activeStep].synonyms)
+                    setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
+                    setFormID(res.data[activeStep] && res.data[activeStep]._id)
+                    setCategory(res.data[activeStep] && res.data[activeStep].category)
+                })
+                .catch((err) => {
+                    setError(err.response.data)
+                    setLoading(false)
+                })
         }
-       
     }
     const editSynonymIndexFunc = (e, index) => {
         e.preventDefault();
@@ -459,7 +429,6 @@ function NewForm() {
                 setLoading(false)
             })
     }
-   
     if (localStorage.getItem('name')) {
         return (
             <div className="App">
@@ -471,200 +440,211 @@ function NewForm() {
                                     {addForm ? <h2 className="mt-0">Add Form</h2> : <h2 className="mt-0">Form</h2>}
                                     {addForm ?
                                         <div className="btn--group">
-                                            <Button color="danger" onClick={onBackHandleChange}>Back</Button>
+                                            <Button color="danger" disabled={loading} onClick={onBackHandleChange}>Back</Button>
                                         </div>
                                         :
                                         <div className="btn--group">
-                                          <div class="input-group">
-                                            <div class="form-outline">
-                                                <input id="search-focus" type="search" id="form1" value={search} onChange={e => setSearch(e.target.value)} class="form-control" placeholder="Search..."/>
-                                                <Button className="searchBtn" type="button" onClick={searchText}>
-                                                <i class="fa fa-search"></i>
-                                            </Button>
-                                            <div className="closeBtn">
-                                            <button className="del-btn del">
-                                                <BsX onClick={redirect} />
-                                            </button>
+                                            <div className="input-group">
+                                                <div className="form-outline">
+                                                    <input id="search-focus" type="search" id="form1" value={search} onChange={e => setSearch(e.target.value)} className="form-control" placeholder="Search..." />
+                                                    <Button disabled={loading} className="searchBtn" type="button" onClick={searchText}>
+                                                        <i className="fa fa-search"></i>
+                                                    </Button>
+                                                    <div className="closeBtn">
+                                                        <button disabled={loading} className="del-btn del">
+                                                            <BsX onClick={redirect} />
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
-
-                                            </div>
-                                            
-                                            
-                                            </div>
-
                                             <div className="deleteBtns">
-                                                <Button color="danger" onClick={() => onDeleteButtonClick(data[activeStep]._id)}>Delete</Button>
-                                                <Button color="primary" onClick={onAddFormhandle}>Add</Button>
+                                                <Button disabled={loading} color="danger" data-toggle="modal" data-target="#exampleModal">Delete</Button>
+                                                <Button disabled={loading} color="primary" onClick={onAddFormhandle}>Add</Button>
                                             </div>
-                                           
                                         </div>
-                                        
                                     }
                                 </div>
-                                {loading ? <div>Loading...</div> :
-                                <div>
-                                    <Form>
-                                        <Row>
-                                            {!addForm ? <Col lg={4} md={4} sm={12}>
-                                                <FormGroup>
-                                                    <Label for="id">ID</Label>
-                                                    <Input type="text" value={formID} id="id" name="id" readOnly />
-                                                </FormGroup>
-                                            </Col> : ''}
-                                            <Col lg={4} md={4} sm={12}>
-                                                <FormGroup>
-                                                    <Label for="term">Term</Label>
-                                                    <Input type="text" value={term} id="term" placeholder="Enter Term" name="term" onChange={e => setTerm(e.target.value)} />
-                                                </FormGroup>
-                                            </Col>
-                                            <Col lg={4} md={4} sm={12}>
-                                                <FormGroup>
+                                {loading ? <div className="custom-loader">
+                                    <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+                                </div> :
+                                    <div>
+                                        <Form>
+                                            <Row>
+                                                {!addForm ? <Col lg={4} md={4} sm={12}>
                                                     <FormGroup>
-                                                        <Label for="category">Category</Label>
+                                                        <Label for="id">ID</Label>
+                                                        <Input type="text" value={formID} id="id" name="id" readOnly />
+                                                    </FormGroup>
+                                                </Col> : ''}
+                                                <Col lg={4} md={4} sm={12}>
+                                                    <FormGroup>
+                                                        <Label for="term">Term</Label>
+                                                        <Input type="text" value={term} id="term" placeholder="Enter Term" name="term" onChange={e => setTerm(e.target.value)} />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg={4} md={4} sm={12}>
+                                                    <FormGroup>
+                                                        <FormGroup>
+                                                            <Label for="category">Category</Label>
+                                                            {addForm ?
+                                                                <Input type="select" name="select" id="category" value={category} onChange={categoryHandlechange}>
+                                                                    <option>Select Category</option>
+                                                                    <option>Takaful</option>
+                                                                </Input>
+                                                                :
+                                                                <Input type="select" name="select" id="category" value={category} onChange={categoryHandlechange}>
+                                                                    <option>{category}</option>
+                                                                </Input>
+                                                            }
+                                                        </FormGroup>
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg={4} md={4} sm={12}>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col lg={12} md={12} sm={12}>
+                                                    <FormGroup>
+                                                        <Label for="definition">Definitions</Label>
+                                                        <div className="var-add">
+                                                            <Input type="text" onChange={(e) => onDefinitionChange(e)} value={definition} placeholder="Enter Definition" id="definition" name="definition" />
+                                                            <Button onClick={(e) => addDefinition(e)}>+</Button>
+                                                        </div>
+                                                        {definitionArray.length !== 0 &&
+                                                            <ul className="quiz-var">
+                                                                {definitionArray.map((res, index) =>
+                                                                    <li key={index}><span className="spaninline">{editIndex === index ? <Input type="text" onChange={(e) => onEditDefinitionChange(e)} value={editDefinition} placeholder="Edit Definition" id="editDefinition" name="editDefinition" /> : res}</span>
+                                                                        {editIndex === index ?
+                                                                            <button className="del-btn tick">
+                                                                                <BsCheck onClick={(e) => tickButton(e)} />
+                                                                            </button>
+                                                                            :
+                                                                            <span>
+                                                                                <button className="del-btn edit">
+                                                                                    <BiEdit onClick={(e) => editDefinitionIndex(e, index)} />
+                                                                                </button>
+                                                                                <button className="del-btn del">
+                                                                                    <BsX onClick={(e) => onDeleteHandle(e, index)} />
+                                                                                </button>
+                                                                            </span>
+                                                                        }
+                                                                    </li>
+                                                                )}
+                                                            </ul>}
+                                                    </FormGroup>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col lg={12} md={12} sm={12}>
+                                                    <FormGroup>
+                                                        <Label for="synonym">Synonyms</Label>
+                                                        <div className="var-add">
+                                                            <Input type="text" onChange={(e) => onSynonymsChange(e)} value={synonym} placeholder="Enter Synonym" id="synonym" name="synonym" />
+                                                            <Button onClick={(e) => addSynonyms(e)}>+</Button>
+                                                        </div>
+                                                        {synonymArray &&
+                                                            <ul className="quiz-var">
+                                                                {synonymArray && synonymArray.map((res, index) =>
+                                                                    <li key={index}><span className="spaninline">{editSynonymIndex === index ? <Input type="text" onChange={(e) => onEditSynonymChange(e)} value={editSynonym} placeholder="Edit Synonym" id="editSynonym" name="editSynonym" /> : res}</span>
+                                                                        {editSynonymIndex === index ?
+                                                                            <span>
+                                                                                <button className="del-btn tick">
+                                                                                    <BsCheck onClick={(e) => tickSynonym(e, index)} />
+                                                                                </button>
+                                                                            </span>
+                                                                            :
+                                                                            <span>
+                                                                                <button className="del-btn edit">
+                                                                                    <BiEdit onClick={(e) => editSynonymIndexFunc(e, index)} />
+                                                                                </button>
+                                                                                <button className="del-btn del">
+                                                                                    <BsX onClick={(e) => onSynonymDelete(e, index)} />
+                                                                                </button>
+                                                                            </span>
+                                                                        }
+                                                                    </li>
+                                                                )}
+                                                            </ul>}
+                                                    </FormGroup>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col lg={12} md={12} sm={12}>
+                                                    <FormGroup>
+                                                        <Label for="long_ans">Detail</Label>
+                                                        <textarea rows="4" placeholder="Enter Detailed Answer" onChange={(e) => onDetailChange(e)} value={detail} id="long_ans" name="long_ans" className="form-control" required={true} />
+                                                    </FormGroup>
+                                                </Col>
+                                            </Row>
+                                            <Row>
+                                                <Col lg={4} md={4} sm={12}>
+                                                    <FormGroup>
+                                                        <Label for="source">Source</Label>
+                                                        <Input type="text" value={source} name="source" placeholder="Enter Source" id="source" onChange={e => setSource(e.target.value)} />
+                                                    </FormGroup>
+                                                </Col>
+                                                <Col lg={4} md={4} sm={12}>
+                                                    <FormGroup>
+                                                        <Label for="modify_by">Last Modify by</Label>
                                                         {addForm ?
-                                                            <Input type="select" name="select" id="category" value={category} onChange={categoryHandlechange}>
-                                                                <option>Select Category</option>
-                                                                <option>Takaful</option>
-                                                            </Input>
+                                                            <Input type="text" name="modify_by" value={modify_by} id="modify_by" readOnly />
                                                             :
-                                                            <Input type="select" name="select" id="category" value={category} onChange={categoryHandlechange}>
-                                                                <option>{category}</option>
-                                                            </Input>
+                                                            <Input type="text" name="modify_by" value={modify_by} id="modify_by" readOnly />
                                                         }
                                                     </FormGroup>
-                                                </FormGroup>
-                                            </Col>
-                                            <Col lg={4} md={4} sm={12}>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col lg={12} md={12} sm={12}>
-                                                <FormGroup>
-                                                    <Label for="definition">Definitions</Label>
-                                                    <div className="var-add">
-                                                        <Input type="text" onChange={(e) => onDefinitionChange(e)} value={definition} placeholder="Enter Definition" id="definition" name="definition" />
-                                                        <Button onClick={(e) => addDefinition(e)}>+</Button>
-                                                    </div>
-                                                    {definitionArray.length !== 0 &&
-                                                        <ul className="quiz-var">
-                                                            {definitionArray.map((res, index) =>
-                                                                <li key={index}><span className="spaninline">{editIndex === index ? <Input type="text" onChange={(e) => onEditDefinitionChange(e)} value={editDefinition} placeholder="Edit Definition" id="editDefinition" name="editDefinition" /> : res}</span>
-                                                                    {editIndex === index ?
-                                                                        <button className="del-btn tick">
-                                                                            <BsCheck onClick={(e) => tickButton(e)} />
-                                                                        </button>
-                                                                        :
-                                                                        <span>
-                                                                            <button className="del-btn edit">
-                                                                                <BiEdit onClick={(e) => editDefinitionIndex(e, index)} />
-                                                                            </button>
-                                                                            <button className="del-btn del">
-                                                                                <BsX onClick={(e) => onDeleteHandle(e, index)} />
-                                                                            </button>
-                                                                        </span>
-                                                                    }
-                                                                </li>
-                                                            )}
-                                                        </ul>}
-                                                </FormGroup>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col lg={12} md={12} sm={12}>
-                                                <FormGroup>
-                                                    <Label for="synonym">Synonyms</Label>
-                                                    <div className="var-add">
-                                                        <Input type="text" onChange={(e) => onSynonymsChange(e)} value={synonym} placeholder="Enter Synonym" id="synonym" name="synonym" />
-                                                        <Button onClick={(e) => addSynonyms(e)}>+</Button>
-                                                    </div>
-                                                    {synonymArray &&
-                                                        <ul className="quiz-var">
-                                                            {synonymArray && synonymArray.map((res, index) =>
-                                                                <li key={index}><span className="spaninline">{editSynonymIndex === index ? <Input type="text" onChange={(e) => onEditSynonymChange(e)} value={editSynonym} placeholder="Edit Synonym" id="editSynonym" name="editSynonym" /> : res}</span>
-                                                                    {editSynonymIndex === index ?
-                                                                        <span>
-                                                                            <button className="del-btn tick">
-                                                                                <BsCheck onClick={(e) => tickSynonym(e, index)} />
-                                                                            </button>
-                                                                        </span>
-                                                                        :
-                                                                        <span>
-                                                                            <button className="del-btn edit">
-                                                                                <BiEdit onClick={(e) => editSynonymIndexFunc(e, index)} />
-                                                                            </button>
-                                                                            <button className="del-btn del">
-                                                                                <BsX onClick={(e) => onSynonymDelete(e, index)} />
-                                                                            </button>
-                                                                        </span>
-                                                                    }
-                                                                </li>
-                                                            )}
-                                                        </ul>}
-                                                </FormGroup>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col lg={12} md={12} sm={12}>
-                                                <FormGroup>
-                                                    <Label for="long_ans">Detail</Label>
-                                                    <textarea rows="4" placeholder="Enter Detailed Answer" onChange={(e) => onDetailChange(e)} value={detail} id="long_ans" name="long_ans" className="form-control" required={true} />
-                                                </FormGroup>
-                                            </Col>
-                                        </Row>
-                                        <Row>
-                                            <Col lg={4} md={4} sm={12}>
-                                                <FormGroup>
-                                                    <Label for="source">Source</Label>
-                                                    <Input type="text" value={source} name="source" placeholder="Enter Source" id="source" onChange={e => setSource(e.target.value)} />
-                                                </FormGroup>
-                                            </Col>
-                                            <Col lg={4} md={4} sm={12}>
-                                                <FormGroup>
-                                                    <Label for="modify_by">Last Modify by</Label>
-                                                    {addForm ?
-                                                        <Input type="text" name="modify_by" value={modify_by} id="modify_by" readOnly />
-                                                        :
-                                                        <Input type="text" name="modify_by" value={modify_by} id="modify_by" readOnly />
+                                                </Col>
+                                                <Col lg={4} md={4} sm={12}>
+                                                    {addForm ? '' :
+                                                        <FormGroup>
+                                                            <Label for="modify_at">Last Modify at</Label>
+                                                            <Input type="text" name="modify_at" value={modify_at} id="modify_at" readOnly />
+                                                        </FormGroup>
                                                     }
-                                                </FormGroup>
-                                            </Col>
-                                            <Col lg={4} md={4} sm={12}>
-                                                {addForm ? '' :
-                                                    <FormGroup>
-                                                        <Label for="modify_at">Last Modify at</Label>
-                                                        <Input type="text" name="modify_at" value={modify_at} id="modify_at" readOnly />
-                                                    </FormGroup>
-                                                }
-                                            </Col>
-                                        </Row>
-                                    </Form>
-
-                                <Pagination
-                                activePage={activePage}
-                                itemsCountPerPage={1}
-                                totalItemsCount={length}
-                                pageRangeDisplayed={10}
-                                onChange={(e) => handlePageChange(e)}
-
-                                />
-                                </div>
+                                                </Col>
+                                            </Row>
+                                        </Form>
+                                        {!addForm &&
+                                            <Pagination
+                                                activePage={activePage}
+                                                itemsCountPerPage={1}
+                                                totalItemsCount={length}
+                                                pageRangeDisplayed={10}
+                                                onChange={(e) => handlePageChange(e)}
+                                            />
+                                        }
+                                    </div>
                                 }
-                               
                                 {success && <div className="successMessage">{success}</div>}
                                 {error && result.map((res) => res.map((response) => <div className="errorMessage">{response}</div>))}
                                 <div className="footer-btn">
-                                    {addForm ? '' : <Button onClick={() => previousStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Back</Button>}
+                                    {addForm ? '' : <Button disabled={loading} onClick={() => previousStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Back</Button>}
                                     {addForm ?
-                                        <Button onClick={() => OnSubmit_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Submit</Button>
+                                        <Button disabled={loading} onClick={() => OnSubmit_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Submit</Button>
                                         :
-                                        <Button onClick={() => OnUpdate_Form()} className="btn btn--radius btn--red" color="danger" type="submit">Update</Button>
+                                        <Button disabled={loading} onClick={() => OnUpdate_Form()} className="btn btn--radius btn--red" color="danger" type="submit">Update</Button>
                                     }
-                                    {addForm ? '' : <Button onClick={() => nextStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Next</Button>}
+                                    {addForm ? '' : <Button disabled={loading} onClick={() => nextStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Next</Button>}
                                 </div>
                             </div>
                         </Col>
                     </Row>
                 </Container>
+                <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-body">
+                                <button className="Modalclose" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <h3 className="text-center modal-head">Are You Sure?</h3>
+                                <div className="modalBtns">
+                                    <button onClick={() => onDeleteButtonClick(data[activeStep]._id)} data-dismiss="modal" type="button" className="btn btn-primary">Yes</button>
+                                    <button type="button" className="btn btn-secondary" data-dismiss="modal">No</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     } else {
