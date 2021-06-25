@@ -26,9 +26,9 @@ function DataForm() {
     const [activeStep, setActiveStep] = useState(0)
     const [source, setSource] = useState("")
     const [editExample, setEditExample] = useState('')
-    const [search, setSearch] = useState("")
+    const [length, setLength] = useState(0)
     const [activePage, setActivePage] = useState(1)
-    const [length, setLength] = useState('')
+    const [search, setSearch] = useState("")
     const today = new Date()
     const OnUpdate_Form = () => {
         setError("")
@@ -68,13 +68,13 @@ function DataForm() {
                             setLoading(false)
                             setActiveStep(activeStep);
                             setSuccess("")
-                            setLength(res.data.length)
                             setAddForm(false)
                             setSource(res.data[activeStep].source)
                             setResponse(res.data[activeStep].response)
                             setModifyBy(res.data[activeStep].updated_by)
                             setIntent(res.data[activeStep] && res.data[activeStep].intent)
                             setExampleArray(res.data[activeStep].examples)
+                            setLength(res.data.length)
                             setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
                             setFormID(res.data[activeStep] && res.data[activeStep]._id)
                             setCategory(res.data[activeStep] && res.data[activeStep].category)
@@ -91,13 +91,13 @@ function DataForm() {
                             setLoading(false)
                             setActiveStep(activeStep);
                             setSuccess("")
-                            setLength(res.data.length)
                             setAddForm(false)
                             setSource(res.data[activeStep].source)
                             setResponse(res.data[activeStep].response)
                             setModifyBy(res.data[activeStep].updated_by)
                             setIntent(res.data[activeStep] && res.data[activeStep].intent)
                             setExampleArray(res.data[activeStep].examples)
+                            setLength(res.data.length)
                             setModifyAt(Moment(res.data[activeStep] && res.data[activeStep].updated_at).format('DD/MM/YYYY HH:MM'))
                             setFormID(res.data[activeStep] && res.data[activeStep]._id)
                             setCategory(res.data[activeStep] && res.data[activeStep].category)
@@ -116,8 +116,8 @@ function DataForm() {
     const handlePageChange = (e) => {
         setActivePage(e);
         setActiveStep(e - 1)
-        setEditIndex(-1)
         setExample("")
+        setEditIndex(-1)
     }
     useEffect(() => {
         setLoading(true)
@@ -163,15 +163,15 @@ function DataForm() {
         }
     }, [activeStep])
     const previousStep = () => {
-        setEditIndex(-1)
         setExample("")
+        setEditIndex(-1)
         if (activeStep > 0) {
             setActiveStep(activeStep - 1)
         }
     }
     const nextStep = () => {
-        setEditIndex(-1)
         setExample("")
+        setEditIndex(-1)
         if (activeStep < data.length - 1) {
             setActiveStep(activeStep + 1)
         }
@@ -385,7 +385,7 @@ function DataForm() {
                                     {addForm ? <h2 className="mt-0">Add Form</h2> : <h2 className="mt-0">Form</h2>}
                                     {addForm ?
                                         <div className="btn--group">
-                                            <Button disabled={loading} color="danger" onClick={onBackHandleChange}>Back</Button>
+                                            <Button color="danger" disabled={loading} onClick={onBackHandleChange}>Back</Button>
                                         </div>
                                         :
                                         <div className="btn--group">
@@ -514,13 +514,15 @@ function DataForm() {
                                                 </Col>
                                             </Row>
                                         </Form>
-                                        <Pagination
-                                            activePage={activePage}
-                                            itemsCountPerPage={1}
-                                            totalItemsCount={length}
-                                            pageRangeDisplayed={10}
-                                            onChange={(e) => handlePageChange(e)}
-                                        />
+                                        {!addForm &&
+                                            <Pagination
+                                                activePage={activePage}
+                                                itemsCountPerPage={1}
+                                                totalItemsCount={length}
+                                                pageRangeDisplayed={10}
+                                                onChange={(e) => handlePageChange(e)}
+                                            />
+                                        }
                                     </div>
                                 }
                                 {success && <div className="successMessage">{success}</div>}
@@ -530,7 +532,7 @@ function DataForm() {
                                     {addForm ?
                                         <Button disabled={loading} onClick={() => OnSubmit_Form()} className="btn btn--radius btn--blue" color="primary" type="submit">Submit</Button>
                                         :
-                                        <Button disabled={loading} onClick={(e) => OnUpdate_Form()} className="btn btn--radius btn--red" color="danger" type="submit">Update</Button>
+                                        <Button disabled={loading} onClick={() => OnUpdate_Form()} className="btn btn--radius btn--red" color="danger" type="submit">Update</Button>
                                     }
                                     {addForm ? '' : <Button disabled={loading} onClick={() => nextStep()} className="btn btn--radius btn--blue" color="primary" type="submit">Next</Button>}
                                 </div>
@@ -538,7 +540,7 @@ function DataForm() {
                         </Col>
                     </Row>
                 </Container>
-                <div className="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="exampleModal1" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-body">

@@ -30,7 +30,7 @@ function NewForm() {
     const [source, setSource] = useState("")
     const [editDefinition, setEditDefinition] = useState('')
     const [editSynonym, setEditSynonym] = useState('')
-    const [length, setLength] = useState('')
+    const [length, setLength] = useState(0)
     const [activePage, setActivePage] = useState(1)
     const [search, setSearch] = useState("")
     const today = new Date()
@@ -629,7 +629,7 @@ function NewForm() {
                         </Col>
                     </Row>
                 </Container>
-                <div className="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="exampleModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog" role="document">
                         <div className="modal-content">
                             <div className="modal-body">
