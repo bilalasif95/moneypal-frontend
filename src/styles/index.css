@@ -47,6 +47,9 @@ body {
   align-items: center;
   justify-content: flex-end;
 }
+button:focus {
+  outline: none;
+}
 .var-add button:hover, 
 .var-add button:focus {
   color: #000;

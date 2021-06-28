@@ -136,7 +136,7 @@ class UserInput extends Component {
             contentEditable={contentEditable ? true : false}
             placeholder="Write a reply..."
             className="sc-user-input--text"
-            style={{ cursor: contentEditable ? "default" : "not-allowed" }}
+            style={{ cursor: contentEditable ? "text" : "not-allowed" }}
           ></div>
           <div className="sc-user-input--buttons">
             {/* <div className="sc-user-input--button">
