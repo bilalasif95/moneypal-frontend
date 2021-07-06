@@ -87,3 +87,9 @@ export const answerSatisfactionAction = (data) => {
     payload: data
   };
 };
+export const buttonsAction = (data) => {
+  return {
+    type: "buttons",
+    payload: data
+  };
+};

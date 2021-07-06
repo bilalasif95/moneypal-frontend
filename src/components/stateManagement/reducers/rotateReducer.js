@@ -70,6 +70,11 @@ export default (state, action) => {
         ...state,
         contentEditable: action.payload,
       };
+    case "buttons":
+      return {
+        ...state,
+        buttons: action.payload,
+      };
     default:
       return state;
   }

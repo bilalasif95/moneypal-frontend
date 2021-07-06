@@ -16,6 +16,7 @@ const initialState = {
   knowMore: false,
   answer: "",
   contentEditable: false,
+  buttons: [],
 };
 function configureStore(state = { ...initialState }) {
   return createStore(rotateReducer, state);

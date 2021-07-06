@@ -7,7 +7,7 @@ import {
   stopFetchingAction,
 } from "./stateManagement/actions/fetchingAction";
 import chatIconUrl from "../assets/chat-bot.svg";
-import API from "../utils/API";
+// import API from "../utils/API";
 
 class MessageList extends Component {
   constructor() {
@@ -335,14 +335,21 @@ class MessageList extends Component {
   //     this.props.knowMoreAction(true);
   //   }, 1000)
   // };
-
+  onButtonClick = (res) => {
+    this.props.onSubmit({
+      type: "text",
+      author: "me",
+      data: { text: res.title, payload: res.payload },
+      whattodo: "callapi"
+    });
+  }
   componentDidUpdate(prevProps, prevState) {
     this.scrollList.scrollTop = this.scrollList.scrollHeight;
   }
 
   returningConversationFlow() {
     // const { conversationContinue, askQuestionType, confirmQuestionType, askCategoryType, answerSatisfaction, knowMore } = this.props;
-
+    const { askQuestionType, buttons } = this.props;
     // if (!conversationContinue) {
     //   return (
     //     <div className="yesno-btn">
@@ -351,16 +358,13 @@ class MessageList extends Component {
     //     </div>
     //   );
     // }
-    // if (askQuestionType) {
-    //   return (
-    //     <div className="yesno-btn">
-    //       {/* <button onClick={this.terminology}>TERMINOLOGY</button>
-    //       <button onClick={this.question}>QUESTION</button> */}
-    //       <button onClick={this.yesSubscribe}>Yes</button>
-    //       <button onClick={this.noSubscribe}>No</button>
-    //     </div>
-    //   );
-    // }
+    if (askQuestionType) {
+      return (
+        <div className="cat-btn">
+          {buttons && buttons.map((res) => <button key={res.title} className="nthBtn" onClick={() => this.onButtonClick(res)}>{res.title}</button>)}
+        </div>
+      );
+    }
     // if (confirmQuestionType) {
     //   return (
     //     <div className="yesno-btn">
@@ -457,6 +461,7 @@ const mapStateToProps = (state) => ({
   answer: state.answer,
   numberOfTimesQuestionAsked: state.numberOfTimesQuestionAsked,
   knowMore: state.knowMore,
+  buttons: state.buttons,
 });
 
 const mapDispatchToProps = (dispatch) => ({

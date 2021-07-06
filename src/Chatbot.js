@@ -5,7 +5,7 @@ import {
     startFetchingAction,
     stopFetchingAction,
 } from "./components/stateManagement/actions/fetchingAction";
-import { whattocallAction, askQuestionAction, askedQuestionAction, knowMoreAction, userNameAction, askCategoryAction, contentEditableAction, answerAction, answerSatisfactionAction } from "./components/stateManagement/actions/conversationFlowUpdate";
+import { whattocallAction, askQuestionAction, askedQuestionAction, knowMoreAction, buttonsAction, userNameAction, askCategoryAction, contentEditableAction, answerAction, answerSatisfactionAction } from "./components/stateManagement/actions/conversationFlowUpdate";
 import { connect } from "react-redux";
 import "./assets/styles";
 import API from "./utils/RASAAPI";
@@ -24,21 +24,35 @@ class Chatbot extends Component {
     _onMessageWasSent(message) {
         if (message.whattodo === "callapi") {
             this.props.startFetching();
-            // this.props.askQuestionAction(false);
+            this.props.askQuestionAction(false);
+            this.props.buttonsAction([]);
             // this.props.answerSatisfactionAction(false);
             // if (this.props.whattocall === "name") {
             //   var data = new FormData();
             //   data.append("name", message.data.text);
             this.props.contentEditableAction(false);
-            let data = {
-                sender: "test_user",
-                message: message.data.text
+            let data;
+            if (message.data.payload) {
+                data = {
+                    sender: "test_user",
+                    message: message.data.payload
+                }
+            }
+            else {
+                data = {
+                    sender: "test_user",
+                    message: message.data.text
+                }
             }
             API.post("/api/message/send", data).then((response) => {
                 this.props.stopFetching()
                 this.props.contentEditableAction(true);
                 response.data.map((data) => {
                     this._sendMessage(data.text)
+                    if (data.buttons) {
+                        this.props.askQuestionAction(true);
+                        this.props.buttonsAction(data.buttons)
+                    }
                 })
             }).catch((err) => {
                 console.log("err:::", err);
@@ -223,6 +237,7 @@ const mapDispatchToProps = (dispatch) => ({
     whattocallAction: (data) => dispatch(whattocallAction(data)),
     askQuestionAction: (data) => dispatch(askQuestionAction(data)),
     userNameAction: (data) => dispatch(userNameAction(data)),
+    buttonsAction: (data) => dispatch(buttonsAction(data)),
     knowMoreAction: (data) => dispatch(knowMoreAction(data)),
     askedQuestionAction: (data) => dispatch(askedQuestionAction(data)),
     askCategoryAction: (data) => dispatch(askCategoryAction(data)),
