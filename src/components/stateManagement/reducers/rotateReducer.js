@@ -75,6 +75,21 @@ export default (state, action) => {
         ...state,
         buttons: action.payload,
       };
+    case "delayedMessage":
+      return {
+        ...state,
+        delayedMessage: action.payload,
+      };
+    case "dualMessage":
+      return {
+        ...state,
+        dualMessage: action.payload,
+      };
+    case "time":
+      return {
+        ...state,
+        time: action.payload,
+      };
     default:
       return state;
   }

@@ -7,7 +7,11 @@ import SendIcon from "./icons/SendIcon";
 import closeIcon from "../assets/close-icon.svg";
 import genericFileIcon from "../assets/file.svg";
 import _ from "lodash";
-import { whattocallAction } from "./stateManagement/actions/conversationFlowUpdate";
+import { whattocallAction, timeAction } from "./stateManagement/actions/conversationFlowUpdate";
+import {
+  startFetchingAction,
+  stopFetchingAction,
+} from "./stateManagement/actions/fetchingAction";
 
 class UserInput extends Component {
   constructor() {
@@ -15,6 +19,7 @@ class UserInput extends Component {
     this.state = {
       inputActive: false,
       file: null,
+      value: ""
     };
   }
 
@@ -26,7 +31,8 @@ class UserInput extends Component {
 
   handleKeyPress = _.debounce(
     () => {
-      this.props.onKeyPress(this.userInput.textContent);
+      // this.props.onKeyPress(this.userInput.textContent);
+      this.props.onKeyPress(this.state.value);
     },
     300,
     { trailing: true }
@@ -34,7 +40,9 @@ class UserInput extends Component {
 
   _submitText(event) {
     event.preventDefault();
-    const text = this.userInput.textContent;
+    this.props.timeAction("expired")
+    // const text = this.userInput.textContent;
+    const text = this.state.value;
     const file = this.state.file;
     if (file) {
       if (text && text.length > 0) {
@@ -43,8 +51,8 @@ class UserInput extends Component {
           type: "file",
           data: { text, file },
         });
-        this.setState({ file: null });
-        this.userInput.innerHTML = "";
+        this.setState({ file: null, value: "" });
+        // this.userInput.innerHTML = "";
       } else {
         this.props.onSubmit({
           author: "me",
@@ -66,14 +74,15 @@ class UserInput extends Component {
         //   this.props.whattocallAction("");
         // }
         // else {
-          this.props.onSubmit({
-            author: "me",
-            type: "text",
-            data: { text },
-            whattodo: "callapi",
-          });
-          this.userInput.innerHTML = "";
-          this.props.whattocallAction("");
+        this.props.onSubmit({
+          author: "me",
+          type: "text",
+          data: { text },
+          whattodo: "callapi",
+        });
+        this.setState({ value: "" });
+        // this.userInput.innerHTML = "";
+        this.props.whattocallAction("");
         //}
       }
     }
@@ -91,6 +100,12 @@ class UserInput extends Component {
     this.setState({ file });
   }
 
+  handleChange(e) {
+    if (this.props.time === "min" && this.props.dualMessage) {
+      this.props.timeAction("max")
+    }
+    this.setState({ value: e.target.value })
+  }
   render() {
     const { contentEditable } = this.props;
 
@@ -119,25 +134,27 @@ class UserInput extends Component {
           className={`sc-user-input ${contentEditable ? "active" : ""}`}
         >
           {/* {this.props.whattocall === "terminology" && <div>I am confused about the term: </div>} */}
-          <div
+          <input
             role="button"
             tabIndex="0"
+            onChange={(e) => this.handleChange(e)}
             onFocus={() => {
               this.setState({ inputActive: true });
             }}
             onBlur={() => {
               this.setState({ inputActive: false });
             }}
-            ref={(e) => {
-              this.userInput = e;
-            }}
+            // ref={(e) => {
+            //   this.userInput = e;
+            // }}
+            value={this.state.value}
             onKeyDown={this.handleKey}
             onKeyPress={this.handleKeyPress}
-            contentEditable={contentEditable ? true : false}
+            disabled={contentEditable ? false : true}
             placeholder="Write a reply..."
             className="sc-user-input--text"
             style={{ cursor: contentEditable ? "text" : "not-allowed" }}
-          ></div>
+          />
           <div className="sc-user-input--buttons">
             {/* <div className="sc-user-input--button">
               {this.props.showEmoji && (
@@ -182,6 +199,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   whattocallAction: (data) => dispatch(whattocallAction(data)),
+  startFetching: () => dispatch(startFetchingAction),
+  stopFetching: () => dispatch(stopFetchingAction),
+  timeAction: (data) => dispatch(timeAction(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserInput);

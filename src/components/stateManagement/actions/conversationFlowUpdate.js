@@ -93,3 +93,21 @@ export const buttonsAction = (data) => {
     payload: data
   };
 };
+export const delayedMessageAction = (data) => {
+  return {
+    type: "delayedMessage",
+    payload: data
+  };
+};
+export const dualMessageAction = (data) => {
+  return {
+    type: "dualMessage",
+    payload: data
+  };
+};
+export const timeAction = (data) => {
+  return {
+    type: "time",
+    payload: data
+  };
+};

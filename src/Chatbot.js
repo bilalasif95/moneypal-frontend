@@ -5,7 +5,7 @@ import {
     startFetchingAction,
     stopFetchingAction,
 } from "./components/stateManagement/actions/fetchingAction";
-import { whattocallAction, askQuestionAction, askedQuestionAction, knowMoreAction, buttonsAction, userNameAction, askCategoryAction, contentEditableAction, answerAction, answerSatisfactionAction } from "./components/stateManagement/actions/conversationFlowUpdate";
+import { whattocallAction, askQuestionAction, timeAction, askedQuestionAction, knowMoreAction, buttonsAction, userNameAction, dualMessageAction, delayedMessageAction, askCategoryAction, contentEditableAction, answerAction, answerSatisfactionAction } from "./components/stateManagement/actions/conversationFlowUpdate";
 import { connect } from "react-redux";
 import "./assets/styles";
 import API from "./utils/RASAAPI";
@@ -17,6 +17,8 @@ class Chatbot extends Component {
             messageList: messageHistory,
             newMessagesCount: 0,
             isOpen: false,
+            minTime: 5000,
+            maxTime: 10000
         };
         //this.lastId = messageHistory[messageHistory.length - 1].id;
     }
@@ -47,13 +49,24 @@ class Chatbot extends Component {
             API.post("/api/message/send", data).then((response) => {
                 this.props.stopFetching()
                 this.props.contentEditableAction(true);
-                response.data.map((data) => {
-                    this._sendMessage(data.text)
-                    if (data.buttons) {
-                        this.props.askQuestionAction(true);
-                        this.props.buttonsAction(data.buttons)
+                this.props.dualMessageAction(false)
+                if (response.data.length > 1) {
+                    this.props.delayedMessageAction(response.data[1].text)
+                    if (response.data[1].buttons) {
+                        // this.props.askQuestionAction(true);
+                        this.props.buttonsAction(response.data[1].buttons)
                     }
-                })
+                    this.props.timeAction("min")
+                    this.props.dualMessageAction(true)
+                    this.timeAction(this.state.minTime)
+                }
+                // response.data.map((data) => {
+                this._sendMessage(response.data[0].text)
+                if (response.data[0].buttons) {
+                    this.props.askQuestionAction(true);
+                    this.props.buttonsAction(response.data[0].buttons)
+                }
+                // })
             }).catch((err) => {
                 console.log("err:::", err);
             })
@@ -188,6 +201,30 @@ class Chatbot extends Component {
 
     }
 
+    timeAction(message) {
+        if (this.props.dualMessage) {
+            setTimeout(() => {
+                if (this.props.time === "max") {
+                    this.props.timeAction("min")
+                    this.timeAction(this.state.maxTime)
+                }
+                else if (this.props.time === "min") {
+                    setTimeout(() => {
+                        this.props.stopFetching()
+                        this.props.askQuestionAction(true);
+                        this._sendMessage(this.props.delayedMessage)
+                        this.props.dualMessageAction(false)
+
+                    }, 1000)
+                    this.props.askQuestionAction(false);
+                    this.props.startFetching()
+                }
+                else {
+
+                }
+            }, message)
+        }
+    }
     _handleClick() {
 
         this.setState({
@@ -237,6 +274,8 @@ const mapDispatchToProps = (dispatch) => ({
     whattocallAction: (data) => dispatch(whattocallAction(data)),
     askQuestionAction: (data) => dispatch(askQuestionAction(data)),
     userNameAction: (data) => dispatch(userNameAction(data)),
+    delayedMessageAction: (data) => dispatch(delayedMessageAction(data)),
+    dualMessageAction: (data) => dispatch(dualMessageAction(data)),
     buttonsAction: (data) => dispatch(buttonsAction(data)),
     knowMoreAction: (data) => dispatch(knowMoreAction(data)),
     askedQuestionAction: (data) => dispatch(askedQuestionAction(data)),
@@ -244,6 +283,7 @@ const mapDispatchToProps = (dispatch) => ({
     contentEditableAction: (data) => dispatch(contentEditableAction(data)),
     answerSatisfactionAction: (data) => dispatch(answerSatisfactionAction(data)),
     answerAction: (data) => dispatch(answerAction(data)),
+    timeAction: (data) => dispatch(timeAction(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chatbot);
