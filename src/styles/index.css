@@ -208,6 +208,22 @@ h2 {
   flex-wrap: wrap;
   padding: 0 0 0 3.6rem;
 }
+.cat-btnDisabled {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 0 0 0 3.6rem;
+}
+.cat-btnDisabled button {
+  background-color: #f5f8fa;
+  border: none;
+  border-radius: 6px;
+  color: rgb(151, 159, 180);
+  font-size: 12px;
+  margin: 0 0.3rem 0.5rem 0;
+  padding: 0.3rem 0.7rem;
+  cursor: not-allowed;
+}
 .cat-btn button {
   background-color: #f5f8fa;
   border: none;

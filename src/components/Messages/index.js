@@ -32,26 +32,35 @@ class Message extends Component {
       "sc-message--content",
       this.props.message.author === "me" ? "sent" : "received",
     ];
+    const buttons = this.props.message.data.buttons || []
     return (
-      <div className="sc-message">
-        <div className={contentClassList.join(" ")}>
-          {this.props.message.author === "me" ? (
-            <div
-              className="sc-message--avatar"
-              style={{
-                backgroundImage: `url(${userIconUrl})`,
-              }}
-            ></div>
-          ) : (
-            <div
-              className="sc-message--avatar"
-              style={{
-                backgroundImage: `url(${chatIconUrl})`,
-              }}
-            ></div>
-          )}
-          {this._renderMessageOfType(this.props.message.type)}
-        </div>
+      <div>
+        {buttons.length > 0 ?
+          <div className="cat-btnDisabled">
+            {buttons && buttons.map((res) => <button key={res.title} className="nthBtn" disabled>{res.title}</button>)}
+          </div>
+          :
+          <div className="sc-message">
+            <div className={contentClassList.join(" ")}>
+              {this.props.message.author === "me" ? (
+                <div
+                  className="sc-message--avatar"
+                  style={{
+                    backgroundImage: `url(${userIconUrl})`,
+                  }}
+                ></div>
+              ) : (
+                <div
+                  className="sc-message--avatar"
+                  style={{
+                    backgroundImage: `url(${chatIconUrl})`,
+                  }}
+                ></div>
+              )}
+              {this._renderMessageOfType(this.props.message.type)}
+            </div>
+          </div>
+        }
       </div>
     );
   }

@@ -56,16 +56,25 @@ class Chatbot extends Component {
                         // this.props.askQuestionAction(true);
                         this.props.buttonsAction(response.data[1].buttons)
                     }
+                    else {
+                        this.props.buttonsAction([]);
+                    }
                     this.props.timeAction("min")
                     this.props.dualMessageAction(true)
                     this.timeAction(this.state.minTime)
                 }
-                // response.data.map((data) => {
-                this._sendMessage(response.data[0].text)
-                if (response.data[0].buttons) {
-                    this.props.askQuestionAction(true);
-                    this.props.buttonsAction(response.data[0].buttons)
+                else {
+                    // response.data.map((data) => {
+                    if (response.data[0].buttons) {
+                        this.props.askQuestionAction(true);
+                        this.props.contentEditableAction(false);
+                        this.props.buttonsAction(response.data[0].buttons)
+                    }
+                    else {
+                        this.props.buttonsAction([]);
+                    }
                 }
+                this._sendMessage(response.data[0].text)
                 // })
             }).catch((err) => {
                 console.log("err:::", err);
@@ -212,12 +221,22 @@ class Chatbot extends Component {
                     setTimeout(() => {
                         this.props.stopFetching()
                         this.props.askQuestionAction(true);
+                        if (this.props.buttons.length > 0) {
+                            this.props.contentEditableAction(false);
+                        }
+                        else {
+                            this.props.contentEditableAction(true);
+                        }
                         this._sendMessage(this.props.delayedMessage)
                         this.props.dualMessageAction(false)
-
+                        this.props.timeAction("expired")
                     }, 1000)
                     this.props.askQuestionAction(false);
+                    this.props.contentEditableAction(true);
                     this.props.startFetching()
+                }
+                else if (this.props.time === "expired") {
+
                 }
                 else {
 

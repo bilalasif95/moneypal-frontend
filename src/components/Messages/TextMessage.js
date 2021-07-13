@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
-import chatIconUrl from './../../assets/chat-icon.svg';
-import userIcon from './../../assets/user-icon.svg';
+import React from 'react';
 import ReadMoreReact from 'read-more-react';
-
 
 const TextMessage = (props) => {
   const meta = props.message.data.meta || null
   const text = props.message.data.text || ''
-  const author = props.message.author
-
+  // const author = props.message.author
 
   return (
     <div className="sc-message--text">
@@ -25,8 +21,8 @@ const TextMessage = (props) => {
         author === "me" && 
           <img src={userIcon} alt=""/>
       } */}
-      <ReadMoreReact 
-        text = {text === "https://moneypal.com" ? <a target="_blank" rel="noopener noreferrer" href={text}>{text}</a> : text}
+      <ReadMoreReact
+        text={text === "https://moneypal.com" ? <a target="_blank" rel="noopener noreferrer" href={text}>{text}</a> : text}
         min={100}
         ideal={130}
         max={150}

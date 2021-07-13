@@ -338,10 +338,17 @@ class MessageList extends Component {
   onButtonClick = (res) => {
     this.props.onSubmit({
       type: "text",
-      author: "me",
-      data: { text: res.title, payload: res.payload },
-      whattodo: "callapi"
+      author: "them",
+      data: { text: res.title, payload: res.payload, buttons: this.props.buttons },
     });
+    setTimeout(() => {
+      this.props.onSubmit({
+        type: "text",
+        author: "me",
+        data: { text: res.title, payload: res.payload },
+        whattodo: "callapi"
+      });
+    }, 1)
   }
   componentDidUpdate(prevProps, prevState) {
     this.scrollList.scrollTop = this.scrollList.scrollHeight;
