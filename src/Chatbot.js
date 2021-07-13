@@ -76,8 +76,9 @@ class Chatbot extends Component {
                 }
                 this._sendMessage(response.data[0].text)
                 // })
-            }).catch((err) => {
-                console.log("err:::", err);
+            }).catch(() => {
+                this.props.stopFetching();
+                this._sendMessage("Sorry, I got some problem 🙁 Please try again!")
             })
             // API.post("/name", data).then((res) => {
             //   this.props.stopFetching()
@@ -204,10 +205,10 @@ class Chatbot extends Component {
             response.data.map((data, index) => {
                 this._sendMessage(data.text)
             })
-        }).catch((err) => {
-            console.log("err:::", err);
+        }).catch(() => {
+            this.props.stopFetching();
+            this._sendMessage("Sorry, I got some problem 🙁 Please try again!")
         })
-
     }
 
     timeAction(message) {
@@ -235,22 +236,16 @@ class Chatbot extends Component {
                     this.props.contentEditableAction(true);
                     this.props.startFetching()
                 }
-                else if (this.props.time === "expired") {
-
-                }
-                else {
-
-                }
+                else if (this.props.time === "expired") { }
+                else { }
             }, message)
         }
     }
     _handleClick() {
-
         this.setState({
             isOpen: !this.state.isOpen,
             newMessagesCount: 0,
         });
-
     }
 
     onKeyPress = () => { };
