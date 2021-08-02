@@ -8,7 +8,8 @@ import {
 import { whattocallAction, askQuestionAction, timeAction, askedQuestionAction, knowMoreAction, buttonsAction, userNameAction, dualMessageAction, delayedMessageAction, askCategoryAction, contentEditableAction, answerAction, answerSatisfactionAction } from "./components/stateManagement/actions/conversationFlowUpdate";
 import { connect } from "react-redux";
 import "./assets/styles";
-import API from "./utils/RASAAPI";
+import API, { ipAPI } from "./utils/RASAAPI";
+import axios from 'axios';
 
 class Chatbot extends Component {
     constructor() {
@@ -20,6 +21,7 @@ class Chatbot extends Component {
             minTime: 5000,
             maxTime: 300000,
             extendedTime: 10000,
+            ip: "",
         };
         //this.lastId = messageHistory[messageHistory.length - 1].id;
     }
@@ -29,7 +31,6 @@ class Chatbot extends Component {
             this.props.startFetching();
             this.props.askQuestionAction(false);
             this.props.buttonsAction([]);
-            this.props.delayedMessageAction("");
             // this.props.answerSatisfactionAction(false);
             // if (this.props.whattocall === "name") {
             //   var data = new FormData();
@@ -38,13 +39,13 @@ class Chatbot extends Component {
             let data;
             if (message.data.payload) {
                 data = {
-                    sender: "test_user",
+                    sender: this.state.ip,
                     message: message.data.payload
                 }
             }
             else {
                 data = {
-                    sender: "test_user",
+                    sender: this.state.ip,
                     message: message.data.text
                 }
             }
@@ -197,20 +198,51 @@ class Chatbot extends Component {
     componentDidMount() {
         this.props.startFetching();
         this.props.contentEditableAction(false);
-        let data = {
-            sender: "test_user",
-            message: "hello"
-        }
-        API.post("/api/message/send", data).then((response) => {
-            this.props.stopFetching();
-            this.props.contentEditableAction(true);
-            response.data.map((data, index) => {
-                this._sendMessage(data.text)
+        let data = {}
+        axios.get(ipAPI)
+            .then((res) => {
+                if (res.data.success) {
+                    data = {
+                        sender: res.data.ip,
+                        message: "hello"
+                    }
+                    this.setState({ ip: res.data.ip })
+                }
+                else {
+                    data = {
+                        sender: "127.0.0.1",
+                        message: "hello"
+                    }
+                    this.setState({ ip: "127.0.0.1" })
+                }
+                API.post("/api/message/send", data).then((response) => {
+                    this.props.stopFetching();
+                    this.props.contentEditableAction(true);
+                    response.data.map((data) => {
+                        this._sendMessage(data.text)
+                    })
+                }).catch(() => {
+                    this.props.stopFetching();
+                    this._sendMessage("Sorry, I got some problem 🙁 Please try again!")
+                })
             })
-        }).catch(() => {
-            this.props.stopFetching();
-            this._sendMessage("Sorry, I got some problem 🙁 Please try again!")
-        })
+            .catch(() => {
+                data = {
+                    sender: "127.0.0.1",
+                    message: "hello"
+                }
+                this.setState({ ip: "127.0.0.1" })
+                API.post("/api/message/send", data).then((response) => {
+                    this.props.stopFetching();
+                    this.props.contentEditableAction(true);
+                    response.data.map((data) => {
+                        this._sendMessage(data.text)
+                    })
+                }).catch(() => {
+                    this.props.stopFetching();
+                    this._sendMessage("Sorry, I got some problem 🙁 Please try again!")
+                })
+            })
     }
 
     timeAction(message, delay) {
@@ -236,7 +268,7 @@ class Chatbot extends Component {
                         else {
                             this.props.contentEditableAction(true);
                         }
-                        this._sendMessage(message)
+                        this._sendMessage(this.props.delayedMessage)
                         this.props.dualMessageAction(false)
                         this.props.timeAction("expired")
                     }, 1000)
