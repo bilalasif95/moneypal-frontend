@@ -1,5 +1,6 @@
 import React from 'react';
-import ReadMoreReact from 'read-more-react';
+// import ReadMoreReact from 'read-more-react';
+import ReactReadMoreReadLess from "react-read-more-read-less";
 
 const TextMessage = (props) => {
   const meta = props.message.data.meta || null
@@ -8,6 +9,16 @@ const TextMessage = (props) => {
 
   return (
     <div className="sc-message--text">
+      <ReactReadMoreReadLess
+        charLimit={150}
+        ellipsis=""
+        readMoreText="Read More..."
+        readLessText="Show Less"
+        readMoreClassName="read-more-less--more"
+        readLessClassName="read-more-less--less"
+      >
+        {text === "https://moneypal.com" ? <a target="_blank" rel="noopener noreferrer" href={text}>{text}</a> : text}
+      </ReactReadMoreReadLess>
       {/* {
         props.message && 
         author === "me" && 
@@ -21,13 +32,13 @@ const TextMessage = (props) => {
         author === "me" && 
           <img src={userIcon} alt=""/>
       } */}
-      <ReadMoreReact
+      {/* <ReadMoreReact
         text={text === "https://moneypal.com" ? <a target="_blank" rel="noopener noreferrer" href={text}>{text}</a> : text}
         min={100}
         ideal={130}
         max={150}
         readMoreText={"Read More.."}
-      />
+      /> */}
       {meta && <p className='sc-message--meta'>{meta}</p>}
     </div>
   )

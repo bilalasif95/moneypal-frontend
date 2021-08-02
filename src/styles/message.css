@@ -164,3 +164,15 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+.read-more-less--more {
+  color: #2676fc;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.read-more-less--less {
+  color: #2676fc;
+  font-size: 12px;
+  font-weight: 700;
+}

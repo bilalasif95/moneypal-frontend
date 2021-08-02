@@ -18,7 +18,8 @@ class Chatbot extends Component {
             newMessagesCount: 0,
             isOpen: false,
             minTime: 5000,
-            maxTime: 10000
+            maxTime: 300000,
+            extendedTime: 10000,
         };
         //this.lastId = messageHistory[messageHistory.length - 1].id;
     }
@@ -28,6 +29,7 @@ class Chatbot extends Component {
             this.props.startFetching();
             this.props.askQuestionAction(false);
             this.props.buttonsAction([]);
+            this.props.delayedMessageAction("");
             // this.props.answerSatisfactionAction(false);
             // if (this.props.whattocall === "name") {
             //   var data = new FormData();
@@ -61,7 +63,7 @@ class Chatbot extends Component {
                     }
                     this.props.timeAction("min")
                     this.props.dualMessageAction(true)
-                    this.timeAction(this.state.minTime)
+                    this.timeAction(response.data[1].text, this.state.minTime)
                 }
                 else {
                     // response.data.map((data) => {
@@ -211,12 +213,18 @@ class Chatbot extends Component {
         })
     }
 
-    timeAction(message) {
+    timeAction(message, delay) {
         if (this.props.dualMessage) {
+            if (this.props.delayedMessage.includes("Do you want to know more")) {
+                delay = this.state.minTime
+            }
+            else {
+                delay = this.state.maxTime
+            }
             setTimeout(() => {
                 if (this.props.time === "max") {
                     this.props.timeAction("min")
-                    this.timeAction(this.state.maxTime)
+                    this.timeAction(this.state.extendedTime)
                 }
                 else if (this.props.time === "min") {
                     setTimeout(() => {
@@ -228,7 +236,7 @@ class Chatbot extends Component {
                         else {
                             this.props.contentEditableAction(true);
                         }
-                        this._sendMessage(this.props.delayedMessage)
+                        this._sendMessage(message)
                         this.props.dualMessageAction(false)
                         this.props.timeAction("expired")
                     }, 1000)
@@ -238,7 +246,7 @@ class Chatbot extends Component {
                 }
                 else if (this.props.time === "expired") { }
                 else { }
-            }, message)
+            }, delay)
         }
     }
     _handleClick() {
