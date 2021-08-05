@@ -87,10 +87,8 @@ class ChatWindow extends Component {
             <p className={this.state.active ? 'active' : null}
             onClick={() => this.toggleClass()}>{info.term}</p>
             )} */}
-            <p className={this.state.active ? 'active' : null}
-              onClick={() => this.toggleClass()} >Riba</p>
-            <p className={this.state.active ? 'active' : null}
-              onClick={() => this.toggleClass()}>Al Gharar</p>
+            <p>Riba</p>
+            <p>Al Gharar</p>
             <p>Ijarah</p>
             <p>Maisir</p>
             <p>Mudarabah</p>
@@ -104,10 +102,8 @@ class ChatWindow extends Component {
           <p className="faq-head">Conventional Terms</p>
           <div className="faq-tags">
            
-            <p className={this.state.active ? 'active' : null}
-              onClick={() => this.toggleClass()}>Insurance</p>
-            <p className={this.state.active ? 'active' : null}
-              onClick={() => this.toggleClass()}>Risk</p>
+            <p>Insurance</p>
+            <p>Risk</p>
             <p>Loss</p>
             <p>Speculative Risk          </p>
             <p>Risk Transfer</p>
@@ -124,8 +120,6 @@ class ChatWindow extends Component {
               <ul className="questions-list">
                 {this.state.questions.map((info) =>
                   <li><ReactSVG src={plane} />{info.question}</li>
-
-
                 )}
 
               </ul>

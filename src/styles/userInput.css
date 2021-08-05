@@ -1,5 +1,5 @@
 .sc-user-input {
-  min-height: 55px;
+  min-height: 60px;
   margin: 0 1rem;
   position: relative;
   bottom: 0;
@@ -9,7 +9,7 @@
   /* border-bottom-right-radius: 10px; */
   transition: background-color .2s ease,box-shadow .2s ease;
   border: 1px solid #2676FC;
-  border-radius: 5px;
+  border-radius: 10px;
 }
 .input-bg {
   /* background-color: #fff; */
@@ -42,15 +42,15 @@
   /* border: 1px solid #bababb; */
   outline: none;
   border: none;
-  border-radius: 5px !important;
+  border-radius: 10px !important;
   box-sizing: border-box;
   padding: 10px 10px 10px 20px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
   line-height: 1.33;
   white-space: pre-wrap;
   word-wrap: break-word;
-  color: #565867;
+  color: #0D0D0D;
   -webkit-font-smoothing: antialiased;
   max-height: 90px;
   overflow: scroll;

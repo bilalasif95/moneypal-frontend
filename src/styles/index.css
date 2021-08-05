@@ -262,7 +262,7 @@ h2 {
 .sc-message-scroller {
   height: 100vh;
   overflow-y: scroll;
-  padding: 100px 0px 90px 0px;
+  padding: 100px 30px 90px 45px;
   background: #F7F9FD;
 }
 
@@ -590,12 +590,13 @@ h2 {
   font-size: 16px;
   cursor: pointer;
   margin: 0 0 0.5rem;
+  transition: 0.3s linear;
 }
 .faq-tags p:not(:last-child) {
   margin-right: 6px;
 }
 
-.faq-tags p.active {
+.faq-tags p:hover {
   background-color: #2576fc;
   color: #fff;
 }
