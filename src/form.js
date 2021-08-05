@@ -495,10 +495,17 @@ function NewForm() {
                                                                 <Input type="select" name="select" id="category" value={category} onChange={categoryHandlechange}>
                                                                     <option>Select Category</option>
                                                                     <option>Takaful</option>
+                                                                    <option>Insurance</option>
+                                                                    <option>Islamic Finance</option>
+                                                                    <option>Conventional Finance</option>
                                                                 </Input>
                                                                 :
                                                                 <Input type="select" name="select" id="category" value={category} onChange={categoryHandlechange}>
-                                                                    <option>{category}</option>
+                                                                    {/* <option>{category}</option> */}
+                                                                    <option>Takaful</option>
+                                                                    <option>Insurance</option>
+                                                                    <option>Islamic Finance</option>
+                                                                    <option>Conventional Finance</option>
                                                                 </Input>
                                                             }
                                                         </FormGroup>

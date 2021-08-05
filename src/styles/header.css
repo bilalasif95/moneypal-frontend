@@ -1,20 +1,16 @@
 .sc-header {
-  background: #2676fc;
-  min-height: 200px;
-  border-top-left-radius: 9px;
-  border-top-right-radius: 9px;
+  background: #F7F9FD;
+  min-height: 95px;
   color: white;
   padding: 10px;
-  box-shadow: 0 1px 4px rgba(0,0,0,.2);
-  position: relative;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  position: absolute;
-  width: 100%;
-  z-index: -1;
+  border-bottom: 1px solid #e4e5e8;
+  /* position: absolute; */
+  width: 63%;
   padding: 1rem;
+  margin-bottom: 20px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
 }
 .sc-header h1 {
   font-weight: 400;
@@ -75,4 +71,11 @@
   .sc-header {
     border-radius: 0px;
   }
+}
+/* new-css */
+.header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }

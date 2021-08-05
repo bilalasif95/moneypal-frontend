@@ -31,14 +31,17 @@
 }
 
 .sc-message--text {
-  padding: 10px 15px;
-  border-radius: 6px;
-  font-weight: 300;
+  padding: 15px 15px;
+  border-top-right-radius: 13px;
+  border-bottom-right-radius: 13px;
+  border-bottom-left-radius: 13px;
+  font-weight: 400;
   font-size: 14px;
   line-height: 1.4;
   white-space: pre-wrap;
   -webkit-font-smoothing: subpixel-antialiased;
   position: relative;
+  color: #0D0D0D;
 }
 
 .sc-message--content.sent .sc-message--text {
@@ -46,11 +49,15 @@
   background-color:#2676fc;
   max-width: calc(100% - 120px);
   word-wrap: break-word;
+  border-top-left-radius: 13px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 13px;
+  border-bottom-left-radius: 13px;
 }
 
 .sc-message--content.received .sc-message--text {
-  color: #263238;
-  background-color: #f5f8fa;
+  color: #0D0D0D;
+  background-color: #EFEFEF;
   /* margin-right: 40px; */
 }
 

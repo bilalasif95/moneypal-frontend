@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import sendIcon from './../../assets/send-icon.svg';
+import sendIcon from './../../assets/send-icon-blue.svg';
 import sendIconBlue from './../../assets/send-icon-blue.svg';
 
 class SendIcon extends Component {
@@ -11,7 +11,7 @@ class SendIcon extends Component {
         onBlur={this.props.onBlur}
         style={{ cursor: this.props.contentEditable ? "pointer" : "not-allowed" }}
         onClick={(e) => { e.preventDefault(); this.props.onClick(e); }}
-        className="sc-user-input--send-icon-wrapper"
+        className="sc-user-input--send-icon-wrapper send-btn"
       >
         {this.props.contentEditable ? <img src={sendIconBlue} alt="Send" /> : <img src={sendIcon} alt="Send" />}
         {/* <svg

@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
-import closeIcon from './../assets/close-icon.png';
-import handIcon from './../assets/hand-icon.svg';
+import logo from "../assets/logo.png";
+// import search from "../assets/search.svg";
+import {
+  Link
+} from "react-router-dom";
+
 
 class Header extends Component {
 
   render() {
     return (
       <div className="sc-header">
-        <div>
-          <h1>Hello <img src={handIcon} /></h1>
-          <p>Good to see you here.</p>
+        <div className="header-main">
+          <div>
+          <Link to="/"><img src={logo} /></Link>
+          </div>
+          <div>
+          {/* <Link to="/"><img src={search} /></Link> */}
+          </div>
         </div>
-        {/* <img className="sc-header--img" src={this.props.imageUrl} alt="" />
-        <div className="sc-header--team-name"> {this.props.teamName} </div>
-        <div className="sc-header--close-button" onClick={this.props.onClose}>
-          <img src={closeIcon} alt="" />
-        </div> */}
       </div>
     );
   }

@@ -110,7 +110,7 @@ class UserInput extends Component {
     const { contentEditable } = this.props;
 
     return (
-      <div>
+      <div className="bot-input">
         {this.state.file && (
           <div className="file-container">
             <span className="icon-file-message">
@@ -171,11 +171,11 @@ class UserInput extends Component {
             </div>
           </div>
         </form>
-        <div className="powered-by">
+        {/* <div className="powered-by">
           <p>
             Chat by <span>MoneyPAL</span>
           </p>
-        </div>
+        </div> */}
       </div>
     );
   }

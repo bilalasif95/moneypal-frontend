@@ -17,7 +17,7 @@ class Chatbot extends Component {
         this.state = {
             messageList: messageHistory,
             newMessagesCount: 0,
-            isOpen: false,
+            isOpen: true,
             minTime: 5000,
             maxTime: 300000,
             extendedTime: 10000,

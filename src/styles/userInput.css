@@ -1,5 +1,5 @@
 .sc-user-input {
-  min-height: 46px;
+  min-height: 55px;
   margin: 0 1rem;
   position: relative;
   bottom: 0;
@@ -8,7 +8,7 @@
   /* border-bottom-left-radius: 10px; */
   /* border-bottom-right-radius: 10px; */
   transition: background-color .2s ease,box-shadow .2s ease;
-  border: 1px solid #bababb;
+  border: 1px solid #2676FC;
   border-radius: 5px;
 }
 .input-bg {
@@ -23,6 +23,7 @@
   display: flex;
   justify-content: center;
   padding: 1rem;
+  display: none;
 }
 .powered-by p {
   color: #bababb;
@@ -35,6 +36,7 @@
 }
 
 .sc-user-input--text {
+  background: #F7F9FD;
   width: 90%;
   resize: none;
   /* border: 1px solid #bababb; */
@@ -42,8 +44,8 @@
   border: none;
   border-radius: 5px !important;
   box-sizing: border-box;
-  padding: 10px;
-  font-size: 15px;
+  padding: 10px 10px 10px 20px;
+  font-size: 12px;
   font-weight: 400;
   line-height: 1.33;
   white-space: pre-wrap;
@@ -56,6 +58,9 @@
   overflow-x: hidden;
   overflow-y: auto;
 }
+.sc-user-input--text::placeholder {
+  color: #8F8F8F;
+}
 
 .sc-user-input--text:empty:before {
   content: attr(placeholder);
@@ -65,7 +70,7 @@
 }
 
 .sc-user-input--buttons {
-  width: 60px;
+  width: 55px;
   position: absolute;
   right: 0;
   height: 100%;
@@ -80,10 +85,7 @@
 } */
 
 .sc-user-input--button {
-  width: 40px;
   height: 46px;
-  padding-left: 3px;
-  padding-right: 3px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -95,7 +97,7 @@
 
 .sc-user-input.active {
   box-shadow: none;
-  background-color: white;
+  background-color: #F7F9FD;
   box-shadow: 0px -5px 20px 0px rgba(150, 165, 190, 0.2);
 }
 

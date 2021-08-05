@@ -10,7 +10,7 @@ class Launcher extends Component {
     super();
     this.state = {
       launcherIcon,
-      isOpen: false,
+      isOpen: true,
     };
   }
 
