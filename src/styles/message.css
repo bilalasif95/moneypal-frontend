@@ -58,7 +58,9 @@
 .sc-message--content.sent .sc-message--text .content-css ::selection {
   background-color: #4c8fff;
 }
-
+.content-css {
+  text-align: justify !important;
+}
 .sc-message--content.received .sc-message--text {
   color: #0D0D0D;
   background-color: #EFEFEF;

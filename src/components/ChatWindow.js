@@ -16,6 +16,8 @@ class ChatWindow extends Component {
       active: false,
       questions: [],
       term: [],
+      islamic: ["Riba","Al Gharar","Ijarah","Maisir","Mudarabah","Maal","Murabahah","Qard al hasan","Takaful","Wakalah"],
+      conventional: ["Insurance"," Risk","Loss","Speculative Risk ","Risk Transfer","Indemnity","Insurable Interest","Proximate Cause","Subrogation","Risk Avoidance"],
     };
 
   }
@@ -26,11 +28,11 @@ class ChatWindow extends Component {
     }).catch((error) => {
       console.error(error);
     })
-    API.get("/api/v1/faqs/terms?category=Takaful").then((response) => {
-      this.setState({ term: response.data })
-    }).catch((error) => {
-      console.error(error);
-    })
+    // API.get("/api/v1/faqs/terms?category=Takaful").then((response) => {
+    //   this.setState({ term: response.data })
+    // }).catch((error) => {
+    //   console.error(error);
+    // })
   }
 
   onUserInputSubmit = (message) => {
@@ -48,11 +50,19 @@ class ChatWindow extends Component {
       whattodo: "callapi",
     })
   }
-  ontermClick(term) {
+  onislamicClick(islamic) {
     this.onUserInputSubmit({
       author: "me",
       type: "text",
-      data: { text: term },
+      data: { text: islamic },
+      whattodo: "callapi",
+    })
+  }
+  onconventionalClick(conventional) {
+    this.onUserInputSubmit({
+      author: "me",
+      type: "text",
+      data: { text: conventional },
       whattodo: "callapi",
     })
   }
@@ -89,28 +99,29 @@ class ChatWindow extends Component {
           <p className="faq-head-main">Frequently Asked Terms</p>
           <p className="faq-head">Islamic Terms</p>
           <div className="faq-tags">
-            {this.state.term.map((info,index)=>
-            <p className={this.state.active ? 'active' : null} key={index} onClick={() => this.ontermClick(info.term)}>{info.term}</p>
-            )}
+            {this.state.islamic.map((info)=>
+            <p className={this.state.active ? 'active' : null} onClick={() => this.onislamicClick(info)}>{info}</p>)}
+            {/* <p>Riba</p>
+            <p>Al Gharar</p>
+            <p>Ijarah</p>
+            <p>Maisir</p>
+            <p>Mudarabah</p>
+            <p>Maal</p>
+            <p>Murabahah</p>
+            <p>Qard al hasan</p>
+            <p>Takaful</p>
+            <p>Wakalah</p> */}
           </div>
           <div className="custom-border"></div>
           <p className="faq-head">Conventional Terms</p>
           <div className="faq-tags">
-
-            <p>Insurance</p>
-            <p>Risk</p>
-            <p>Loss</p>
-            <p>Speculative Risk          </p>
-            <p>Risk Transfer</p>
-            <p>Indemnity</p>
-            <p>Insurable Interest</p>
-            <p>Proximate Cause</p>
-            <p>Subrogation</p>
-            <p>Risk Avoidance</p>
+          {this.state.conventional.map((info)=>
+            <p className={this.state.active ? 'active' : null} onClick={() => this.onconventionalClick(info)}>{info}</p>)}
+            
           </div>
           <div className="custom-border"></div>
           <div className="questions-main">
-            <p className="faq-head">Frequently Asked Differences</p>
+            <p className="faq-head-main">Frequently Asked Differences</p>
             <div className="questions">
               <ul className="questions-list">
                 {this.state.questions.map((info,index) =>
