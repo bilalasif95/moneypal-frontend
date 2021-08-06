@@ -219,7 +219,7 @@ h2 {
   border: none;
   border-radius: 6px;
   color: #2676fc;
-  font-size: 12px;
+  font-size: 14px;
   margin: 0 0.3rem 0.5rem 0;
   padding: 0.3rem 0.7rem;
   cursor: pointer;
@@ -563,14 +563,14 @@ h2 {
 .bot-faq {
   width: 35%;
   background-color: #fff;
-  padding: 30px 20px 0px 20px;
+  padding: 10px 20px 0px 20px;
   overflow-y: scroll;
 }
 .faq-head-main {
-  font-size: 24px;
+  font-size: 22px;
   color: #2E2A2A;
   font-weight: 500;
-  margin-bottom: 25px;
+  margin-bottom: 15px;
 }
 .faq-tags {
   display: flex;
@@ -578,7 +578,7 @@ h2 {
 }
 .custom-border {
   border-bottom: 1px solid #D2D2D2;
-  margin: 15px 0px 20px;
+  margin: 10px 0px 5px;
 }
 .faq-tags p {
   background-color: #F7F9FD;
@@ -587,7 +587,7 @@ h2 {
   padding: 2px 12px;
   font-weight: normal;
   color: #545454;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
   margin: 0 0 0.5rem;
   transition: 0.3s linear;
@@ -601,9 +601,9 @@ h2 {
   color: #fff;
 }
 .faq-head {
-  font-size: 20px;
+  font-size: 18px;
   color: #2E2A2A;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-weight: 500;
 }
 .questions p {
@@ -628,7 +628,7 @@ h2 {
   padding: 0px;
 }
 .questions-list li{
-  font-size: 16px;
+  font-size: 14px;
   color: #545454;
   box-shadow: 1px 2px 4px #00275E2E;
   padding: 10px 12px;
@@ -650,4 +650,13 @@ h2 {
 }
 .questions-list li svg{
   margin-right: 12px;
+}
+.my-anchor-css-class {
+  color: #2676fc;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none !important;
+}
+.my-anchor-css-class:hover {
+  color: #2676fc;
 }

@@ -1,24 +1,28 @@
 import React from 'react';
 // import ReadMoreReact from 'read-more-react';
-import ReactReadMoreReadLess from "react-read-more-read-less";
+import ShowMoreText from "react-show-more-text";
 
 const TextMessage = (props) => {
   const meta = props.message.data.meta || null
   const text = props.message.data.text || ''
   // const author = props.message.author
 
+
   return (
     <div className="sc-message--text">
-      <ReactReadMoreReadLess
-        charLimit={150}
-        ellipsis=""
-        readMoreText="Read More..."
-        readLessText="Show Less"
-        readMoreClassName="read-more-less--more"
-        readLessClassName="read-more-less--less"
-      >
+      <ShowMoreText
+        lines={3}
+        more="Read More..."
+        less="Show Less"
+        className="content-css"
+        anchorClass="my-anchor-css-class"
+        expanded={false}
+        truncatedEndingComponent={" "}
+        width={600}
+        >
         {text === "https://moneypal.com" ? <a target="_blank" rel="noopener noreferrer" href={text}>{text}</a> : text}
-      </ReactReadMoreReadLess>
+      </ShowMoreText>
+      
       {/* {
         props.message && 
         author === "me" && 

@@ -150,10 +150,10 @@ class UserInput extends Component {
             value={this.state.value}
             onKeyDown={this.handleKey}
             onKeyPress={this.handleKeyPress}
-            disabled={contentEditable ? false : true}
+            // disabled={contentEditable ? false : true}
             placeholder="Write a reply..."
             className="sc-user-input--text"
-            style={{ cursor: contentEditable ? "text" : "not-allowed" }}
+          // style={{ cursor: contentEditable ? "text" : "not-allowed" }}
           />
           <div className="sc-user-input--buttons">
             {/* <div className="sc-user-input--button">

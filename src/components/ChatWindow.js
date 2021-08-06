@@ -27,21 +27,12 @@ class ChatWindow extends Component {
       console.error(error);
     })
     API.get("/api/v1/faqs/terms?category=Takaful").then((response) => {
-      console.log(response, "===")
       this.setState({ term: response.data })
     }).catch((error) => {
       console.error(error);
     })
   }
 
-
-  toggleClass() {
-    if (this.state.active) {
-      this.setState({ active: false });
-    }
-    this.setState({ active: true });
-
-  };
   onUserInputSubmit = (message) => {
     this.props.onUserInputSubmit(message);
   };
@@ -49,7 +40,22 @@ class ChatWindow extends Component {
   onMessageReceived(message) {
     this.setState({ messages: [...this.state.messages, message] });
   }
-
+  onQuestionClick(question) {
+    this.onUserInputSubmit({
+      author: "me",
+      type: "text",
+      data: { text: question },
+      whattodo: "callapi",
+    })
+  }
+  ontermClick(term) {
+    this.onUserInputSubmit({
+      author: "me",
+      type: "text",
+      data: { text: term },
+      whattodo: "callapi",
+    })
+  }
   render() {
     let messageList = this.props.messageList || [];
     let classList = [
@@ -83,25 +89,14 @@ class ChatWindow extends Component {
           <p className="faq-head-main">Frequently Asked Terms</p>
           <p className="faq-head">Islamic Terms</p>
           <div className="faq-tags">
-             {/* {this.state.term.map((info)=>
-            <p className={this.state.active ? 'active' : null}
-            onClick={() => this.toggleClass()}>{info.term}</p>
-            )} */}
-            <p>Riba</p>
-            <p>Al Gharar</p>
-            <p>Ijarah</p>
-            <p>Maisir</p>
-            <p>Mudarabah</p>
-            <p>Maal</p>
-            <p>Murabahah</p>
-            <p>Qard al hasan</p>
-            <p>Takaful</p>
-            <p>Wakalah</p>
+            {this.state.term.map((info,index)=>
+            <p className={this.state.active ? 'active' : null} key={index} onClick={() => this.ontermClick(info.term)}>{info.term}</p>
+            )}
           </div>
           <div className="custom-border"></div>
           <p className="faq-head">Conventional Terms</p>
           <div className="faq-tags">
-           
+
             <p>Insurance</p>
             <p>Risk</p>
             <p>Loss</p>
@@ -118,8 +113,8 @@ class ChatWindow extends Component {
             <p className="faq-head">Frequently Asked Differences</p>
             <div className="questions">
               <ul className="questions-list">
-                {this.state.questions.map((info) =>
-                  <li><ReactSVG src={plane} />{info.question}</li>
+                {this.state.questions.map((info,index) =>
+                  <li key={index} onClick={() => this.onQuestionClick(info.question)}><ReactSVG src={plane} />{info.question}</li>
                 )}
 
               </ul>
