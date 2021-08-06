@@ -154,7 +154,7 @@ h2 {
 }
 }
 .sc-chat-window {
-  width: 64%;
+  width: 62%;
   /* height: calc(100% - 120px); */
   /* max-height: 600px; */
   /* position: fixed; */
@@ -561,7 +561,7 @@ h2 {
   position: fixed;
 }
 .bot-faq {
-  width: 35%;
+  width: 37%;
   background-color: #fff;
   padding: 10px 20px 0px 20px;
   overflow-y: scroll;
@@ -618,7 +618,7 @@ h2 {
 }
 .bot-input {
   position: fixed;
-  width: 64.1%;
+  width: 62%;
   bottom: 0px;
   background-color: #F7F9FD;
   padding-bottom: 20px;
