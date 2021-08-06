@@ -660,3 +660,6 @@ h2 {
 .my-anchor-css-class:hover {
   color: #2676fc;
 }
+.content-css span br {
+  display: none;
+}
