@@ -42,7 +42,7 @@
   /* border: 1px solid #bababb; */
   outline: none;
   border: none;
-  cursor: text;
+  cursor: text !important;
   border-radius: 10px !important;
   box-sizing: border-box;
   padding: 10px 10px 10px 20px;

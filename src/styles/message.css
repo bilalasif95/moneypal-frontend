@@ -55,7 +55,7 @@
   border-bottom-right-radius: 13px;
   border-bottom-left-radius: 13px;
 }
-.sc-message--content.sent .sc-message--text::selection {
+.sc-message--content.sent .sc-message--text .content-css ::selection {
   background-color: #4c8fff;
 }
 
