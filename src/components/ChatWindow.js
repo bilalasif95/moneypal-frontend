@@ -17,7 +17,7 @@ class ChatWindow extends Component {
       questions: [],
       term: [],
       islamic: ["Riba","Al Gharar","Ijarah","Maisir","Mudarabah","Maal","Murabahah","Qard al hasan","Takaful","Wakalah"],
-      conventional: ["Insurance"," Risk","Loss","Speculative Risk ","Risk Transfer","Indemnity","Insurable Interest","Proximate Cause","Subrogation","Risk Avoidance"],
+      conventional: ["Insurance","Risk","Loss","Speculative Risk ","Risk Transfer","Indemnity","Insurable Interest","Proximate Cause","Subrogation","Risk Avoidance"],
     };
 
   }
@@ -101,16 +101,7 @@ class ChatWindow extends Component {
           <div className="faq-tags">
             {this.state.islamic.map((info)=>
             <p className={this.state.active ? 'active' : null} onClick={() => this.onislamicClick(info)}>{info}</p>)}
-            {/* <p>Riba</p>
-            <p>Al Gharar</p>
-            <p>Ijarah</p>
-            <p>Maisir</p>
-            <p>Mudarabah</p>
-            <p>Maal</p>
-            <p>Murabahah</p>
-            <p>Qard al hasan</p>
-            <p>Takaful</p>
-            <p>Wakalah</p> */}
+           
           </div>
           <div className="custom-border"></div>
           <p className="faq-head">Conventional Terms</p>

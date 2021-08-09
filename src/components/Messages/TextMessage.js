@@ -18,7 +18,7 @@ const TextMessage = (props) => {
         anchorClass="my-anchor-css-class"
         expanded={false}
         truncatedEndingComponent={" "}
-        // width={600}
+        width={600}
         >
         {text === "https://moneypal.com" ? <a target="_blank" rel="noopener noreferrer" href={text}>{text}</a> : text}
       </ShowMoreText>
