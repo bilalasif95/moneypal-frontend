@@ -99,15 +99,15 @@ class ChatWindow extends Component {
           <p className="faq-head-main">Frequently Asked Terms</p>
           <p className="faq-head">Islamic Terms</p>
           <div className="faq-tags">
-            {this.state.islamic.map((info)=>
-            <p className={this.state.active ? 'active' : null} onClick={() => this.onislamicClick(info)}>{info}</p>)}
+            {this.state.islamic.map((info,index)=>
+            <p key={index} className={this.state.active ? 'active' : null} onClick={() => this.onislamicClick(info)}>{info}</p>)}
            
           </div>
           <div className="custom-border"></div>
           <p className="faq-head">Conventional Terms</p>
           <div className="faq-tags">
-          {this.state.conventional.map((info)=>
-            <p className={this.state.active ? 'active' : null} onClick={() => this.onconventionalClick(info)}>{info}</p>)}
+          {this.state.conventional.map((info,index)=>
+            <p key={index} className={this.state.active ? 'active' : null} onClick={() => this.onconventionalClick(info)}>{info}</p>)}
             
           </div>
           <div className="custom-border"></div>

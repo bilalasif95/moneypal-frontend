@@ -1,6 +1,5 @@
 import React from 'react';
-// import ReadMoreReact from 'read-more-react';
-import ShowMoreText from "react-show-more-text";
+import ReactReadMoreReadLess from "react-read-more-read-less";
 
 const TextMessage = (props) => {
   const meta = props.message.data.meta || null
@@ -10,18 +9,13 @@ const TextMessage = (props) => {
 
   return (
     <div className="sc-message--text">
-      <ShowMoreText
-        lines={3}
-        more="Read More..."
-        less="Show Less"
-        className="content-css"
-        anchorClass="my-anchor-css-class"
-        expanded={false}
-        truncatedEndingComponent={" "}
-        width={600}
-        >
-        {text === "https://moneypal.com" ? <a target="_blank" rel="noopener noreferrer" href={text}>{text}</a> : text}
-      </ShowMoreText>
+            <ReactReadMoreReadLess
+                charLimit={200}
+                readMoreText={"Read more"}
+                readLessText={"Show less"}
+            >
+                {text}
+            </ReactReadMoreReadLess>
       
       {/* {
         props.message && 
