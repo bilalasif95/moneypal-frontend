@@ -3,7 +3,7 @@ import ReactReadMoreReadLess from "react-read-more-read-less";
 
 const TextMessage = (props) => {
   const meta = props.message.data.meta || null
-  const text = props.message.data.text || ''
+  const text = props.message.data.text+" ." || ''
   // const author = props.message.author
 
 

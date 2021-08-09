@@ -43,6 +43,7 @@
   position: relative;
   color: #0D0D0D;
   max-width: 80%;
+  text-align: justify;
 }
 
 .sc-message--content.sent .sc-message--text {
