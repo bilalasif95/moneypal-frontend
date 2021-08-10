@@ -666,7 +666,7 @@ h2 {
 /* .content-css span br {
   display: none;
 } */
-@media (min-width: 1680px) and (max-width:1920px) {
+@media (min-width: 1681px) and (max-width:1920px) {
   .faq-tags p, .sc-message--text {
     font-size: 18px !important;
   }
@@ -681,9 +681,9 @@ h2 {
   margin-bottom: 20px;
 }
 .questions-list li {
-  padding: 20px 10px;
+  padding: 15px 10px;
 }
 .custom-border {
-  margin: 15px 0px 7px;
+  margin: 20px 0px 10px;
 }
 }

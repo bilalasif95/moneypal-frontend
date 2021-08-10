@@ -59,6 +59,9 @@
 .sc-message--content.sent .sc-message--text .content-css ::selection {
   background-color: #4c8fff;
 }
+.sc-message--text::selection {
+  background-color: #4c8fff !important;
+} 
 .content-css {
   text-align: justify !important;
 }
