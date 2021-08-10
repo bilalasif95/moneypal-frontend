@@ -660,6 +660,24 @@ h2 {
 .my-anchor-css-class:hover {
   color: #2676fc;
 }
+/* .inputdisabled input:disabled {
+  background-color: #000;
+} */
 /* .content-css span br {
   display: none;
 } */
+@media (min-width: 1680px) and (max-width:1920px) {
+  .faq-tags p, .questions-list li, .sc-message--text {
+    font-size: 18px !important;
+  }
+  .faq-head {
+    font-size: 20px;
+}
+.faq-head-main {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.questions-list li {
+  padding: 15px 10px;
+}
+}

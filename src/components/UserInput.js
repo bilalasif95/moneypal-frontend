@@ -137,23 +137,25 @@ class UserInput extends Component {
           <input
             role="button"
             tabIndex="0"
+            autoFocus
+            // autoFocus={contentEditable? 'true' : 'false'}
             onChange={(e) => this.handleChange(e)}
-            onFocus={() => {
-              this.setState({ inputActive: true });
-            }}
-            onBlur={() => {
-              this.setState({ inputActive: false });
-            }}
+            // onFocus={() => {
+            //   this.setState({ inputActive: true });
+            // }}
+            // onBlur={() => {
+            //   this.setState({ inputActive: false });
+            // }}
             // ref={(e) => {
             //   this.userInput = e;
             // }}
             value={this.state.value}
             onKeyDown={this.handleKey}
             onKeyPress={this.handleKeyPress}
-            // disabled={contentEditable ? false : true}
+            readOnly={contentEditable ? false : true}
             placeholder="Write a reply..."
             className="sc-user-input--text"
-          // style={{ cursor: contentEditable ? "text" : "not-allowed" }}
+            style={{ cursor: contentEditable ? "text" : "not-allowed" }}
           />
           <div className="sc-user-input--buttons">
             {/* <div className="sc-user-input--button">

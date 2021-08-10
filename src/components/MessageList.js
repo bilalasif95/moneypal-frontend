@@ -356,7 +356,8 @@ class MessageList extends Component {
 
   returningConversationFlow() {
     // const { conversationContinue, askQuestionType, confirmQuestionType, askCategoryType, answerSatisfaction, knowMore } = this.props;
-    const { askQuestionType, buttons } = this.props;
+    const { 
+      askQuestionType, buttons } = this.props;
     // if (!conversationContinue) {
     //   return (
     //     <div className="yesno-btn">
@@ -368,7 +369,7 @@ class MessageList extends Component {
     if (askQuestionType) {
       return (
         <div className="cat-btn">
-          {buttons && buttons.map((res) => <button key={res.title} className="nthBtn" onClick={() => this.onButtonClick(res)}>{res.title}</button>)}
+          {buttons && buttons.map((res) => <button key={res.title} className="nthBtn" onClick={() => this.onButtonClick(res) }>{res.title}</button>)}
         </div>
       );
     }
