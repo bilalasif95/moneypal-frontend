@@ -11,7 +11,8 @@ import "./assets/styles";
 import API from "./utils/RASAAPI";
 import { uid } from "uid";
 
-var myVar;
+var maxTimeout;
+var minTimeout;
 
 class Chatbot extends Component {
     constructor() {
@@ -66,7 +67,7 @@ class Chatbot extends Component {
                     }
                     this.props.timeAction("min")
                     this.props.dualMessageAction(true)
-                    this.myStopFunction()
+                    // this.myStopFunction()
                     this.timeAction(response.data[1].text, this.state.minTime)
                 }
                 else {
@@ -218,9 +219,10 @@ class Chatbot extends Component {
     }
 
     myStopFunction() {
-        clearTimeout(myVar);
-      }
-      
+        clearTimeout(minTimeout)
+        clearTimeout(maxTimeout)
+    }
+
     timeAction(message, delay) {
         if (this.props.dualMessage) {
             if (this.props.delayedMessage.includes("Do you want to know more")) {
@@ -229,13 +231,13 @@ class Chatbot extends Component {
             else {
                 delay = this.state.maxTime
             }
-            myVar = setTimeout(() => {
+            maxTimeout = setTimeout(() => {
                 if (this.props.time === "max") {
                     this.props.timeAction("min")
                     this.timeAction(this.state.extendedTime)
                 }
                 else if (this.props.time === "min") {
-                    setTimeout(() => {
+                    minTimeout = setTimeout(() => {
                         this.props.stopFetching()
                         this.props.askQuestionAction(true);
                         if (this.props.buttons.length > 0) {
