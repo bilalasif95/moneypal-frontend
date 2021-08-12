@@ -10,7 +10,7 @@ class SendIcon extends Component {
         onFocus={this.props.onFocus}
         onBlur={this.props.onBlur}
         style={{ cursor: this.props.contentEditable ? "pointer" : "not-allowed" }}
-        onClick={(e) => { e.preventDefault(); this.props.onClick(e); }}
+        onClick={(e) => { e.preventDefault(); this.props.onClick(e); this.props.handleClick1() }}
         className="sc-user-input--send-icon-wrapper send-btn"
       >
         {this.props.contentEditable ? <img src={sendIconBlue} alt="Send" /> : <img src={sendIcon} alt="Send" />}

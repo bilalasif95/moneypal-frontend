@@ -16,6 +16,7 @@ import {
 class UserInput extends Component {
   constructor() {
     super();
+    this.input1 = React.createRef();
     this.state = {
       inputActive: false,
       file: null,
@@ -106,6 +107,9 @@ class UserInput extends Component {
     }
     this.setState({ value: e.target.value })
   }
+  handleClick1 = () => {
+    this.input1.current.focus();
+  };
   render() {
     const { contentEditable } = this.props;
 
@@ -138,6 +142,7 @@ class UserInput extends Component {
             role="button"
             tabIndex="0"
             autoFocus
+            ref={this.input1}
             // autoFocus={contentEditable? 'true' : 'false'}
             onChange={(e) => this.handleChange(e)}
             // onFocus={() => {
@@ -169,7 +174,7 @@ class UserInput extends Component {
               </div>
             )} */}
             <div className="sc-user-input--button">
-              <SendIcon contentEditable={contentEditable} onClick={this._submitText.bind(this)} />
+              <SendIcon handleClick1={this.handleClick1} contentEditable={contentEditable} onClick={this._submitText.bind(this)} />
             </div>
           </div>
         </form>
