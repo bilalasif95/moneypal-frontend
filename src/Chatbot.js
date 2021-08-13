@@ -11,8 +11,7 @@ import "./assets/styles";
 import API from "./utils/RASAAPI";
 import { uid } from "uid";
 
-// var maxTimeout;
-// var minTimeout;
+var maxTimeout;
 
 class Chatbot extends Component {
     constructor() {
@@ -67,7 +66,7 @@ class Chatbot extends Component {
                     }
                     this.props.timeAction("min")
                     this.props.dualMessageAction(true)
-                    // this.myStopFunction()
+                    this.myStopFunction()
                     this.timeAction(response.data[1].text, this.state.minTime)
                 }
                 else {
@@ -87,7 +86,7 @@ class Chatbot extends Component {
                 this.props.stopFetching();
                 this._sendMessage("Sorry, I got some problem 🙁 Please try again!")
             })
-            // API.post("/name", data).then((res) => { 
+            // API.post("/name", data).then((res) => {
             //   this.props.stopFetching()
             //   this._sendMessage(res.data.data)
             //   this.props.userNameAction(res.data.name)
@@ -218,10 +217,9 @@ class Chatbot extends Component {
         })
     }
 
-    // myStopFunction() {
-    //     clearTimeout(minTimeout)
-    //     clearTimeout(maxTimeout)
-    // }
+    myStopFunction() {
+        clearTimeout(maxTimeout)
+    }
 
     timeAction(message, delay) {
         if (this.props.dualMessage) {
@@ -231,12 +229,15 @@ class Chatbot extends Component {
             else {
                 delay = this.state.maxTime
             }
-            setTimeout(() => {
+            maxTimeout = setTimeout(() => {
                 if (this.props.time === "max") {
                     this.props.timeAction("min")
-                    this.timeAction(this.state.extendedTime)
+                    maxTimeout = this.timeAction(message, this.state.extendedTime)
                 }
                 else if (this.props.time === "min") {
+                    this.props.askQuestionAction(false);
+                    this.props.contentEditableAction(true);
+                    this.props.startFetching()
                     setTimeout(() => {
                         this.props.stopFetching()
                         this.props.askQuestionAction(true);
@@ -246,13 +247,10 @@ class Chatbot extends Component {
                         else {
                             this.props.contentEditableAction(true);
                         }
-                        this._sendMessage(this.props.delayedMessage)
+                        this._sendMessage(message)
                         this.props.dualMessageAction(false)
                         this.props.timeAction("expired")
                     }, 1000)
-                    this.props.askQuestionAction(false);
-                    this.props.contentEditableAction(true);
-                    this.props.startFetching()
                 }
                 else if (this.props.time === "expired") { }
                 else { }
