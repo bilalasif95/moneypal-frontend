@@ -101,14 +101,12 @@ class ChatWindow extends Component {
           <div className="faq-tags">
             {this.state.islamic.map((info,index)=>
             <p key={index} className={this.state.active ? 'active' : null} onClick={() => this.onislamicClick(info)}>{info}</p>)}
-           
           </div>
           <div className="custom-border"></div>
           <p className="faq-head">Conventional Terms</p>
           <div className="faq-tags">
           {this.state.conventional.map((info,index)=>
             <p key={index} className={this.state.active ? 'active' : null} onClick={() => this.onconventionalClick(info)}>{info}</p>)}
-            
           </div>
           <div className="custom-border"></div>
           <div className="questions-main">
@@ -118,7 +116,6 @@ class ChatWindow extends Component {
                 {this.state.questions.map((info,index) =>
                   <li key={index} onClick={() => this.onQuestionClick(info.question)}><ReactSVG src={plane} />{info.question}</li>
                 )}
-
               </ul>
             </div>
           </div>

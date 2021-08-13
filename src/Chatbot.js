@@ -11,8 +11,8 @@ import "./assets/styles";
 import API from "./utils/RASAAPI";
 import { uid } from "uid";
 
-var maxTimeout;
-var minTimeout;
+// var maxTimeout;
+// var minTimeout;
 
 class Chatbot extends Component {
     constructor() {
@@ -87,7 +87,7 @@ class Chatbot extends Component {
                 this.props.stopFetching();
                 this._sendMessage("Sorry, I got some problem 🙁 Please try again!")
             })
-            // API.post("/name", data).then((res) => {
+            // API.post("/name", data).then((res) => { 
             //   this.props.stopFetching()
             //   this._sendMessage(res.data.data)
             //   this.props.userNameAction(res.data.name)
@@ -218,10 +218,10 @@ class Chatbot extends Component {
         })
     }
 
-    myStopFunction() {
-        clearTimeout(minTimeout)
-        clearTimeout(maxTimeout)
-    }
+    // myStopFunction() {
+    //     clearTimeout(minTimeout)
+    //     clearTimeout(maxTimeout)
+    // }
 
     timeAction(message, delay) {
         if (this.props.dualMessage) {
@@ -231,13 +231,13 @@ class Chatbot extends Component {
             else {
                 delay = this.state.maxTime
             }
-            maxTimeout = setTimeout(() => {
+            setTimeout(() => {
                 if (this.props.time === "max") {
                     this.props.timeAction("min")
                     this.timeAction(this.state.extendedTime)
                 }
                 else if (this.props.time === "min") {
-                    minTimeout = setTimeout(() => {
+                    setTimeout(() => {
                         this.props.stopFetching()
                         this.props.askQuestionAction(true);
                         if (this.props.buttons.length > 0) {
@@ -246,7 +246,7 @@ class Chatbot extends Component {
                         else {
                             this.props.contentEditableAction(true);
                         }
-                        this._sendMessage(message)
+                        this._sendMessage(this.props.delayedMessage)
                         this.props.dualMessageAction(false)
                         this.props.timeAction("expired")
                     }, 1000)
