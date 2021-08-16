@@ -6,8 +6,7 @@ import Header from "./Header";
 import plane from "../assets/paper-plane.svg";
 import { ReactSVG } from 'react-svg'
 import API from "../utils/API";
-
-
+import { connect } from "react-redux";
 
 class ChatWindow extends Component {
   constructor(props) {
@@ -100,13 +99,13 @@ class ChatWindow extends Component {
           <p className="faq-head">Islamic Terms</p>
           <div className="faq-tags">
             {this.state.islamic.map((info,index)=>
-            <p key={index} className={this.state.active ? 'active' : null} onClick={() => this.onislamicClick(info)}>{info}</p>)}
+            <button disabled={!this.props.contentEditable} key={index} className={this.state.active ? 'active' : null} onClick={() => this.onislamicClick(info)}>{info}</button>)}
           </div>
           <div className="custom-border"></div>
           <p className="faq-head">Conventional Terms</p>
           <div className="faq-tags">
           {this.state.conventional.map((info,index)=>
-            <p key={index} className={this.state.active ? 'active' : null} onClick={() => this.onconventionalClick(info)}>{info}</p>)}
+            <button disabled={!this.props.contentEditable} key={index} className={this.state.active ? 'active' : null} onClick={() => this.onconventionalClick(info)}>{info}</button>)}
           </div>
           <div className="custom-border"></div>
           <div className="questions-main">
@@ -114,7 +113,7 @@ class ChatWindow extends Component {
             <div className="questions">
               <ul className="questions-list">
                 {this.state.questions.map((info,index) =>
-                  <li key={index} onClick={() => this.onQuestionClick(info.question)}><ReactSVG src={plane} />{info.question}</li>
+                  <button disabled={!this.props.contentEditable} key={index} onClick={() => this.onQuestionClick(info.question)}><ReactSVG src={plane} />{info.question}</button>
                 )}
               </ul>
             </div>
@@ -132,4 +131,8 @@ ChatWindow.propTypes = {
   onKeyPress: PropTypes.func,
 };
 
-export default ChatWindow;
+const mapStateToProps = (state) => ({
+  ...state,
+});
+
+export default connect(mapStateToProps, null)(ChatWindow);

@@ -205,20 +205,20 @@ h2 {
   padding: 0 0 0 3.6rem;
 }
 .cat-btnDisabled button {
-  background-color: #f5f8fa;
+  background-color: #EFEFEF;
   border: none;
   border-radius: 6px;
   color: rgb(151, 159, 180);
-  font-size: 12px;
+  font-size: 14px;
   margin: 0 0.3rem 0.5rem 0;
   padding: 0.3rem 0.7rem;
   cursor: not-allowed;
 }
 .cat-btn button {
-  background-color: #f5f8fa;
+  background-color: #2676fc;
   border: none;
   border-radius: 6px;
-  color: #2676fc;
+  color: #fff;
   font-size: 14px;
   margin: 0 0.3rem 0.5rem 0;
   padding: 0.3rem 0.7rem;
@@ -580,10 +580,10 @@ h2 {
   border-bottom: 1px solid #D2D2D2;
   margin: 10px 0px 5px;
 }
-.faq-tags p {
+.faq-tags button {
   background-color: #F7F9FD;
   border: 1px solid #E1E1E1;
-  border-radius: 50px;
+  border-radius: 8px;
   padding: 2px 12px;
   font-weight: normal;
   color: #545454;
@@ -592,13 +592,27 @@ h2 {
   margin: 0 0 0.5rem;
   transition: 0.3s linear;
 }
-.faq-tags p:not(:last-child) {
+.faq-tags button:not(:last-child) {
   margin-right: 6px;
 }
 
-.faq-tags p:hover {
+.faq-tags button:hover {
   background-color: #2576fc;
   color: #fff;
+}
+.faq-tags button:disabled, .questions-list button:disabled {
+  cursor: not-allowed;
+}
+.faq-tags button:disabled:hover {
+  background-color: #F7F9FD;
+  color: #545454;
+}
+.questions-list button:disabled:hover {
+  background-color: #fff;
+  color: #545454;
+}
+.questions-list li:disabled {
+  cursor: not-allowed;
 }
 .faq-head {
   font-size: 18px;
@@ -627,7 +641,7 @@ h2 {
   list-style: none;
   padding: 0px;
 }
-.questions-list li{
+.questions-list button{
   font-size: 16px;
   color: #545454;
   box-shadow: 1px 2px 4px #00275E2E;
@@ -637,18 +651,21 @@ h2 {
   align-items: center;
   cursor: pointer;
   transition: 0.3s linear;
+  width: 100%;
+  border: initial;
+  background-color: #fff;
 }
-.questions-list li:hover {
+.questions-list button:hover {
   background-color: #0667EB;
   color: #fff;
 }
-.questions-list li:hover svg g path {
+.questions-list button:hover svg g path {
   fill: #fff;
 }
-.questions-list li:not(:last-child) {
+.questions-list button:not(:last-child) {
   margin-bottom: 0.5rem;
 }
-.questions-list li svg{
+.questions-list button svg{
   margin-right: 12px;
 }
 .my-anchor-css-class {

@@ -222,6 +222,7 @@ class Chatbot extends Component {
     }
 
     timeAction(message, delay) {
+
         if (this.props.dualMessage) {
             if (this.props.delayedMessage.includes("Do you want to know more")) {
                 delay = this.state.minTime
@@ -250,7 +251,7 @@ class Chatbot extends Component {
                         this._sendMessage(message)
                         this.props.dualMessageAction(false)
                         this.props.timeAction("expired")
-                    }, 1000)
+                    }, 1500)
                 }
                 else if (this.props.time === "expired") { }
                 else { }
