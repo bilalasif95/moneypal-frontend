@@ -213,7 +213,6 @@ h2 {
   margin: 0 0.3rem 0.5rem 0;
   padding: 0.3rem 0.7rem;
   cursor: not-allowed;
-  width: 46px;
 }
 .cat-btn button {
   background-color: #2676fc;
@@ -224,7 +223,6 @@ h2 {
   margin: 0 0.3rem 0.5rem 0;
   padding: 0.3rem 0.7rem;
   cursor: pointer;
-  width: 46px;
 }
 .cat-btn button:hover {
   background-color: #2676fc;
