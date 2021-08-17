@@ -654,6 +654,7 @@ h2 {
   width: 100%;
   border: initial;
   background-color: #fff;
+  text-align: left;
 }
 .questions-list button:hover {
   background-color: #0667EB;
