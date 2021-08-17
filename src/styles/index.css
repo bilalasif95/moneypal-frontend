@@ -213,6 +213,7 @@ h2 {
   margin: 0 0.3rem 0.5rem 0;
   padding: 0.3rem 0.7rem;
   cursor: not-allowed;
+  width: 46px;
 }
 .cat-btn button {
   background-color: #2676fc;
@@ -223,6 +224,7 @@ h2 {
   margin: 0 0.3rem 0.5rem 0;
   padding: 0.3rem 0.7rem;
   cursor: pointer;
+  width: 46px;
 }
 .cat-btn button:hover {
   background-color: #2676fc;
@@ -662,6 +664,9 @@ h2 {
 }
 .questions-list button:hover svg g path {
   fill: #fff;
+}
+.questions-list button:disabled:hover svg g path{
+  fill: #545454;
 }
 .questions-list button:not(:last-child) {
   margin-bottom: 0.5rem;
