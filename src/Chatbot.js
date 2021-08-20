@@ -236,22 +236,22 @@ class Chatbot extends Component {
                     maxTimeout = this.timeAction(message, this.state.extendedTime)
                 }
                 else if (this.props.time === "min") {
-                    this.props.askQuestionAction(false);
+                    // this.props.askQuestionAction(false);
                     this.props.contentEditableAction(true);
-                    this.props.startFetching()
-                    setTimeout(() => {
-                        this.props.stopFetching()
-                        this.props.askQuestionAction(true);
-                        if (this.props.buttons.length > 0) {
-                            this.props.contentEditableAction(false);
-                        }
-                        else {
-                            this.props.contentEditableAction(true);
-                        }
-                        this._sendMessage(message)
-                        this.props.dualMessageAction(false)
-                        this.props.timeAction("expired")
-                    }, 1500)
+                    // this.props.startFetching()
+                    // setTimeout(() => {
+                    //     this.props.stopFetching()
+                    this.props.askQuestionAction(true);
+                    if (this.props.buttons.length > 0) {
+                        this.props.contentEditableAction(false);
+                    }
+                    else {
+                        this.props.contentEditableAction(true);
+                    }
+                    this._sendMessage(message)
+                    this.props.dualMessageAction(false)
+                    this.props.timeAction("expired")
+                    // }, 1000)
                 }
                 else if (this.props.time === "expired") { }
                 else { }
