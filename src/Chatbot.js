@@ -233,7 +233,8 @@ class Chatbot extends Component {
             maxTimeout = setTimeout(() => {
                 if (this.props.time === "max") {
                     this.props.timeAction("min")
-                    maxTimeout = this.timeAction(message, this.state.extendedTime)
+                    this.myStopFunction()
+                    maxTimeout = this.timeAction(this.props.delayedMessage, this.state.extendedTime)
                 }
                 else if (this.props.time === "min") {
                     // this.props.askQuestionAction(false);
@@ -248,7 +249,7 @@ class Chatbot extends Component {
                     else {
                         this.props.contentEditableAction(true);
                     }
-                    this._sendMessage(message)
+                    this._sendMessage(this.props.delayedMessage)
                     this.props.dualMessageAction(false)
                     this.props.timeAction("expired")
                     // }, 1000)
