@@ -12,6 +12,7 @@ import API from "./utils/RASAAPI";
 import { uid } from "uid";
 
 var maxTimeout;
+var minTimeout;
 
 class Chatbot extends Component {
     constructor() {
@@ -29,6 +30,7 @@ class Chatbot extends Component {
     }
 
     _onMessageWasSent(message) {
+        this.myStopFunction()
         if (message.whattodo === "callapi") {
             this.props.startFetching();
             this.props.askQuestionAction(false);
@@ -66,7 +68,6 @@ class Chatbot extends Component {
                     }
                     this.props.timeAction("min")
                     this.props.dualMessageAction(true)
-                    this.myStopFunction()
                     this.timeAction(response.data[1].text, this.state.minTime)
                 }
                 else {
@@ -219,6 +220,7 @@ class Chatbot extends Component {
 
     myStopFunction() {
         clearTimeout(maxTimeout)
+        clearTimeout(minTimeout)
     }
 
     timeAction(message, delay) {
@@ -237,22 +239,22 @@ class Chatbot extends Component {
                     maxTimeout = this.timeAction(this.props.delayedMessage, this.state.extendedTime)
                 }
                 else if (this.props.time === "min") {
-                    // this.props.askQuestionAction(false);
+                    this.props.askQuestionAction(false);
                     this.props.contentEditableAction(true);
-                    // this.props.startFetching()
-                    // setTimeout(() => {
-                    //     this.props.stopFetching()
-                    this.props.askQuestionAction(true);
-                    if (this.props.buttons.length > 0) {
-                        this.props.contentEditableAction(false);
-                    }
-                    else {
-                        this.props.contentEditableAction(true);
-                    }
-                    this._sendMessage(this.props.delayedMessage)
-                    this.props.dualMessageAction(false)
-                    this.props.timeAction("expired")
-                    // }, 1000)
+                    this.props.startFetching()
+                    minTimeout = setTimeout(() => {
+                        this.props.stopFetching()
+                        this.props.askQuestionAction(true);
+                        if (this.props.buttons.length > 0) {
+                            this.props.contentEditableAction(false);
+                        }
+                        else {
+                            this.props.contentEditableAction(true);
+                        }
+                        this._sendMessage(this.props.delayedMessage)
+                        this.props.dualMessageAction(false)
+                        this.props.timeAction("expired")
+                    }, 1000)
                 }
                 else if (this.props.time === "expired") { }
                 else { }
