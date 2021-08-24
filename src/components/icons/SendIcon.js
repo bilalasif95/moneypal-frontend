@@ -7,6 +7,7 @@ class SendIcon extends Component {
   render() {
     return (
       <button
+        disabled={!this.props.contentEditable}
         onFocus={this.props.onFocus}
         onBlur={this.props.onBlur}
         style={{ cursor: this.props.contentEditable ? "pointer" : "not-allowed" }}
