@@ -21,8 +21,8 @@ class Chatbot extends Component {
             messageList: messageHistory,
             newMessagesCount: 0,
             isOpen: true,
-            minTime: 5000,
-            maxTime: 300000,
+            minTime: 2000,
+            maxTime: 60000,
             extendedTime: 10000,
             uid: uid(),
         };
@@ -30,6 +30,9 @@ class Chatbot extends Component {
     }
 
     _onMessageWasSent(message) {
+        if(this.props.delayedMessage){
+            this.setState({uid: uid()})
+        }
         this.myStopFunction()
         if (message.whattodo === "callapi") {
             this.props.startFetching();
@@ -41,6 +44,7 @@ class Chatbot extends Component {
             //   data.append("name", message.data.text);
             this.props.contentEditableAction(false);
             let data;
+            console.log(this.state.uid,"========")
             if (message.data.payload) {
                 data = {
                     sender: this.state.uid,
@@ -221,6 +225,7 @@ class Chatbot extends Component {
     myStopFunction() {
         clearTimeout(maxTimeout)
         clearTimeout(minTimeout)
+        this.props.delayedMessageAction("")
     }
 
     timeAction(message, delay) {
@@ -254,6 +259,7 @@ class Chatbot extends Component {
                         this._sendMessage(this.props.delayedMessage)
                         this.props.dualMessageAction(false)
                         this.props.timeAction("expired")
+                        this.props.delayedMessageAction("")
                     }, 1000)
                 }
                 else if (this.props.time === "expired") { }
