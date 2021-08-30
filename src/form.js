@@ -6,7 +6,9 @@ import { Redirect } from "react-router-dom";
 import { BiEdit } from "react-icons/bi";
 import { BsX } from "react-icons/bs";
 import { BsCheck } from "react-icons/bs";
-import Pagination from "react-js-pagination";
+// import Pagination from "react-js-pagination";
+import { Pagination } from 'antd';
+import 'antd/dist/antd.css';
 
 function NewForm() {
     const [data, setData] = useState([])
@@ -617,12 +619,23 @@ function NewForm() {
                                         </Form>
                                         {!addForm &&
                                             <Pagination
-                                                activePage={activePage}
-                                                itemsCountPerPage={1}
-                                                totalItemsCount={length}
+                                                className="custom-pagination"
+                                                current={activePage}
+                                                total={length}
+                                                defaultPageSize={1}
                                                 pageRangeDisplayed={10}
+                                                showSizeChanger={false}
+                                                showQuickJumper
+                                                // showTotal={total => `Total ${total} items`}
                                                 onChange={(e) => handlePageChange(e)}
                                             />
+                                            // <Pagination
+                                            //     activePage={activePage}
+                                            //     itemsCountPerPage={1}
+                                            //     totalItemsCount={length}
+                                            //     pageRangeDisplayed={10}
+                                            //     onChange={(e) => handlePageChange(e)}
+                                            // />
                                         }
                                     </div>
                                 }

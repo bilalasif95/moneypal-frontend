@@ -569,7 +569,7 @@ h2 {
   overflow-y: scroll;
 }
 .faq-head-main {
-  font-size: 22px;
+  font-size: 20px;
   color: #2E2A2A;
   font-weight: 500;
   margin-bottom: 10px;
@@ -619,7 +619,7 @@ h2 {
 .faq-head {
   font-size: 18px;
   color: #2E2A2A;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   font-weight: 500;
 }
 .questions p {
@@ -683,6 +683,19 @@ h2 {
 .my-anchor-css-class:hover {
   color: #2676fc;
 }
+.custom-pagination {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0px;
+}
+.custom-pagination li button {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+}
+.custom-pagination li button svg path {
+  fill: #000000D9;
+}
 /* .inputdisabled input:disabled {
   background-color: #000;
 } */
@@ -690,23 +703,45 @@ h2 {
   display: none;
 } */
 @media (min-width: 1681px) and (max-width:1920px) {
-  .faq-tags p, .sc-message--text {
+  .faq-tags button, .sc-message--text {
+    font-size: 18px !important;
+  }
+  .faq-head {
+    font-size: 22px;
+}
+.questions-list button {
+  font-size: 20px !important;
+}
+.faq-head-main {
+  font-size: 27px;
+  margin-bottom: 20px;
+}
+.questions-list button {
+  padding: 15px 10px;
+}
+.custom-border {
+  margin: 25px 0px 15px;
+}
+} 
+@media (min-width: 1441px) and (max-width: 1680px) {
+  .faq-tags button, .sc-message--text {
     font-size: 18px !important;
   }
   .faq-head {
     font-size: 20px;
+    margin-bottom: 15px;
 }
-.questions-list li {
-  font-size: 20px !important;
+.questions-list button {
+  font-size: 18px !important;
 }
 .faq-head-main {
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
-.questions-list li {
-  padding: 15px 10px;
+.questions-list button {
+  padding: 8px 10px;
 }
 .custom-border {
   margin: 20px 0px 10px;
 }
-} 
+}

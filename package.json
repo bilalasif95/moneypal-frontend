@@ -28,6 +28,7 @@
   },
   "dependencies": {
     "@babel/core": "^7.12.10",
+    "antd": "^4.16.13",
     "axios": "^0.21.1",
     "bootstrap": "^3.4.1",
     "emoji-js": "3.2.2",
