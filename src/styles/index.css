@@ -726,7 +726,7 @@ h2 {
   margin-bottom: 10px;
 }
 }
-@media (min-width: 1681px) and (max-width:1800px) {
+@media (min-width: 1680px) and (max-width:1800px) {
   .faq-tags button, .sc-message--text {
     font-size: 18px;
   }
@@ -750,7 +750,7 @@ h2 {
   margin-bottom: 10px;
 }
 } 
-@media (min-width: 1441px) and (max-width: 1680px) {
+@media (min-width: 1561px) and (max-width: 1679px) {
   .faq-tags button, .sc-message--text {
     font-size: 18px !important;
   }
@@ -762,13 +762,35 @@ h2 {
   font-size: 18px !important;
 }
 .faq-head-main {
-  font-size: 24px;
+  font-size: 22px;
   margin-bottom: 15px;
 }
 .questions-list button {
   padding: 8px 10px;
 }
 .custom-border {
-  margin: 15px 0px 10px;
+  margin: 10px 0px 5px;
+}
+}
+@media (min-width: 1440px) and (max-width: 1560px) {
+  .faq-tags button, .sc-message--text {
+    font-size: 16px !important;
+  }
+  .faq-head {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+.questions-list button {
+  font-size: 16px !important;
+}
+.faq-head-main {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+.questions-list button {
+  padding: 6px 10px;
+}
+.custom-border {
+  margin: 10px 0px 5px;
 }
 }
