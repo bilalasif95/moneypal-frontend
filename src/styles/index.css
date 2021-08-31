@@ -702,18 +702,18 @@ h2 {
 /* .content-css span br {
   display: none;
 } */
-@media (min-width: 1681px) and (max-width:1920px) {
+@media (min-width: 1801px) and (max-width:1920px) {
   .faq-tags button, .sc-message--text {
-    font-size: 18px !important;
+    font-size: 20px !important;
   }
   .faq-head {
-    font-size: 22px;
+    font-size: 24px;
 }
 .questions-list button {
-  font-size: 18px !important;
+  font-size: 20px !important;
 }
 .faq-head-main {
-  font-size: 27px;
+  font-size: 28px;
   margin-bottom: 20px;
 }
 .questions-list button {
@@ -721,6 +721,33 @@ h2 {
 }
 .custom-border {
   margin: 25px 0px 15px;
+}
+.questions-list button:not(:last-child) {
+  margin-bottom: 10px;
+}
+}
+@media (min-width: 1681px) and (max-width:1800px) {
+  .faq-tags button, .sc-message--text {
+    font-size: 18px;
+  }
+  .faq-head {
+    font-size: 24px;
+}
+.questions-list button {
+  font-size: 18px !important;
+}
+.faq-head-main {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+.questions-list button {
+  padding: 15px 10px;
+}
+.custom-border {
+  margin: 25px 0px 15px;
+}
+.questions-list button:not(:last-child) {
+  margin-bottom: 10px;
 }
 } 
 @media (min-width: 1441px) and (max-width: 1680px) {
@@ -742,6 +769,6 @@ h2 {
   padding: 8px 10px;
 }
 .custom-border {
-  margin: 20px 0px 10px;
+  margin: 15px 0px 10px;
 }
 }
