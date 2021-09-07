@@ -49,7 +49,7 @@
 .sc-message--content.sent .sc-message--text {
   color: white;
   background-color:#2676fc;
-  max-width: calc(100% - 120px);
+  max-width: calc(100% - 120px); 
   word-wrap: break-word;
   border-top-left-radius: 13px;
   border-top-right-radius: 0px;

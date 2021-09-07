@@ -13,6 +13,7 @@ import {
   stopFetchingAction,
 } from "./stateManagement/actions/fetchingAction";
 
+
 class UserInput extends Component {
   constructor() {
     super();

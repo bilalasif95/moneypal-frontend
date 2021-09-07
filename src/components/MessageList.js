@@ -426,6 +426,7 @@ class MessageList extends Component {
               />
             );
           })}
+           
           {this.props.fetchingMessage &&
             <div className="sc-message">
               {/* <div className={contentClassList.join(" ")}> */}
@@ -436,6 +437,7 @@ class MessageList extends Component {
                   backgroundImage: `url(${chatIconUrl})`,
                 }}
               ></div>
+              
               {/* ) : ( */}
               {/* <div
                  className="sc-message--avatar"
@@ -447,9 +449,11 @@ class MessageList extends Component {
               {/* <p className="typing">Typing...</p> */}
               <div className="typing-loader"></div>
             </div>
+           
             //  </div>
 
           }
+          
           {this.returningConversationFlow()}
         </div>
       </div>

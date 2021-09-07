@@ -223,7 +223,7 @@
 .sc-user-input--emoji-icon.active circle,
 .sc-user-input--emoji-icon:hover path,
 .sc-user-input--emoji-icon:hover circle {
-  fill: rgba(86, 88, 103, 1);
+  fill: rgba(86, 88, 103, 1); 
 }
 @media (min-width: 1681px) and (max-width:1920px) {
   .sc-user-input--text {

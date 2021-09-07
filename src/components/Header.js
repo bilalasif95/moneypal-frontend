@@ -4,6 +4,7 @@ import logo from "../assets/logo.png";
 import {
   Link
 } from "react-router-dom";
+import Idea from "../assets/idea.svg"
 
 
 class Header extends Component {
@@ -15,9 +16,14 @@ class Header extends Component {
           <div>
           <Link to="/"><img src={logo} /></Link>
           </div>
-          <div>
-          {/* <Link to="/"><img src={search} /></Link> */}
+          <div className="Help-sec">
+          <div className="help-cont">
+              <img src={Idea} />
+              <div className="help-message">
+                  Help
+              </div>
           </div>
+        </div>
         </div>
       </div>
     );

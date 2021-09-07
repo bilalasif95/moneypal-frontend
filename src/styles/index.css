@@ -773,7 +773,7 @@ h2 {
 }
 }
 @media (min-width: 1440px) and (max-width: 1560px) {
-  .faq-tags button, .sc-message--text {
+  .faq-tags button, .sc-message--text { 
     font-size: 16px !important;
   }
   .faq-head {
@@ -793,4 +793,42 @@ h2 {
 .custom-border {
   margin: 10px 0px 5px;
 }
+}
+.Help-sec {
+    display: flex;
+    /* -webkit-box-pack: end; */
+    /* -ms-flex-pack: end; */
+    /* justify-content: flex-end; */
+    /* margin: 0px auto 30px; */
+}
+.help-cont {
+  /* background-color: #cacad5; */
+  border-radius: 50px;
+  height: 30px;
+  width: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+.help-cont .help-message{
+  display: none;
+}
+.help-cont:hover .help-message{
+  display: block;
+  transition: 0.3s linear;
+}
+.help-message {
+  position: absolute;
+  top: 15px;
+  right: 50px;
+  transition: 0.3s linear;
+  background-color: #00000078;
+  color: #fff;
+  padding: 3px 7px; 
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  max-width: 250px;
 }
