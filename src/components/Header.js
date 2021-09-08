@@ -20,8 +20,8 @@ class Header extends Component {
           <div className="help-cont">
               <img src={Idea} />
               <div className="help-message">
-                  <p><strong>Help</strong></p>
-                  <p>How the user should ask questions from the chatbot?</p>
+                  <p><strong>Tip</strong></p>
+                  <p>For better experience ask questions like this.</p>
                   <p> "what is riba?"</p>
               </div>
           </div>
