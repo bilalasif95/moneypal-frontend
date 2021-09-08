@@ -822,14 +822,12 @@ h2 {
 }
 .help-message {
   position: absolute;
-  top: 20px;
+  top: 10px;
   right: 55px;
   transition: 0.3s linear;
-  background-color: #00000078;
+  background-color: #000000ad;
   color: #fff;
-  padding: 3px 7px; 
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-left-radius: 5px;
+  padding: 10px 15px;
+  border-radius: 5px;
   max-width: 250px;
 }
