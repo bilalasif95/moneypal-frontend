@@ -831,3 +831,6 @@ h2 {
   border-radius: 5px;
   max-width: 250px;
 }
+.help-message p {
+  font-size: 14px;
+}
