@@ -21,9 +21,9 @@ class Chatbot extends Component {
             messageList: messageHistory,
             newMessagesCount: 0,
             isOpen: true,
-            minTime: 2000,
-            maxTime: 60000,
-            extendedTime: 10000,
+            minTime: 500,
+            maxTime: 0,
+            extendedTime: 0,
             uid: uid(),
         };
         //this.lastId = messageHistory[messageHistory.length - 1].id;
@@ -260,7 +260,7 @@ class Chatbot extends Component {
                         this.props.dualMessageAction(false)
                         this.props.timeAction("expired")
                         this.props.delayedMessageAction("")
-                    }, 1000)
+                    }, 1500)
                 }
                 else if (this.props.time === "expired") { }
                 else { }
