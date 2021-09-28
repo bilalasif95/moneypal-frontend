@@ -30,8 +30,8 @@ class Chatbot extends Component {
     }
 
     _onMessageWasSent(message) {
-        if(this.props.delayedMessage){
-            this.setState({uid: uid()})
+        if (this.props.delayedMessage) {
+            this.setState({ uid: uid() })
         }
         this.myStopFunction()
         if (message.whattodo === "callapi") {
@@ -44,7 +44,6 @@ class Chatbot extends Component {
             //   data.append("name", message.data.text);
             this.props.contentEditableAction(false);
             let data;
-            console.log(this.state.uid,"========")
             if (message.data.payload) {
                 data = {
                     sender: this.state.uid,
@@ -229,7 +228,6 @@ class Chatbot extends Component {
     }
 
     timeAction(message, delay) {
-
         if (this.props.dualMessage) {
             if (this.props.delayedMessage.includes("Do you want to know more")) {
                 delay = this.state.minTime
@@ -245,7 +243,7 @@ class Chatbot extends Component {
                 }
                 else if (this.props.time === "min") {
                     this.props.askQuestionAction(false);
-                    this.props.contentEditableAction(true);
+                    this.props.contentEditableAction(false);
                     this.props.startFetching()
                     minTimeout = setTimeout(() => {
                         this.props.stopFetching()
@@ -267,6 +265,7 @@ class Chatbot extends Component {
             }, delay)
         }
     }
+
     _handleClick() {
         this.setState({
             isOpen: !this.state.isOpen,
